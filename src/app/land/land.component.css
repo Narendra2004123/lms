@@ -1,0 +1,441 @@
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  scroll-behavior: smooth;
+}
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color:whitesmoke;
+  padding: 10px 15px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left:0 ;
+  z-index: 1000;
+  height: 90px;  /* Set navbar height */
+}
+
+.logo img{
+  width: 250px;
+  height:50px;
+  margin-bottom: 2px;
+  align-items: center;
+}
+.auth-buttons .btn {
+  background: white;
+  color: #00447c;
+  padding: 8px 15px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: 8px;
+  transition: rgb(129, 156, 243) all 0.3s ease-in-out;
+}
+.auth-buttons :hover {
+  background: whitesmoke; /* Dark hover effect */
+  border: 3px solid darkblue; /* Highlighted active effect */
+  margin-left: 10px;
+  padding:10px;
+  border-radius: 5px;
+}
+
+
+/* Add padding to prevent content from being hidden under navbar */
+.content-wrapper {
+  padding-top: 90px; 
+  align-items: center;/* Ensure content starts below the navbar */
+}
+
+/* Hero Section */
+/* Home Section */
+
+.home-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 50, 0.8); /* Dark blue overlay */
+  backdrop-filter: blur(5px); /* Slight blur for glass effect */
+  z-index: -1;
+}
+.home-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20 px;
+  background:  rgba(0, 0, 139, 0.79);
+  color: white;
+}
+
+/* Layout */
+.home-container {
+  display: flex;
+  gap: 20px;
+  width:100%;
+  height: 70vh;
+  align-items: stretch;
+  justify-content: space-between;
+}
+
+/* Left: Carousel */
+/* Carousel Container */
+.carousel-container {
+  position: relative;
+  width: 35%;
+  padding: 20px;
+  max-width: 800px; /* Set a fixed max-width */
+  height: 400px; /* Ensure consistent height */
+  margin: auto;
+  overflow: hidden;
+  box-shadow: 0px 4px 8px rgba(249, 248, 248, 0.8);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+   /* Light background for missing images */
+}
+
+.carousel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures images scale while maintaining aspect ratio */
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* Navigation Buttons */
+.prev-btn, .next-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.7); /* Semi-transparent white */
+  color: #0a0a0a; /* Dark icon color */
+  border: none;
+  cursor: pointer;
+  padding: 15px; /* Reduced padding for a sleek look */
+  border-radius: 50%; /* Perfect circular buttons */
+  width: 30px; /* Set width */
+  height: 25px; /* Set height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3); /* Smooth shadow effect */
+  transition: all 0.3s ease-in-out;
+}
+
+/* Adjust positioning */
+.prev-btn { left: 10px; }
+.next-btn { right: 10px; }
+
+/* Hover effect */
+.prev-btn:hover, .next-btn:hover {
+  background: rgba(0, 0, 139, 0.9); /* Deep blue */
+  color: white;
+  transform: scale(1); /* Slight zoom effect */
+}
+
+/* Icon inside buttons */
+.prev-btn span, .next-btn span {
+  font-size: 60px; /* Adjust icon size */
+}
+
+
+
+/* Right: Info Section (Stacked Containers) */
+.info-container {
+  width: 65%;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  height:95%;
+}
+
+/* Individual Info Box Styling */
+.info-box {
+  flex:1;
+  background: linear-gradient(135deg, #ffffff, #f8f9fa);
+  box-shadow: 4px 6px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 35px;
+  width:auto;
+  height: auto; /* Fixed height for scrolling */
+  overflow: hidden;
+  flex-direction: row;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Headings */
+.info-box h4 {
+  text-align: center;
+  margin-bottom:3px;
+  color: darkblue;
+  font-size: medium;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.info-box:hover {
+  transform: scale(1);
+  border:rgb(12, 12, 12) 7px solid ;
+}
+
+/* Scrollable Content */
+.scroll-box {
+  height: 500px; /* Control visible height */
+  overflow: hidden;
+  position: relative;
+}
+
+/* Animated Scrolling Effect */
+@keyframes scrollUp {
+  0% { transform: translateY(100%); }
+  100% { transform: translateY(-100%); }
+}
+
+.info-list {
+  color: darkblue;
+  list-style: none;
+ 
+  margin: 0;
+  animation: scrollUp 15s linear infinite;
+}
+
+.info-list li {
+  font-size: 16px;
+  padding: 6px 0;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Bullet Styling */
+.info-list li::before {
+  content: "◉";
+  color: #007bff;
+  font-size: 16px;
+  margin-right: 6px;
+}
+
+.bullet {
+  font-size: 16px;
+  color:#007bff; /* Customize based on section */
+}
+
+/* Animation */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeIn 1.2s ease-in-out forwards;
+}
+
+.navbar-icons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;  
+  gap: 50px; 
+  padding:5px;
+}
+
+.navbar-icons a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;  /* Adjust circle size */
+  height: 45px;
+  border-radius: 60%;  /* Circular shape */
+  background-color: #f1f1f1; /* Light background */
+  box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2); /* Soft shadow for 3D effect */
+  transition: all 0.3s ease-in-out;
+}
+
+.navbar-icons img {
+  width: 45px; /* Adjust icon size */
+  height: 45px;
+  object-fit: contain;
+  border-radius: 50%; 
+}
+
+.navbar-icons a:hover {
+  color: darkblue; /* Blue effect on hover */
+  transform: scale(1.1); /* Slight zoom */
+  box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.7); /* Enhanced hover shadow */
+}
+
+.navbar-icons a:hover img {
+  filter: brightness(1.2); /* Brighten icon on hover */
+}
+.footer {
+  background-color: darkblue;
+  color: white;
+  padding: 5px 0;
+  text-align: center;
+  border-top: 8px solid #7b8bf3 ;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.footer-column {
+  flex: 1;
+  padding: 5px;
+  text-align: left;
+}
+
+.footer-column h4 {
+  margin-bottom: 8px;
+  font-size: 18px;
+}
+
+.footer-column p {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.footer-column a {
+  color: rgb(172, 213, 251);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.footer-column a:hover {
+  text-decoration: None;
+}
+
+
+@keyframes fadeIn {
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+/* Responsive */
+@media (max-width: 768px) {
+  .navbar {
+      flex-direction: column;
+  }
+  .contact-container {
+      flex-direction: column;
+      text-align: center;
+  }
+
+  .loc{
+    width:100%;
+  }
+
+  .feedback{
+    width:100%;
+  }
+}
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .navbar {
+    flex-direction: column;
+    height: auto; /* Adjust navbar height */
+    padding: 15px;
+    text-align: center;
+  }
+  .auth-buttons {
+    margin-top: 10px;
+  }
+  .home-container {
+    flex-direction: column; /* Stack carousel and info */
+    align-items: center;
+    height: auto; /* Adjust height */
+  }
+  .carousel-container {
+    width: 90%;
+    height: auto; /* Adjust height */
+  }
+  .info-container {
+    width: 90%;
+    flex-direction: column;
+  }
+}
+
+
+
+@media (max-width: 768px) {
+  .logo img {
+    width: 180px; /* Adjust logo size */
+    height: 40px;
+  }
+  .auth-buttons .btn {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+  .navbar-icons {
+    gap: 20px; /* Reduce spacing */
+  }
+  .home-section {
+    padding: 10px;
+    flex-direction: column;
+    text-align: center;
+  }
+  .carousel-container {
+    width: 100%;
+    height: 250px; /* Adjust height */
+  }
+  .info-box {
+    width: 100%;
+    margin-top: 10px;
+  }
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+  }
+  .footer-column {
+    width: 100%;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 10px;
+  }
+  .logo img {
+    width: 150px;
+    height: 30px;
+  }
+  .auth-buttons .btn {
+    font-size: 12px;
+    padding: 5px 8px;
+  }
+  .home-container {
+    gap: 10px;
+  }
+  .carousel-container {
+    height: 200px;
+  }
+  .info-box h4 {
+    font-size: 14px;
+  }
+  .info-list li {
+    font-size: 14px;
+  }
+  .prev-btn, .next-btn {
+    width: 25px;
+    height: 20px;
+    font-size: 12px;
+  }
+  .footer-column h4 {
+    font-size: 16px;
+  }
+  .footer-column p {
+    font-size: 12px;
+  }
+}

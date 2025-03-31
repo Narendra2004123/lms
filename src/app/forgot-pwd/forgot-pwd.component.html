@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forgot Password</title>
+  <link rel="stylesheet" href="./forgot-pwd.component.css">
+</head>
+<body>
+<app-fronthead></app-fronthead>
+  <div class="forgot-password-container">
+    <h2>Forgot Password</h2>
+
+    <!-- Email Input -->
+    <div class="form-group">
+      <label>Email:</label>
+      <input type="email" [(ngModel)]="email" class="form-control" placeholder="Enter your email" [disabled]="otpButtonDisabled" required>
+      <button class="btn send-otp" (click)="sendOtp()" [disabled]="otpButtonDisabled">
+        {{ otpSent ? 'Resend OTP' : 'Send OTP' }}
+      </button>
+    </div>
+
+    <!-- OTP Section -->
+    <div id="otp-section" *ngIf="otpSent || otpExpired">
+      <div class="form-group">
+        <label>Enter OTP:</label>
+        <input class="form-control"type="password" [(ngModel)]="otp" placeholder="Enter OTP" [disabled]="otpVerified" />
+      </div>
+      <button class="btn verify" (click)="verifyOtp()" [disabled]="otpVerified">Verify OTP</button>
+      <p *ngIf="otpExpired" class="error">OTP expired! Request a new one.</p>
+
+      <!-- Timer Section -->
+      <div class="timer-container" *ngIf="otpSent && !otpExpired">
+        <p>OTP sent! Expires in: {{ timerMinutes }}:{{ timerSeconds < 10 ? '0' : '' }}{{ timerSeconds }}</p>
+      </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div *ngIf="showToast" class="toast">
+      ✅ OTP Verified! Redirecting...
+    </div>
+  </div>
+  <app-footer></app-footer>
+</body>
+</html>

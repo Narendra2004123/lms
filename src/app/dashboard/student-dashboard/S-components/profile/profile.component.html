@@ -1,0 +1,114 @@
+<body>
+    <div *ngIf="profileData">
+      <div class="profile-container">
+        <!-- Profile Header with Two Parts -->
+        <div class="profile-header">
+          <!-- Left: Welcome Message -->
+          <div class="profile-welcome">
+            <h1>Welcome, {{ profileData.firstName }}! 👋</h1>
+            <p>We’re glad to have you here. Explore your profile and stay updated with your academic details.</p>
+          </div>
+  
+          <!-- Right: Profile Info -->
+          <div class="profile-info-container">
+            <div class="profile-pic">
+              <img src="/assets/profile.png" alt="Profile Picture">
+            </div>
+            <div class="profile-info">
+              <h2>{{ profileData.firstName }} {{ profileData.middleName ? profileData.middleName + ' ' : '' }}{{ profileData.lastName }}</h2>
+              <p><strong>Roll No:</strong> {{ profileData.studentId }}</p>
+              <p><strong>Department:</strong> {{ profileData.departmentCode }}</p>
+              <p><strong>Program:</strong> {{ profileData.programCode }}</p>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Profile Sections -->
+        <div class="profile-sections">
+          <!-- Personal Details -->
+          <div class="profile-card">
+            <h3>👤 Personal Details</h3>
+            <ul>
+              <li><strong>DOB:</strong> {{ profileData.dob || 'N/A' }}</li>
+              <li><strong>Gender:</strong> {{ profileData.gender === 1 ? 'Male' : profileData.gender === 2 ? 'Female' : 'Other' }}</li>
+              <li><strong>Nationality:</strong> {{ profileData.nationality || 'N/A' }}</li>
+              <li><strong>Religion:</strong> {{ profileData.religion || 'N/A' }}</li>
+              <li><strong>Blood Group:</strong> {{ profileData.bloodGroup || 'N/A' }}</li>
+            </ul>
+          </div>
+          
+          <div class="profile-card">
+            <h3>🎓 Admission & Qualification</h3>
+            <ul>
+              <li><strong>Citizenship Status:</strong> {{ profileData.citizenshipStatus || 'N/A' }}</li>
+              <li><strong>Quota:</strong> {{ profileData.quota || 'N/A' }}</li>
+              <!-- <li><strong>Program:</strong> {{ profileData.programCode || 'N/A' }}</li>
+              <li><strong>Department:</strong> {{ profileData.departmentCode || 'N/A' }}</li> -->
+              <li><strong>Academic Year:</strong> {{ profileData.academicYear || 'N/A' }}</li>
+              <li><strong>Section:</strong> {{ profileData.section || 'N/A' }}</li>
+              <li><strong>Date of Admission:</strong> {{ profileData.dateOfAdmission || 'N/A' }}</li>
+              <li><strong>CET Rank:</strong> {{ profileData.cetRank || 'N/A' }}</li>
+              <li><strong>Admission Type:</strong> {{ profileData.admissionType || 'N/A' }}</li>
+              <li><strong>Academic Status:</strong> {{ profileData.academicStatus || 'N/A' }}</li>
+            </ul>
+          </div>
+          
+          
+  
+          <!-- Guardian Details -->
+          <div class="profile-card">
+            <h3>👨‍👩‍👦 Parents Details</h3>
+            <ul>
+              <li><strong>Father:</strong> {{ profileData.fatherDetails?.name || 'N/A' }}</li>
+              <li><strong>Father Contact No:</strong> 📞 {{ profileData.fatherDetails?.mobile || 'N/A' }}</li>
+              <li><strong>Father Email:</strong> ✉ {{ profileData.fatherDetails?.email || 'N/A' }}</li>
+              <li><strong>Mother:</strong> {{ profileData.motherDetails?.name || 'N/A' }}</li>
+              <li><strong>Mother Contact No:</strong> 📞 {{ profileData.motherDetails?.mobile || 'N/A' }}</li>
+              <li><strong>Mother Email:</strong> ✉ {{ profileData.motherDetails?.email || 'N/A' }}</li>
+            </ul>
+          </div>
+  
+          <!-- Contact Details -->
+          <div class="profile-card">
+            <h3>📞 Contact Details</h3>
+            <ul>
+              <li><strong>Work Email:</strong> {{ profileData.contactDetails?.work_email || 'N/A' }}</li>
+              <li><strong>Personal Email:</strong> ✉ {{ profileData.contactDetails?.personal_email || 'N/A' }}</li>
+              <li><strong>Phone:</strong> {{ profileData.contactDetails?.personal_mobile || 'N/A' }}</li>
+              <li><strong>Alternate Phone:</strong> {{ profileData.contactDetails?.alternative_mobile || 'N/A' }}</li>
+            </ul>
+          </div>
+  
+          <!-- Address Details -->
+          <div class="profile-card">
+            <h3>🏠 Address</h3>
+            <ul>
+              <li><strong>Permanent Address:</strong> 
+                {{ profileData.permanentAddress?.address1 || '' }} 
+                {{ profileData.permanentAddress?.address2 || '' }} 
+                {{ profileData.permanentAddress?.district || '' }},
+                {{ profileData.permanentAddress?.current_state || '' }},
+                {{ profileData.permanentAddress?.country || '' }} -
+                {{ profileData.permanentAddress?.pincode || '' }}
+              </li>
+              <li><strong>Temporary Address:</strong> 
+                {{ profileData.temporaryAddress?.address1 || '' }} 
+                {{ profileData.temporaryAddress?.address2 || '' }} 
+                {{ profileData.temporaryAddress?.district || '' }},
+                {{ profileData.temporaryAddress?.current_state || '' }},
+                {{ profileData.temporaryAddress?.country || '' }} -
+                {{ profileData.temporaryAddress?.pincode || '' }}
+              </li>
+            </ul>
+          </div>
+        </div>
+  
+        <!-- Edit Profile Button -->
+        <div class="edit-btn-container">
+          <button (click)="editProfile()">Edit Profile</button>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  

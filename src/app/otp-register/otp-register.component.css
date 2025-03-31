@@ -1,0 +1,165 @@
+/* Centered container */
+.otp-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Heading styles */
+h2 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Paragraph styling */
+p {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+/* Form styling */
+.form-group {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* OTP input styling */
+.otp-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    transition: border-color 0.3s ease;
+}
+
+.otp-input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Buttons styling */
+button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    color: white;
+    background: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: background 0.3s ease;
+}
+
+button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+button:hover:enabled {
+    background: #0056b3;
+}
+
+/* Timer display styling */
+.timer-container {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
+}
+
+/* Resend OTP button styling */
+.resend-otp {
+    background: #28a745;
+    margin-top: 10px;
+}
+
+.resend-otp:hover {
+    background: #218838;
+}
+
+/* Error message styling */
+.error {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+}
+@media (max-width: 768px) {
+    .otp-container {
+        width: 95%;
+        padding: 15px;
+        margin: 30px auto;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    p {
+        font-size: 0.9rem;
+    }
+
+    .otp-input {
+        padding: 10px;
+        font-size: 1rem;
+    }
+
+    button {
+        padding: 10px;
+        font-size: 1rem;
+    }
+
+    .timer-container {
+        font-size: 0.9rem;
+    }
+
+    .error {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .otp-container {
+        width: 98%;
+        padding: 10px;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+    }
+
+    p {
+        font-size: 0.85rem;
+    }
+
+    .otp-input {
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+
+    button {
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+
+    .timer-container {
+        font-size: 0.85rem;
+    }
+
+    .error {
+        font-size: 0.85rem;
+    }
+}

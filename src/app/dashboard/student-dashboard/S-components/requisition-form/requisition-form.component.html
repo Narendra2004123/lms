@@ -1,0 +1,75 @@
+<div class="container">
+    <h2>Student Requisition Form</h2>
+    <form #userForm="ngForm" (ngSubmit)="onSubmit()">
+      
+      <!-- Name -->
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" [(ngModel)]="user.name" required />
+  
+      <!-- Programme -->
+      <label for="programme">Programme:</label>
+      <select id="programme" name="programme" [(ngModel)]="user.programme" required>
+        <option value="B.Tech">B.Tech</option>
+        <option value="M.Tech">M.Tech</option>
+        <option value="Ph.D">Ph.D</option>
+        <option value="Project/SI_Intern">Project/SI Intern</option>
+      </select>
+  
+      <!-- Roll Number -->
+      <label for="rollNo">Roll No:</label>
+      <input type="text" id="rollNo" name="rollNo" [(ngModel)]="user.rollNo" required />
+  
+      <!-- Branch -->
+      <label for="branch">Branch:</label>
+      <input type="text" id="branch" name="branch" [(ngModel)]="user.branch" required />
+  
+      <!-- Specialization -->
+      <label for="specialization">Specialization:</label>
+      <input type="text" id="specialization" name="specialization" [(ngModel)]="user.specialization" />
+  
+      <!-- Institutional/Personal Email -->
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" [(ngModel)]="user.email" required />
+      
+      <label for="mobile">Mobile Number</label>
+      <input type="mobile" id="mobile" name="mobile" [(ngModel)]="user.mobile" required />
+  
+      <!-- Hostler/Day Scholar/Requires Software Service -->
+      <label>Accommodation Type:</label>
+      <div>
+        <input type="radio" id="hostler" name="accommodation" value="Hostler" [(ngModel)]="user.accommodation" />
+        <label for="hostler">Hostler</label>
+        
+        <input type="radio" id="dayscholar" name="accommodation" value="Day Scholar" [(ngModel)]="user.accommodation" />
+        <label for="dayscholar">Day Scholar</label>
+      </div>
+  
+      <!-- Purpose -->
+      <label for="purpose">Purpose:</label>
+      <textarea id="purpose" name="purpose" [(ngModel)]="user.purpose"></textarea>
+  
+      <!-- Remote Access / Network Client -->
+      <label for="remoteAccess">Remote Access / Network Client:</label>
+      <input type="text" id="remoteAccess" name="remoteAccess" [(ngModel)]="user.remoteAccess" />
+  
+      <!-- License Operating System (for Network Client) -->
+      <label for="licenseOS">License Operating System (for Network Client):</label>
+      <input type="text" id="licenseOS" name="licenseOS" [(ngModel)]="user.licenseOS" />
+  
+      <!-- Duration -->
+      <label for="fromDate">Duration From:</label>
+      <input type="date" id="fromDate" name="fromDate" [(ngModel)]="user.fromDate" required />
+  
+      <label for="toDate">Duration To:</label>
+      <input type="date" id="toDate" name="toDate" [(ngModel)]="user.toDate" required />
+  
+      <button type="submit">Submit</button>
+    </form>
+  
+    <!-- Display Form Data -->
+    <div *ngIf="submitted">
+      <h3>Submitted Data:</h3>
+      <pre>{{ user | json }}</pre>
+    </div>
+  </div>
+  

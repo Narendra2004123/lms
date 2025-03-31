@@ -1,0 +1,199 @@
+<h2>Student Registration</h2>
+<div class="admin-register-container">
+  
+    <form [formGroup]="registrationForm" (ngSubmit)="submitForm()">
+  
+  <div class="section" formGroupName="personalDetails"><!-- Student ID -->
+      <h3>Personal Details</h3>
+    <div class="input-group">
+      <div class="form-group">
+      <label for="student_id">Student ID:</label>
+      <input id="student_id" type="text" formControlName="student_id" required />
+      </div>
+      <!-- Name Fields -->
+      <div class="form-group">
+      <label for="first_name">First Name:</label>
+      <input id="first_name" type="text" formControlName="first_name" required />
+      </div>
+    </div>
+    <div class="input-group">
+      <div class="form-group">
+      <label for="middle_name">Middle Name:</label>
+      <input id="middle_name" type="text" formControlName="middle_name" />
+       </div>
+      <div class="form-group">
+      <label for="last_name">Last Name:</label>
+      <input id="last_name" type="text" formControlName="last_name" required />
+       </div>
+    </div>
+      <!-- Gender -->
+     <div class="input-group">
+        <div class="form-group">
+      <label for="gender">Gender:</label>
+      <select id="gender" formControlName="gender">
+        <option value="">Select</option>
+        <option value="1">Male</option>
+        <option value="2">Female</option>
+        <option value="3">Other</option>
+      </select>
+      </div>
+  
+      <!-- Date of Birth -->
+      <div class="form-group">
+      <label for="date_of_birth">Date of Birth:</label>
+      <input id="date_of_birth" type="date" formControlName="date_of_birth" required />
+     </div>
+    </div>
+      <!-- Blood Group -->
+    <div class="input-group">
+      <div class="form-group">
+      <label for="blood_group">Blood Group:</label>
+      <input id="blood_group" type="text" formControlName="blood_group" />
+      </div> 
+      <div class="form-group">
+      <!-- Nationality, Religion, Citizenship Status -->
+      <label for="nationality">Nationality:</label>
+      <input id="nationality" type="text" formControlName="nationality" required />
+     </div>
+    </div>
+    <div class="input-group">
+     <div class="form-group">
+      <label for="religion">Religion:</label>
+      <input id="religion" type="text" formControlName="religion" />
+      </div>
+      <div class="form-group">
+      <label for="citizenship_status">Citizenship Status:</label>
+      <input id="citizenship_status" type="text" formControlName="citizenship_status" />
+      </div>
+    </div>
+    </div>
+    <div class="section" formGroupName="contactDetails">
+      <!-- Contact Details -->
+      <h3>Contact Details</h3>
+      <div class="input-group">
+      <div class="form-group">
+      <label for="email">Email:</label>
+      <input id="email" type="email" formControlName="email" required />
+    </div>
+  <div class="form-group">
+      <label for="primary_contact">Primary Contact:</label>
+      <input id="primary_contact" type="tel" formControlName="primary_contact" required />
+     </div>
+    </div>
+     <div class="input-group"><div class="form-group">
+      <label for="alternate_contact">Alternate Contact:</label>
+      <input id="alternate_contact" type="tel" formControlName="alternate_contact" />
+    </div>
+  <div class="form-group">
+      <label for="emergency_contact">Emergency Contact:</label>
+      <input id="emergency_contact" type="tel" formControlName="emergency_contact" />
+      </div>
+    </div>
+     </div>
+    <div class="section" formGroupName="permanentAddress">
+      <!-- Permanent Address -->
+      <h3>Permanent Address</h3>
+      <div class="input-group"><div class="form-group">
+      <label for="permanent_street">Street Name:</label>
+      <input id="permanent_street" type="text" formControlName="permanent_street" required />
+    </div>
+  <div class="form-group">
+      <label for="permanent_village">Village:</label>
+      <input id="permanent_village" type="text" formControlName="permanent_village" required />
+    </div>
+     </div>
+     <div class="input-group"><div class="form-group">
+      <label for="permanent_city">City:</label>
+      <input id="permanent_city" type="text" formControlName="permanent_city" required />
+    </div>
+  <div class="form-group">
+      <label for="permanent_district">District:</label>
+      <input id="permanent_district" type="text" formControlName="permanent_district" required />
+     </div>
+    </div>
+    </div>
+    <div class="section" formGroupName="academicDetails">
+      <!-- Academic Details -->
+      <h3>Academic Details</h3>
+      <div class="input-group"><div class="form-group">
+      <label for="program_code">Program Code:</label>
+      <input id="program_code" type="text" formControlName="program_code" required />
+    </div>
+  <div class="form-group">
+      <label for="department_code">Department Code:</label>
+      <input id="department_code" type="text" formControlName="department_code" required />
+    </div>
+      </div>
+      <div class="input-group">
+        <!-- <div class="form-group">
+          <label for="academicYear">Academic Year: <span class="required">*</span></label>
+          <div class="academic-year-container">
+            <button type="button" (click)="decrementAcademicYear()">-</button>
+            <input type="text" id="academicYear" [(ngModel)]="academicYear" name="academicYear" class="form-control" readonly />
+            <button type="button" (click)="incrementAcademicYear()">+</button>
+          </div>
+        </div> -->
+      <div class="form-group">
+      <label for="section">Section:</label>
+      <input id="section" type="text" formControlName="section" />
+    </div>
+      </div>
+     </div>
+      
+    <div class="section" formGroupName="identityMarks">
+      <!-- Identity Marks -->
+      <h3>Identity Marks</h3>
+      <div class="input-group"><div class="form-group">
+      <label for="identity_mark1">Identity Mark 1:</label>
+      <input id="identity_mark1" type="text" formControlName="identity_mark1" />
+    </div>
+  <div class="form-group">
+      <label for="identity_mark2">Identity Mark 2:</label>
+      <input id="identity_mark2" type="text" formControlName="identity_mark2" />
+    </div>
+      </div>
+      </div>
+    <div class="section" formGroupName="documentDetails">
+      <h3>Document Details</h3>
+      <div class="input-group">
+      <div class="form-group">
+      <label for="doc_id">Document ID:</label>
+      <input id="doc_id" type="text" formControlName="doc_id" required />
+    </div>
+  <div class="form-group">
+      <label for="doc_type">Document Type:</label>
+      <input id="doc_type" type="text" formControlName="doc_type" required />
+    </div>
+  </div>
+    <div class="input-group"><div class="form-group">
+      <label for="doc">Upload Document:</label>
+      <input id="doc" type="file" (change)="handleFileInput($event)" />
+    </div>
+  <div class="form-group">
+      <label for="status">Status:</label>
+      <input id="status" type="text" formControlName="status" />
+    </div>
+    </div>
+  </div>
+      <!-- Submit Button -->
+      <button type="submit" [disabled]="registrationForm.invalid">Submit</button>
+    </form>
+  </div>
+  <script>
+  function decreaseYear() {
+    let yearInput = document.getElementById('academicYear');
+    let currentYear = parseInt(yearInput.value);
+    if (currentYear > 2000) {  // Prevents unrealistic year
+        yearInput.value = currentYear - 1;
+    }
+}
+
+function increaseYear() {
+    let yearInput = document.getElementById('academicYear');
+    let currentYear = parseInt(yearInput.value);
+    if (currentYear < 2100) {  // Prevents unrealistic future year
+        yearInput.value = currentYear + 1;
+    }
+}
+
+  </script>

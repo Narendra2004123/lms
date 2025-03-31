@@ -1,0 +1,211 @@
+/* Reset default margins and paddings */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Ensure the page takes full height */
+html, body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #f4f7fc; /* Light background */
+}
+
+/* HEADER */
+.app-fronthead {
+  width: 100%;
+  padding: 1rem;
+  background: #007bff;
+  color: white;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Main Container */
+.main-container {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 2rem;
+}
+
+/* OTP Container */
+.otp-container {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+  margin: auto;
+}
+
+/* Headings */
+.otp-container h2 {
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+  color: #333;
+  font-weight: bold;
+}
+
+/* Description Styling */
+.otp-container p {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+/* Styling for the Input Fields */
+.otp-input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 2px solid #ccc;
+  font-size: 1rem;
+  text-align: center;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+  font-weight: 500;
+}
+
+.otp-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+}
+
+/* Buttons */
+.btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  background: #007bff;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  text-transform: uppercase;
+}
+
+.btn:hover {
+  background: #0056b3;
+  transform: scale(1.02);
+}
+
+/* Disabled button */
+.btn:disabled {
+  background: #b0c4de;
+  cursor: not-allowed;
+}
+
+/* Resend OTP Button */
+.resend-otp {
+  background: none;
+  border: none;
+  color: #007bff;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.resend-otp:hover {
+  text-decoration: underline;
+  color: #0056b3;
+}
+
+/* Form Styling */
+.form-group {
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.form-control {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+}
+
+/* Forgot Password */
+.forgot-password {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.forgot-password a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s ease;
+}
+
+.forgot-password a:hover {
+  text-decoration: underline;
+}
+
+/* Footer */
+.app-footer {
+  width: 100%;
+  text-align: center;
+  padding: 1rem;
+  background: #007bff;
+  color: white;
+  font-size: 1rem;
+  position: relative;
+  bottom: 0;
+}
+
+/* RESPONSIVE DESIGN */
+@media screen and (max-width: 1024px) {
+  .otp-container {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .otp-container {
+    width: 90%;
+    padding: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .otp-container {
+    width: 95%;
+    padding: 1rem;
+  }
+
+  .otp-input {
+    padding: 10px;
+  }
+
+  .btn {
+    font-size: 1rem;
+    padding: 10px;
+  }
+}

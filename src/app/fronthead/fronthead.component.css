@@ -1,0 +1,32 @@
+.iipe-header {
+    width: 100%;
+    background-color: white;
+    border-bottom: 2px solid rgb(44, 62, 80);
+    text-align: center;
+    padding: 10px 0;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.iipe-logo {
+    width: auto;
+    height: 120px;
+    border: 2px solid white;
+    margin-right: 20px;
+}
+
+.header-text h1 {
+    font-weight: bold;
+    font-family: Tahoma, sans-serif;
+    color: rgb(44, 62, 80);
+    font-size: 1.5em;
+    margin: 5px 0;
+}

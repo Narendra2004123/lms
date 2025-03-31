@@ -1,0 +1,185 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+  }
+  
+  .container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    width:100%;
+    align-items: center;
+  
+  }
+  
+  h1 {
+    text-align: center;
+    color: #007bff;
+  }
+  
+  /* Column Styling */
+  .column {
+    flex: 1;
+  }
+  
+  .title{
+    align-items: center;
+  }
+  
+  
+  
+  /* Form Input Styles */
+  label:not([data-ignore="true"]) {
+    font-weight: bold;
+    flex:1;
+    color: #333;
+    font-size: 14px;
+    line-height: 1.5;
+    word-wrap: break-word;
+  
+  }
+  input:not([data-ignore="true"]) {
+    width: calc(100% - 20px);
+    padding: 12px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+  }
+  
+  
+   select, textarea {
+    width: calc(100% - 20px);
+    padding: 12px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+  }
+  
+  input:focus, select:focus, textarea:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  /* Button Styles */
+  button {
+    background-color: #007bff;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+  
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  .button-container {
+    display: flex;
+    gap: 15px; /* Adds space between buttons */
+  }
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .form-container {
+      flex-direction: column;
+    }
+  }
+  input[type="file"] {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    width: calc(100% - 20px);
+  }
+  
+  .file-note {
+    font-size: 12px;
+    color: #777;
+    margin-top: 5px;
+  }
+  .vendor-details-container {
+    margin-top: 30px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: white;
+  }
+  
+  .vendor-form {
+    margin-bottom: 20px;
+  }
+  
+  .vendor-form-group {
+    margin-bottom: 15px;
+  }
+  
+  .vendor-form-group input,
+  .vendor-form-group textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .vendor-form-group label {
+    font-weight: bold;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: center; /* Center aligns both buttons */
+    gap: 40px; /* Space between buttons */
+    margin-top: 10px;
+  }
+  
+  .remove-btn, .add-btn {
+    width: auto;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    margin: 10px;
+  }
+  
+  .remove-btn {
+    background-color:#007bff;
+    color: white;
+  }
+  
+  .add-btn {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  
+  .required-star {
+    color: red;
+  }
+  .error {
+    color: red;
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+  @media(max-width:768px){
+    .container{
+      width:90%;
+    }
+  }
+  #expectedTimeField {
+    display: none; /* Initially hidden */
+    margin-top: 10px;
+  }

@@ -1,0 +1,132 @@
+<app-fronthead> </app-fronthead>
+<body>
+ 
+<div class="register-container">
+
+
+  <form (submit)="register()">
+    <h2>REGISTRATION FORM</h2>
+    <div class="form-grid">
+     
+      <!-- User Type Selection -->
+      <div class="form-group">
+        <label for="userType" >User Type: <span class="required">*</span></label>
+        <select id="userType"[(ngModel)]="userType" name="userType" class="form-control" (change)="updateUserType()">
+          <option *ngFor="let r of roles" [value]="r.roleId">{{ r.roleName }}</option>
+        </select>
+        <!-- <select id="userType" [(ngModel)]="userType" name="userType" class="form-control" (change)="updateUserType()">
+          <option value="student">Student</option>
+          <option value="faculty">Faculty</option>
+          <option value="management">Management</option>
+        </select> -->
+      </div>
+      
+      <div class="form-group">
+        <label for="identifier">{{ identifierLabel }}: <span class="required">*</span></label>
+        <input type="text" id="identifier" [(ngModel)]="identifier" name="identifier" class="form-control" required />
+      </div>
+      
+      <div class="form-group">
+        <label for="firstName">First Name: <span class="required">*</span></label>
+        <input type="text" id="firstName" [(ngModel)]="firstName" name="firstName" class="form-control" required />
+      </div>
+
+      <div class="form-group">
+        <label for="middleName">Middle Name (Optional):</label>
+        <input type="text" id="middleName" [(ngModel)]="middleName" name="middleName" class="form-control"/>
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">Last Name: <span class="required">*</span></label>
+        <input type="text" id="lastName" [(ngModel)]="lastName" name="lastName" class="form-control" required />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email: <span class="required">*</span></label>
+        <input type="email" id="email" [(ngModel)]="email" name="email" class="form-control" required />
+      </div>
+
+      <div class="form-group">
+        <label for="gender">Gender: <span class="required">*</span></label>
+        <select id="gender" [(ngModel)]="gender" name="gender" class="form-control">
+          <option value="">Select</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="others">Others</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="dob">Date of Birth: <span class="required">*</span></label>
+        <input type="date" id="dob" [(ngModel)]="dob" name="dob" class="form-control" required />
+      </div>
+
+      <div class="form-group">
+        <label for="dateOfJoining">Date of Joining: <span class="required">*</span></label>
+        <input type="date" id="dateOfJoining" [(ngModel)]="dateOfJoining" name="dateOfJoining" class="form-control" required />
+      </div>
+
+      <div class="form-group">
+        <label for="programme">Programme: <span class="required">*</span></label>
+        <select id="programme" [(ngModel)]="programId" name="programme" class="form-control" >
+          <option *ngFor="let prog of programs" [ngValue]="prog.programId">{{ prog.program }}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="department">Department: <span class="required">*</span></label>
+        <select id="department" [(ngModel)]="departmentId" name="department" class="form-control" required>
+          <option *ngFor="let dept of departments" [ngValue]="dept.departmentId">{{ dept.department }}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="academicYear">Academic Year: <span class="required">*</span></label>
+        <div class="academic-year-container">
+          <button type="button" (click)="decrementAcademicYear()">-</button>
+          <input type="text" id="academicYear" [(ngModel)]="academicYear" name="academicYear" class="form-control" readonly />
+          <button type="button" (click)="incrementAcademicYear()">+</button>
+        </div>
+      </div>
+      
+
+      <div class="form-group">
+        <label for="phoneNumber">Phone Number: <span class="required">*</span></label>
+        <input type="text" id="phoneNumber" [(ngModel)]="phoneNumber" name="phoneNumber" class="form-control" required />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password: <span class="required">*</span></label>
+        <input type="password" id="password" [(ngModel)]="password" name="password" class="form-control" required />
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password: <span class="required">*</span></label>
+        <input type="password" id="confirmPassword" [(ngModel)]="confirmPassword" name="confirmPassword" class="form-control" required />
+      </div>
+
+      <!-- CAPTCHA Section -->
+      <div class="form-group captcha-box">
+        <label for="captcha">Enter Captcha: <span class="required">*</span></label>
+        <div class="captcha-content">
+          <input type="text" id="captcha" [(ngModel)]="captchaInput" name="captchaInput" class="form-control" required placeholder="Enter CAPTCHA"/>
+          <img [src]="captchaImage" alt="CAPTCHA" class="captcha-img" />
+          <button type="button" class="refresh-btn" (click)="loadCaptcha()">
+            <i class="fas fa-sync-alt refresh-icon"></i>
+          </button>
+        </div>
+      </div>
+      <div *ngIf="captchaError" class="error-message"><b>{{ captchaError }}</b></div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn login">Register</button>
+    </div>
+  </form>
+ 
+</div>
+<app-footer></app-footer>
+</body>
+
+
+

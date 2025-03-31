@@ -1,0 +1,44 @@
+.sidebar {
+ 
+    width: 200px;
+    height: 3000px;
+    background-color: darkblue;
+    color: rgb(245, 245, 248);
+    font-weight: bold;
+  }
+  
+  .sidebar ul {
+    list-style: none;
+    padding: 2px;
+  }
+  
+  .sidebar ul li {
+    margin: 30px 20px;
+    align-items: center;
+    cursor: pointer;
+    transition: rgba(153, 157, 233, 0.2)  0.3s ease;
+  }
+  
+  .sidebar ul a {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    display:flex;
+    gap:20px;
+    align-items: center;
+  }
+
+  .sidebar-menu li i {
+    margin-right: 10px; /* Space between icon and text */
+    font-size: 20px; /* Icon Size */
+    color: #fff; /* Icon color */
+  }
+  
+  .sidebar ul li:hover {
+    background: #7b8bf3; /* Dark hover effect */
+    border-left: 10px solid #1202f6; /* Highlighted active effect */
+    margin-left: 10px;
+    padding:10px;
+    border-radius: 5px;
+  }
+
+  

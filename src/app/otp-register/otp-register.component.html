@@ -1,0 +1,33 @@
+<app-fronthead></app-fronthead>
+
+<div class="otp-container">
+    <h2>Enter OTP</h2>
+    <p>We have sent an OTP to your registered email: <strong>{{ email }}</strong></p>
+    
+    <div class="form-group">
+        <label for="otp">OTP:</label>
+        <input type="text" id="otp" class="otp-input" [(ngModel)]="otp" placeholder="Enter OTP" maxlength="6"/>
+    </div>
+
+    <!-- Show OTP expiration timer -->
+    <div class="timer-container" *ngIf="!otpExpired">
+        <p>OTP expires in: <strong>{{ timerMinutes }}:{{ timerSeconds | number: '2.0' }}</strong></p>
+    </div>
+
+    <!-- Disable verification if OTP expires -->
+    <button (click)="verifyOtp()" [disabled]="isVerifying || otpExpired">
+        {{ isVerifying ? 'Verifying...' : 'Verify OTP' }}
+    </button>
+
+    <p *ngIf="otpExpired" class="error">OTP has expired. Please request a new OTP.</p>
+
+    <!-- Show countdown while timer is running -->
+
+    <!-- Show Resend OTP button only when both timers reach 0 -->
+    <button class="resend-otp" (click)="resendOtp()" *ngIf="otpExpired && resendCountdown === 0">
+        Resend OTP
+    </button>
+
+    <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+</div>
+<app-footer></app-footer>

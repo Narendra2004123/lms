@@ -1,0 +1,104 @@
+<!-- Navbar -->
+
+
+<nav class="navbar">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <div class="logo">
+      <img src="/assets/header.jpg" alt="IIPE Logo">
+  </div>
+  <div class="navbar-icons">
+    <a href="https://iipe.ac.in/" target="_blank">
+      <img src="assets/web.jpg" alt="Website"> 
+    </a>
+    <a href="https://www.linkedin.com/school/indian-institute-of-petroleum-energy/posts/?feedView=all" target="_blank">
+      <img src="assets/LKin.png" alt="LinkedIn"> 
+    </a>
+    <a href="https://www.instagram.com/iipe_visakhapatnam/?hl=en" target="_blank">
+      <img src="assets/insta.jpg" alt="Instagram"> 
+    </a>
+    <a href="https://www.facebook.com/IIPEVsp/" target="_blank">
+      <img src="assets/FB.png" alt="Facebook"> 
+    </a>
+    <a href="https://www.youtube.com/@IIPEVIZAG" target="_blank">
+      <img src="assets/YT.png" alt="YouTube"> 
+    </a>
+    <a href="tel:0891 - 2585152">
+      <img src="assets/tele.png" alt="Phone">
+    </a>
+    <a href="mailto: info&#64;iipe.ac.in">
+      <img src="assets/mail.png" alt="Email">
+    </a>
+    <a href="https://en.wikipedia.org/wiki/Indian_Institute_of_Petroleum_and_Energy" target="_blank">
+      <img src="assets/wiki.png" alt="Wikipedia"> 
+    </a>
+  </div>
+  <div class="auth-buttons">
+      <button class="btn login" (click)="navigateTo('home')">Login</button>
+      <button class="btn register" (click)="navigateTo('register')">Register</button>
+  </div>
+</nav>
+<!-- Add this wrapper to push content below navbar -->
+<div class="content-wrapper">
+  <!-- Hero Section -->
+  <section id="home" class="home-section">
+    <div class="home-container">
+      <!-- Left: Image Carousel -->
+      <div class="carousel-container">
+        <img [src]="images[currentIndex]" class="carousel-image" alt="Carousel Image"> 
+        <!-- Navigation Buttons -->
+        <button mat-button class="prev-btn" (click)="prevSlide()">
+          <mat-icon>&#9665;</mat-icon>
+        </button>
+        <button mat-button class="next-btn" (click)="nextSlide()">
+          <mat-icon>&#9655;</mat-icon>
+        </button>
+      </div>
+      
+      
+        <!-- Right: Notifications, Events, Schedule -->
+        <div class="info-container">
+            
+            <!-- Notifications -->
+            <div class="info-box">
+                <h4>📢 Notifications</h4>
+                <div class="scroll-box">
+                    <ul class="info-list">
+                        <li> Semester exams start from <b>April 15</b></li>
+                        <li> Registration for summer courses opens <b>March 25</b></li>
+                        <li> IIPE annual tech fest begins <b>May 10</b></li>
+                        <li> Placement drive for final-year students on <b>March 28</b></li>
+                    </ul>
+                </div>
+            </div>
+    
+            <!-- Events -->
+            <div class="info-box">
+                <h4>🎉 Events</h4>
+                <div class="scroll-box">
+                    <ul class="info-list">
+                        <li> Guest lecture on AI - <b>March 30</b></li>
+                        <li> Sports Fest - <b>April 5-7</b></li>
+                        <li> Alumni Meet - <b>April 20</b></li>
+                        <li> Hackathon Challenge - <b>April 25</b></li>
+                    </ul>
+                </div>
+            </div>
+    
+            <!-- Exam & Results Schedule -->
+            <div class="info-box">
+                <h4>📅 Academic Schedules</h4>
+                <div class="scroll-box">
+                    <ul class="info-list">
+                        <li> Mid-term results release - <b>March 22</b></li>
+                        <li> End-sem exam timetable - <b>April 1</b></li>
+                        <li> Project submission deadline - <b>April 10</b></li>
+                        <li> Practical exams start - <b>April 18</b></li>
+                    </ul>
+                </div>
+            </div>
+    
+        </div>
+    </div>    
+  </section>
+</div>
+  <app-footer></app-footer>
