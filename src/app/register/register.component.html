@@ -43,7 +43,7 @@
 
       <div class="form-group">
         <label for="email">Email: <span class="required">*</span></label>
-        <input type="email" id="email" [(ngModel)]="email" name="email" class="form-control" required />
+        <input type="email" id="email" [(ngModel)]="email" (change)="onEmailChange()" name="email" class="form-control" required />
       </div>
 
       <div class="form-group">
@@ -117,6 +117,23 @@
         </div>
       </div>
       <div *ngIf="captchaError" class="error-message"><b>{{ captchaError }}</b></div>
+
+
+      <br>
+    <div class="form-group otp-box">
+      <label for="otp">Enter OTP: <span class="required">*</span></label>
+      <div class="otp-container">
+        <input type="text" id="otp" [(ngModel)]="otpInput" name="otpInput" class="form-control"
+               [disabled]="!email || otpVerified" placeholder="Enter OTP" required />
+    
+        <button type="button" class="otp-btn"
+                (click)="handleOtpAction()" [disabled]="!email">
+          {{ otpSent ? 'Verify OTP' : 'Send OTP' }}
+        </button>
+      </div>
+    </div>
+
+
     </div>
 
     <div class="form-actions">
