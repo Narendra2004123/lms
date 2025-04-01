@@ -47,6 +47,10 @@ export class RegisterComponent implements OnInit {
   captchaInput: string = '';  
   captchaError: string = ''; 
   academicYear: string = '';
+  otpInput: string = '';
+  otpSent: boolean = false;  // Controls the button text (Send OTP / Verify OTP)
+  otpVerified: boolean = false; // Controls OTP field usability
+
  
 
   departments: Department[] = [];
@@ -193,7 +197,7 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    if (!this.validateInputs()) return;
+    if (!this.validateInputs() && this.otpVerified) return;
     
     console.log("In registration method");
 
@@ -221,8 +225,9 @@ export class RegisterComponent implements OnInit {
         response => {
           if (response.status === "true") {
             localStorage.setItem('registeredEmail', this.email);
-            this.showToast('Registration successful! Sending OTP...', 3000);
-            this.sendOtp();
+            this.showToast(response.message, 3000);
+            // this.sendOtp();
+            this.router.navigate(['/hone']);
           } else {
             this.captchaError = response.message || 'Invalid CAPTCHA or registration details!';
             this.loadCaptcha();
@@ -237,28 +242,79 @@ export class RegisterComponent implements OnInit {
       );
   }
 
-  sendOtp() {
-    if (!this.email.trim()) {
-      this.showToast('Invalid email for OTP.', 3000);
-      return;
+  
+  handleOtpAction() {
+    console.log("In handle OTP action");
+    console.log(this.email.trim());
+    if (!this.otpSent) {
+      // Step 1: Send OTP
+      this.sendOtp();
+    } else {
+      // Step 2: Verify OTP
+      console.log(this.otpInput.trim());
+      if (!this.otpInput.trim()) {
+        this.showToast('Please enter the OTP.', 3000);
+        return;
+      }
+      // Verify OTP
+      this.verifyOtp();
     }
+  }
 
-    const payload = { email: this.email.trim() };
 
-    this.http.post<{ status: boolean, message?: string }>(this.authService.OTP_SEND_URL, payload)
-      .subscribe(
-        response => {
-          if (response.status) {
+sendOtp() {
+  console.log("In send OTP method");
+  if (!this.email.trim()) {
+      this.showToast('Invalid email for OTP.', 3000);
+    return;
+  }
+
+  const payload = { email: this.email.trim() };
+
+  this.http.post<{ status: boolean, message?: string }>(this.authService.OTP_SEND_URL, payload)
+    .subscribe(
+      response => {
+        if (response.status) {
             this.showToast('OTP sent to your registered email.', 3000);
-            this.router.navigate(['/otp-register']);
-          } else {
+            // this.router.navigate(['/otp-register']);
+            this.otpSent=true;
+        } else {
             this.showToast(response.message || 'Failed to send OTP. Please try again.', 3000);
-          }
-        },
-        error => {
-          console.error('OTP sending error:', error);
-          this.showToast('Error sending OTP. Please try again.', 3000);
         }
-      );
-  }
+      },
+      error => {
+        console.error('OTP sending error:', error);
+        this.showToast('Error sending OTP. Please try again.', 3000);
+      }
+    );
+}
+
+  verifyOtp() {
+    console.log("In verify OTP method");
+    console.log(this.email.trim());
+    console.log(this.otpInput.trim());
+  const payload = { email: this.email.trim(), otp: this.otpInput.trim() };
+
+  this.http.post<{ status: boolean, message?: string }>(this.authService.OTP_VERIFY_URL, payload)
+    .subscribe(
+      response => {
+        if (response.status) {
+          this.showToast('OTP verified successfully!', 3000);
+          this.otpVerified = true;  // Disable OTP input after verification
+        } else {
+          this.showToast(response.message || 'Invalid OTP. Try again.', 3000);
+        }
+      },
+      error => {
+        console.error('OTP verification error:', error);
+        this.showToast('Error verifying OTP. Try again.', 3000);
+      }
+    );
+  }
+
+  onEmailChange() {
+    this.otpSent = false;
+    this.otpVerified = false;
+    this.otpInput = '';
+  }
 }
