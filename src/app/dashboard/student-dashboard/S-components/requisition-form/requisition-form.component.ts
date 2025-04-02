@@ -21,6 +21,7 @@ export class RequisitionFormComponent implements OnInit {
     accommodation: '',
     purpose: '',
     remoteAccess: '',
+    required_software:'',
     licenseOS: '',
     fromDate: '',
     toDate: ''

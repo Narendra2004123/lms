@@ -130,8 +130,8 @@ verifyOtp() {
   /** Redirect user based on role */
   redirectUser(role: string) {
     const routes: Record<string, string> = {
-      'r3': '/dashboard/student/profile',
-      'r4': '/dashboard/faculty/profile',
+      'r4': '/dashboard/student/profile',
+      'r3': '/dashboard/faculty/profile',
       'r2': '/dashboard/management/profile'
     };
 

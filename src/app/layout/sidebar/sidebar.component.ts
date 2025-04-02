@@ -26,7 +26,7 @@ export class SidebarComponent implements OnInit {
   }
 
   setMenuItems() {
-    if (this.userRole === 'r3') {
+    if (this.userRole === 'r4') {
       this.menuItems = [
         { label: 'Profile', route: '/dashboard/student/profile', icon: 'user' },
         { label: 'Courses', route: '/dashboard/student/Scourses', icon: 'book' },
@@ -37,7 +37,7 @@ export class SidebarComponent implements OnInit {
         { label: 'Quiz/Online Test', route: '/dashboard/student/quiz', icon: 'question-circle' },
         {label:'requist',route:'dashboard/student/requist',icon:'answer'}
       ];
-    } else if (this.userRole === 'r4') {
+    } else if (this.userRole === 'r3') {
       this.menuItems = [
         { label: 'Profile', route: '/dashboard/faculty/profile', icon: 'user' },
         { label: 'Courses', route: '/dashboard/faculty/courses', icon: 'book' },

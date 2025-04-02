@@ -1,75 +1,121 @@
 <div class="container">
-    <h2>Student Requisition Form</h2>
-    <form #userForm="ngForm" (ngSubmit)="onSubmit()">
-      
-      <!-- Name -->
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" [(ngModel)]="user.name" required />
-  
-      <!-- Programme -->
-      <label for="programme">Programme:</label>
-      <select id="programme" name="programme" [(ngModel)]="user.programme" required>
-        <option value="B.Tech">B.Tech</option>
-        <option value="M.Tech">M.Tech</option>
-        <option value="Ph.D">Ph.D</option>
-        <option value="Project/SI_Intern">Project/SI Intern</option>
-      </select>
-  
-      <!-- Roll Number -->
-      <label for="rollNo">Roll No:</label>
-      <input type="text" id="rollNo" name="rollNo" [(ngModel)]="user.rollNo" required />
-  
-      <!-- Branch -->
-      <label for="branch">Branch:</label>
-      <input type="text" id="branch" name="branch" [(ngModel)]="user.branch" required />
-  
-      <!-- Specialization -->
-      <label for="specialization">Specialization:</label>
-      <input type="text" id="specialization" name="specialization" [(ngModel)]="user.specialization" />
-  
-      <!-- Institutional/Personal Email -->
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" [(ngModel)]="user.email" required />
-      
-      <label for="mobile">Mobile Number</label>
-      <input type="mobile" id="mobile" name="mobile" [(ngModel)]="user.mobile" required />
-  
-      <!-- Hostler/Day Scholar/Requires Software Service -->
-      <label>Accommodation Type:</label>
-      <div>
-        <input type="radio" id="hostler" name="accommodation" value="Hostler" [(ngModel)]="user.accommodation" />
-        <label for="hostler">Hostler</label>
-        
-        <input type="radio" id="dayscholar" name="accommodation" value="Day Scholar" [(ngModel)]="user.accommodation" />
-        <label for="dayscholar">Day Scholar</label>
+  <h2>Student Requisition Form</h2>
+  <form #userForm="ngForm" (ngSubmit)="onSubmit()">
+    
+    <div class="form-group">
+      <div class="input-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" [(ngModel)]="user.name" required />
       </div>
-  
-      <!-- Purpose -->
-      <label for="purpose">Purpose:</label>
-      <textarea id="purpose" name="purpose" [(ngModel)]="user.purpose"></textarea>
-  
-      <!-- Remote Access / Network Client -->
-      <label for="remoteAccess">Remote Access / Network Client:</label>
-      <input type="text" id="remoteAccess" name="remoteAccess" [(ngModel)]="user.remoteAccess" />
-  
-      <!-- License Operating System (for Network Client) -->
-      <label for="licenseOS">License Operating System (for Network Client):</label>
-      <input type="text" id="licenseOS" name="licenseOS" [(ngModel)]="user.licenseOS" />
-  
-      <!-- Duration -->
-      <label for="fromDate">Duration From:</label>
-      <input type="date" id="fromDate" name="fromDate" [(ngModel)]="user.fromDate" required />
-  
-      <label for="toDate">Duration To:</label>
-      <input type="date" id="toDate" name="toDate" [(ngModel)]="user.toDate" required />
-  
-      <button type="submit">Submit</button>
-    </form>
-  
-    <!-- Display Form Data -->
-    <div *ngIf="submitted">
-      <h3>Submitted Data:</h3>
-      <pre>{{ user | json }}</pre>
+      
+      <div class="input-group">
+        <label for="programme">Programme:</label>
+        <select id="programme" name="programme" [(ngModel)]="user.programme" required>
+          <option value="B.Tech">B.Tech</option>
+          <option value="M.Tech">M.Tech</option>
+          <option value="Ph.D">Ph.D</option>
+          <option value="Project/SI_Intern">Project/SI Intern</option>
+        </select>
+      </div>
     </div>
+
+    <div class="form-group">
+      <div class="input-group">
+        <label for="rollNo">Roll No:</label>
+        <input type="text" id="rollNo" name="rollNo" [(ngModel)]="user.rollNo" required />
+      </div>
+
+      <div class="input-group">
+        <label for="branch">Branch:</label>
+        <input type="text" id="branch" name="branch" [(ngModel)]="user.branch" required />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="input-group">
+        <label for="specialization">Specialization:</label>
+        <input type="text" id="specialization" name="specialization" [(ngModel)]="user.specialization" />
+      </div>
+
+      <div class="input-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" [(ngModel)]="user.email" required />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="input-group">
+        <label for="mobile">Mobile Number:</label>
+        <input type="text" id="mobile" name="mobile" [(ngModel)]="user.mobile" required />
+      </div>
+
+      <div class="input-group">
+        
+        <div class="radio-group">
+          <label>Accommodation Type:</label>
+          <input type="radio" id="hostler" name="accommodation" value="Hostler" [(ngModel)]="user.accommodation" />
+          <label for="hostler">Hostler</label>
+          
+          <input type="radio" id="dayscholar" name="accommodation" value="Day Scholar" [(ngModel)]="user.accommodation" />
+          <label for="dayscholar">Day Scholar</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="input-group">
+        <label for="software">Required Software/Service:</label>
+        <input type="text" id="required-software" name="required-software" [(ngModel)]="user.required_software" />
+      </div>
+      
+      <div class="input-group">
+        <label for="purpose">Purpose:</label>
+        <textarea id="purpose" name="purpose" [(ngModel)]="user.purpose"></textarea>
+      </div>
+    </div>
+
+    <div class="form-group">
+    
+      <div class="input-group">
+        <label for="remoteAccess">Remote Access / Network Client:</label>
+        <input type="text" id="remoteAccess" name="remoteAccess" [(ngModel)]="user.remoteAccess" />
+      </div>
+      
+      <div class="input-group">
+        <label for="licenseOS">License OS (for Network Client):</label>
+        
+        <select id="licenseOS" name="licenseOS" [(ngModel)]="user.licenseOS" required>
+          <option value="B.Tech">Windows</option>
+          <option value="M.Tech">Ubuntu</option>
+          <option value="Ph.D">Mac</option>
+        </select>
+      </div>
+
+      
+    </div>
+
+    <div class="form-group">
+      <div class="input-group">
+        <label for="fromDate">Duration From:</label>
+        <input type="date" id="fromDate" name="fromDate" [(ngModel)]="user.fromDate" required />
+      </div>
+      <div class="input-group">
+        <label for="toDate">Duration To:</label>
+        <input type="date" id="toDate" name="toDate" [(ngModel)]="user.toDate" required />
+      </div>
+    </div>
+    <div class="checkbox-container">
+      <input type="checkbox" id="undertake" />
+      <label for="undertake">
+        I undertake to abide by all rules and regulations (IT Policy) of IIPE and return the license to the institute at the end of the above-stated duration.
+      </label>
+    </div>
+     
+    <button type="submit">Submit</button>
+  </form>
+
+  <div *ngIf="submitted">
+    <h3>Submitted Data:</h3>
+    <pre>{{ user | json }}</pre>
   </div>
-  
+</div>

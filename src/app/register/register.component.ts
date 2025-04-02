@@ -49,7 +49,8 @@ export class RegisterComponent implements OnInit {
   academicYear: string = '';
   otpInput: string = '';
   otpSent: boolean = false;  // Controls the button text (Send OTP / Verify OTP)
-  otpVerified: boolean = false; // Controls OTP field usability
+  otpVerified: boolean = false;
+  loading: boolean = false; // Controls OTP field usability
 
  
 
@@ -198,7 +199,7 @@ export class RegisterComponent implements OnInit {
 
   register() {
     if (!this.validateInputs() && this.otpVerified) return;
-    
+    this.loading = true;
     console.log("In registration method");
 
     const userData = {
@@ -221,25 +222,29 @@ export class RegisterComponent implements OnInit {
     };
 
     this.http.post<{ status: string; message: string }>(this.authService.REGISTER_URL, userData)
-      .subscribe(
-        response => {
-          if (response.status === "true") {
-            localStorage.setItem('registeredEmail', this.email);
-            this.showToast(response.message, 3000);
-            // this.sendOtp();
-            this.router.navigate(['/hone']);
-          } else {
-            this.captchaError = response.message || 'Invalid CAPTCHA or registration details!';
-            this.loadCaptcha();
-            this.showToast(this.captchaError, 3000);
-          }
-        },
-        error => {
-          console.error('Registration error:', error);
-          this.showToast('Error registering. Please try again.', 3000);
+    .subscribe({
+      next: (response) => {
+        if (response.status === "true") { // Ensure proper comparison
+          localStorage.setItem('registeredEmail', this.email);
+          this.showToast(response.message, 3000);
+          // this.sendOtp();
+          this.router.navigate(['/home']); // Fixed typo from '/hone' to '/home'
+        } else {
+          this.captchaError = response.message || 'Invalid CAPTCHA or registration details!';
           this.loadCaptcha();
+          this.showToast(this.captchaError, 3000);
         }
-      );
+      },
+      error: (error) => {
+        console.error('Registration error:', error);
+        this.showToast('Error registering. Please try again.', 3000);
+        this.loadCaptcha();
+      },
+      complete: () => {
+        this.loading = false; // Ensuring loading stops after execution
+      }
+    });
+  
   }
 
   
@@ -262,33 +267,37 @@ export class RegisterComponent implements OnInit {
   }
 
 
-sendOtp() {
-  console.log("In send OTP method");
-  if (!this.email.trim()) {
+  sendOtp() {
+    console.log("In send OTP method");
+  
+    if (!(this.email?.trim())) {  // Ensuring email is not undefined or empty
       this.showToast('Invalid email for OTP.', 3000);
-    return;
-  }
-
-  const payload = { email: this.email.trim() };
-
-  this.http.post<{ status: boolean, message?: string }>(this.authService.OTP_SEND_URL, payload)
-    .subscribe(
-      response => {
-        if (response.status) {
+      return;
+    }
+  
+    this.loading = true;
+    const payload = { email: this.email.trim() };
+  
+    this.http.post<{ status: boolean, message?: string }>(this.authService.OTP_SEND_URL, payload)
+      .subscribe({
+        next: (response) => {
+          if (response.status) {
             this.showToast('OTP sent to your registered email.', 3000);
-            // this.router.navigate(['/otp-register']);
-            this.otpSent=true;
-        } else {
+            this.otpSent = true;
+          } else {
             this.showToast(response.message || 'Failed to send OTP. Please try again.', 3000);
+          }
+        },
+        error: (error) => {
+          console.error('OTP sending error:', error);
+          this.showToast('Error sending OTP. Please try again.', 3000);
+        },
+        complete: () => {
+          this.loading = false;  // Ensuring loading stops after execution
         }
-      },
-      error => {
-        console.error('OTP sending error:', error);
-        this.showToast('Error sending OTP. Please try again.', 3000);
-      }
-    );
-}
-
+      });
+  }
+  
   verifyOtp() {
     console.log("In verify OTP method");
     console.log(this.email.trim());

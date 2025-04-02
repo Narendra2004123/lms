@@ -1,89 +1,145 @@
 <div class="container">
-    <h2>Indent Form</h2>
-    <form (ngSubmit)="onSubmit()">
-        
-        <label>Department:<span class="required-star">*</span></label>
-        <input [(ngModel)]="indent.department" name="department" required />
-  
-        <label>Asset Type:<span class="required-star">*</span></label>
-        <select [(ngModel)]="indent.asset_type" name="asset_type">
-          <option value="" selected disabled>None</option>
-          <option value="Non-Consumable">Non-Consumable</option>
-          <option value="Consumable">Consumable</option>
-          <option value="Intangible">Intangible</option>
-        </select>
-  
-        <label>Budget Head:<span class="required-star">*</span></label>
-        <input [(ngModel)]="indent.budget_head" name="budget_head" required />
-  
-        <label>Date:<span class="required-star">*</span></label>
-        <input [(ngModel)]="indent.date" type="date" name="date" required />
-  
-        <label>Indenter Name:<span class="required-star">*</span></label>
-        <input [(ngModel)]="indent.indenterName" name="indenterName" required />
-  
-        <label>Indenter Designation:<span class="required-star">*</span></label>
-        <input [(ngModel)]="indent.indenterDesignation" name="indenterDesignation" required />
-  
-        <label>HOD Name:<span class="required-star">*</span></label>
-        <input [(ngModel)]="indent.hodName" name="hodName" required />
-  
-        <label>HOD Designation:<span class="required-star">*</span></label>
-        <input [(ngModel)]="indent.hodDesignation" name="hodDesignation" required />
-  
-        <label>Purpose of Purchase:<span class="required-star">*</span></label>
-        <textarea [(ngModel)]="indent.purposeOfPurchase" name="purposeOfPurchase" (input)="updateCharCount()" maxlength="500" rows="4"></textarea>
-        <p>{{ remainingChars }}/500 characters remaining</p>
-  
-        <label>Item Name:<span class="required-star">*</span></label>
-        <input [(ngModel)]="indent.itemName" name="itemName" required />
-  
-        <label>Quantity:<span class="required-star">*</span></label>
-        <input [(ngModel)]="indent.quantity" type="number" name="quantity" required />
-  
-        <label>Estimated Cost (₹):<span class="required-star">*</span></label>
-        <input [(ngModel)]="indent.cost" type="number" name="cost" required />
-  
-        <label>Installation/Commissioning By:<span class="required-star">*</span></label>
-        <select [(ngModel)]="indent.installationBy" name="installationBy">
-          <option value="" selected disabled>None</option>
-          <option value="Indenter">Indenter</option>
-          <option value="Supplier">Supplier</option>
-          <option value="Manufacturer">Manufacturer</option>
-          <option value="Authorized Agent">Authorized Agent</option>
-          <option value="Dealer">Dealer</option>
-        </select>
-  
-        <label>Delivery Period (Days/Weeks/Months):<span class="required-star">*</span></label>
-        <input [(ngModel)]="indent.deliveryPeriod" name="deliveryPeriod" required />
-  
-        <label>Installation Requirements Ready?<span class="required-star">*</span></label>
-        <select [(ngModel)]="indent.installationReady" name="installationReady">
-          <option value="">Select</option>
-          <option value="Yes">Yes</option>
-          <option value="No">No</option>
-        </select>
-  
-        <label>Purchase Mode:<span class="required-star">*</span></label>
-        <select [(ngModel)]="indent.purchaseMode" name="purchaseMode">
-          <option>GeM</option>
-          <option>Local Purchase Committee</option>
-          <option>PAC(Proprietary Article)</option>
-          <option>Other</option>
-        </select>
-  
-        <label>Inspection Date:<span class="required-star">*</span></label>
-        <input [(ngModel)]="indent.inspectionDate" type="date" name="inspectionDate" required />
-  
-        <label>Warranty Details:<span class="required-star">*</span></label>
-        <textarea [(ngModel)]="indent.warrantyDetails" name="warrantyDetails" required></textarea>
-  
-        <label>Operational Availability Date:<span class="required-star">*</span></label>
-        <input [(ngModel)]="indent.operationalDate" type="date" name="operationalDate" required />
-  
-        <button type="submit">Submit</button>
-        <!-- <button type="button" (click)="saveDraft()">Save as Draft</button> -->
-        <button type="button" (click)="enableEdit()" *ngIf="isSubmitted">Edit</button>
+  <h2>Indent Form</h2>
+  <form (ngSubmit)="onSubmit()">
+      <div class="form-grid">
+          <div class="form-group">
+              <label>Department:<span class="required-star">*</span></label>
+              <input [(ngModel)]="indent.department" name="department" required />
+          </div>
+          <div class="form-group">
+              <label>Asset Type:<span class="required-star">*</span></label>
+              <select [(ngModel)]="indent.asset_type" name="asset_type">
+                  <option value="" selected disabled>None</option>
+                  <option value="Non-Consumable">Non-Consumable</option>
+                  <option value="Consumable">Consumable</option>
+                  <option value="Intangible">Intangible</option>
+              </select>
+          </div>
 
-    </form>
+          <div class="form-group">
+              <label>Budget Head:<span class="required-star">*</span></label>
+              <input [(ngModel)]="indent.budget_head" name="budget_head" required />
+          </div>
+          <div class="form-group">
+              <label>Date:<span class="required-star">*</span></label>
+              <input [(ngModel)]="indent.date" type="date" name="date" required />
+          </div>
+
+          <div class="form-group">
+              <label>Indenter Name:<span class="required-star">*</span></label>
+              <input [(ngModel)]="indent.indenterName" name="indenterName" required />
+          </div>
+          <div class="form-group">
+              <label>Indenter Designation:<span class="required-star">*</span></label>
+              <input [(ngModel)]="indent.indenterDesignation" name="indenterDesignation" required />
+          </div>
+
+          <div class="form-group">
+              <label>HOD Name:<span class="required-star">*</span></label>
+              <input [(ngModel)]="indent.hodName" name="hodName" required />
+          </div>
+          <div class="form-group">
+              <label>HOD Designation:<span class="required-star">*</span></label>
+              <input [(ngModel)]="indent.hodDesignation" name="hodDesignation" required />
+          </div>
+
+          <div class="form-group full-width">
+              <label>Purpose of Purchase:<span class="required-star">*</span></label>
+              <textarea [(ngModel)]="indent.purposeOfPurchase" name="purposeOfPurchase"
+                  (input)="updateCharCount()" maxlength="500" rows="4"></textarea>
+              <p>{{ remainingChars }}/500 characters remaining</p>
+          </div>
+
+          <div class="form-group">
+              <label>Item Name:<span class="required-star">*</span></label>
+              <input [(ngModel)]="indent.itemName" name="itemName" required />
+          </div>
+          <div class="form-group">
+              <label>Quantity:<span class="required-star">*</span></label>
+              <input [(ngModel)]="indent.quantity" type="number" name="quantity" required />
+          </div>
+
+          <div class="form-group">
+              <label>Estimated Cost (₹):<span class="required-star">*</span></label>
+              <input [(ngModel)]="indent.cost" type="number" name="cost" required />
+          </div>
+          <div class="form-group">
+              <label>Installation/Commissioning By:<span class="required-star">*</span></label>
+              <select [(ngModel)]="indent.installationBy" name="installationBy">
+                  <option value="" selected disabled>None</option>
+                  <option value="Indenter">Indenter</option>
+                  <option value="Supplier">Supplier</option>
+                  <option value="Manufacturer">Manufacturer</option>
+                  <option value="Authorized Agent">Authorized Agent</option>
+                  <option value="Dealer">Dealer</option>
+              </select>
+          </div>
+
+          <div class="form-group">
+              <label>Delivery Period:<span class="required-star">*</span></label>
+              <input [(ngModel)]="indent.deliveryPeriod" name="deliveryPeriod" required />
+          </div>
+          <div class="form-group">
+              <label>Installation Ready?<span class="required-star">*</span></label>
+              <select [(ngModel)]="indent.installationReady" name="installationReady">
+                  <option value="">Select</option>
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+              </select>
+          </div>
+
+          <div class="form-group">
+            <label>Purchase Mode:<span class="required-star">*</span></label>
+            <select [(ngModel)]="indent.purchaseMode" name="purchaseMode" (change)="toggleVendorDetails()">
+                <option>GeM</option>
+                <option>Local Purchase Committee</option>
+                <option>PAC (Proprietary Article)</option>
+                <option>Other</option>
+            </select>
+          </div>
+          
+          <fieldset *ngIf="showVendorDetails">
+            <div class="container-show">
+              <legend>Vendor Details</legend>
+              <div *ngFor="let vendor of indent.vendors; let i = index">
+                <label>Vendor Name:<span class="required-star">*</span></label>
+                <input [(ngModel)]="vendor.vendorName" type="text" name="vendorName{{i}}" />
+          
+                <label>Mobile Number:<span class="required-star">*</span></label>
+                <input [(ngModel)]="vendor.vendorMobile" type="text" name="vendorMobile{{i}}" />
+          
+                <label>Address:<span class="required-star">*</span></label>
+                <textarea [(ngModel)]="vendor.vendorAddress" name="vendorAddress{{i}}"></textarea>
+          
+                <label>Email:<span class="required-star">*</span></label>
+                <input [(ngModel)]="vendor.vendorEmail" type="email" name="vendorEmail{{i}}" />
+                
+                <button type="button" (click)="removeVendor(i)">Remove Vendor</button>
+              </div>
+            </div>
+            <button type="button" (click)="addVendor()">Add Vendor</button>
+          </fieldset>
+            <div class="form-group">
+              <label>Inspection Date:<span class="required-star">*</span></label>
+              <input [(ngModel)]="indent.inspectionDate" type="date" name="inspectionDate" required />
+          </div>
+
+          <div class="form-group full-width">
+              <label>Warranty Details:<span class="required-star">*</span></label>
+              <textarea [(ngModel)]="indent.warrantyDetails" name="warrantyDetails" required></textarea>
+          </div>
+
+          <div class="form-group">
+              <label>Operational Availability Date:<span class="required-star">*</span></label>
+              <input [(ngModel)]="indent.operationalDate" type="date" name="operationalDate" required />
+          </div>
+      </div>
+
+      <div class="button-group">
+          <button type="submit">Submit</button>
+          <button type="button" (click)="saveDraft()">Save as Draft</button>
+          <button type="button" (click)="enableEdit()" *ngIf="isSubmitted">Edit</button>
+          <button type="button" (click)="viewPDF()" *ngIf="isSubmitted">View PDF</button>
+      </div>
+  </form>
 </div>
