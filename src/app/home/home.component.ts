@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../auth.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +20,7 @@ export class HomeComponent implements OnInit {
   captchaError: string = '';
   loading: boolean = false; // Loader state
 
-  constructor(private router: Router, private http: HttpClient, private authService: AuthService, private snackBar: MatSnackBar) {}
+  constructor(private cookieService:CookieService,private router: Router, private http: HttpClient, private authService: AuthService, private snackBar: MatSnackBar) {}
 
   showToast(message: string, duration: number = 3000) {
     this.snackBar.open(message, 'Close', {
@@ -87,7 +88,7 @@ export class HomeComponent implements OnInit {
     ).subscribe(
       (response) => {
         if (response.status) {
-          localStorage.setItem('username', this.username);
+          this.cookieService.set('username', this.username);
           this.sendOtp();
         } else {
           this.loading = false; // Hide loader

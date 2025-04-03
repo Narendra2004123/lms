@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../../../../auth.service';
 import { isPlatformBrowser,CommonModule } from '@angular/common';
+import { CookieService } from 'ngx-cookie-service';
 
 // Define the structure of the profile data
 interface Profile {
@@ -81,6 +82,7 @@ export class ProfileComponent implements OnInit {
   errorMessage: string = '';
 
   constructor(
+    private cookieService:CookieService,
     private http: HttpClient,
     private authService: AuthService,
     @Inject(PLATFORM_ID) private platformId: object
@@ -100,7 +102,7 @@ export class ProfileComponent implements OnInit {
   
   loadAuthToken() {
     if (isPlatformBrowser(this.platformId)) {
-      this.authToken = localStorage.getItem('authToken') || '';
+      this.authToken = this.cookieService.get('authToken') || '';
       console.log('Loaded authToken:', this.authToken);
     }
   }
@@ -121,8 +123,8 @@ export class ProfileComponent implements OnInit {
           console.log("In resposne before assigning token");
           console.log(this.authToken);
           const newToken = authHeader.split(' ')[1]; // Extract token
-          localStorage.setItem('authToken', newToken); // Store in localStorage
-          this.authToken = localStorage.getItem('authToken') || '';
+          this.cookieService.set('authToken', newToken); 
+          this.authToken = this.cookieService.get('authToken') || '';
           console.log("In resposne after assigning token");
           console.log(this.authToken);
         }
@@ -144,8 +146,8 @@ export class ProfileComponent implements OnInit {
     if (authHeader && authHeader.startsWith('Bearer ')) {
       const newToken = authHeader.split(' ')[1];
       if (newToken && isPlatformBrowser(this.platformId)) {
-        this.authToken = newToken; // Update in-memory token
-        localStorage.setItem('authToken', newToken); // Update localStorage
+        this.authToken = newToken;
+        this.cookieService.set('authToken',newToken);
         console.log('Updated authToken:', newToken);
       }
     }

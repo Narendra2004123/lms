@@ -1,8 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy,EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-header',
@@ -21,11 +22,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private http: HttpClient,
+    private cookieService:CookieService,
     private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
-    this.authToken = localStorage.getItem('authToken') || '';
+    this.authToken = this.cookieService.get('authToken') || '';
 
     if (!this.authToken) {
       this.handleSessionExpired();
@@ -33,7 +35,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    const authToken = localStorage.getItem('authToken');
+    const authToken = this.cookieService.get('authToken');
     if (!authToken) {
       console.warn('No session token found. Redirecting to login.');
       this.clearSession();
@@ -72,9 +74,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   private clearSession() {
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('userData');
-    localStorage.removeItem('indentDraft');
+    this.cookieService.delete('authToken');
+    this.cookieService.delete('userData');
+    this.cookieService.delete('indentDraft');
   }
   
 
@@ -93,4 +95,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.logoutSubscription.unsubscribe();
     }
   }
+  @Output() sidebarToggle = new EventEmitter<void>();
+
+  toggleSidebar() {
+    this.sidebarToggle.emit(); // Notify the parent layout component
+  }
+  
+  
 }

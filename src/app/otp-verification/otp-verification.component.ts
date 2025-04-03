@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../auth.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-otp-verification',
@@ -21,11 +22,17 @@ export class OtpVerificationComponent implements OnInit, OnDestroy {
   timerSeconds: number = 0;
   countdown: any;
 
-  constructor(private router: Router, private http: HttpClient, private authService: AuthService, private snackBar: MatSnackBar) {}
+  constructor(
+  private router: Router, 
+  private http: HttpClient, 
+  private authService: AuthService, 
+  private snackBar: MatSnackBar,
+  private cookieService:CookieService
+  ) {}
 
   ngOnInit() {
     if (typeof window !== 'undefined') {
-      this.email = localStorage.getItem('username') || '';
+      this.email=this.cookieService.get('username') || '';
     }
 
     if (!this.email) {
@@ -90,9 +97,9 @@ verifyOtp() {
       if (response.status) {
         console.log('OTP verified successfully. Received role:', response.role);
 
-        // Store user type and token in localStorage after successful verification
-        localStorage.setItem('user_type', response.role);
-        localStorage.setItem('authToken', response.token); // Token is stored here
+      
+        this.cookieService.set('user_type', response.role);
+        this.cookieService.set('authToken', response.token); // Token is stored here
 
         this.showToast(response.message, 'success');
 
@@ -130,7 +137,7 @@ verifyOtp() {
   /** Redirect user based on role */
   redirectUser(role: string) {
     const routes: Record<string, string> = {
-      'r4': '/dashboard/student/profile',
+      'sug': '/dashboard/student/profile',
       'r3': '/dashboard/faculty/profile',
       'r2': '/dashboard/management/profile'
     };

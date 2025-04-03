@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../auth.service';
+import { CookieService } from 'ngx-cookie-service';
 
 interface Department {
   departmentId: string;
@@ -58,7 +59,7 @@ export class RegisterComponent implements OnInit {
   programs: Program[] = [];
   roles: Role[] = [];
 
-  constructor(private router: Router, private http: HttpClient, private authService:AuthService,private snackBar: MatSnackBar) {}
+  constructor(private cookieService:CookieService,private router: Router, private http: HttpClient, private authService:AuthService,private snackBar: MatSnackBar) {}
 
   ngOnInit() {
     this.loadCaptcha();
@@ -225,7 +226,7 @@ export class RegisterComponent implements OnInit {
     .subscribe({
       next: (response) => {
         if (response.status === "true") { // Ensure proper comparison
-          localStorage.setItem('registeredEmail', this.email);
+          this.cookieService.set('registeredEmail', this.email);
           this.showToast(response.message, 3000);
           // this.sendOtp();
           this.router.navigate(['/home']); // Fixed typo from '/hone' to '/home'

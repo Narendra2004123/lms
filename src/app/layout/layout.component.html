@@ -1,10 +1,12 @@
 <div class="dashboard-container">
-  <app-header></app-header> <!-- Header stays at the top -->
+  <app-header (sidebarToggle)="toggleSidebar()"></app-header> <!-- Listen to toggle event -->
+  
   <div class="content-area">
-    <app-sidebar></app-sidebar> <!-- Sidebar stays on the left -->
+    <app-sidebar *ngIf="isSidebarVisible"></app-sidebar> <!-- Sidebar toggles -->
     <div class="main-content">
       <router-outlet></router-outlet>
     </div>
   </div>
 </div>
+
 <app-footer></app-footer>

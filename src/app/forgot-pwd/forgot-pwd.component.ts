@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../auth.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -34,6 +35,7 @@ export class ForgotPasswordComponent {
   private cdr: ChangeDetectorRef, 
   private http: HttpClient, 
   private router: Router, 
+  private cookieService:CookieService,
   private snackBar:MatSnackBar,
   private authService:AuthService
   ) {}
@@ -87,7 +89,7 @@ export class ForgotPasswordComponent {
   
     // Prepare request payload
     const payload = { email: this.email };
-    localStorage.setItem('username', this.email);
+    this.cookieService.set('username', this.email);
   
     // Disable the OTP button immediately
     this.otpSent = true;

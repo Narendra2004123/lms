@@ -1,42 +1,96 @@
-
-.navbar{
-    display:flex;
-    justify-content:space-between;
-
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  color: white;
+  height: 60px;
+  position: relative;
 }
-  .brand-title {
-    width:200px;
-    flex:1;
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: rgb(249, 249, 250);
-    padding-left: 1rem;
-    letter-spacing: 1px;
-    align-items: center;
+
+/* Hamburger Icon - Left aligned */
+.hamburger {
+  font-size: 24px;
+  cursor: pointer;
+  display: block;
+  color: white;
+  background: none;
+  border: none;
+  padding: 10px;
+  margin-right: -10px; /* Adds small spacing */
+}
+
+/* Brand Title - Properly centered */
+.brand-title {
+  flex: 1; /* Allows it to expand while keeping space */
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: rgb(249, 249, 250);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding:10px;
+}
+
+/* Header Links - Right aligned */
+.header-links {
+  display: flex;
+  justify-content: flex-end;
+  flex: 1;
+}
+
+.header-links ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.header-links a {
+  text-decoration: none;
+  color: rgb(249, 249, 250);
+  font-weight: bold;
+}
+
+.header-links a:hover {
+  cursor: pointer;
+  color: #7b8bf3;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .hamburger {
+    margin-right: auto; /* Pushes it to the left */
   }
 
-  .navbar-links {
-    flex:2;
-    align-items: center;
+  .brand-title {
+    text-align: center;
   }
-  
-  .navbar-links ul {
-    list-style: none;
+
+  .header-links {
+    display: none; /* Hide links on small screens */
+  }
+
+  .header-links.active {
     display: flex;
-    gap: 1.5rem;
-    margin: 0;
-    padding-top: 10px;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background: #333;
+    width: 200px;
+    padding: 10px;
   }
-  
-  .navbar-links a {
-    text-decoration: none;
-    color: rgb(249, 249, 250);
-    font-weight: bold;
+
+  .header-links.active ul {
+    flex-direction: column;
+    align-items: flex-start;
   }
-  
-  .navbar-links a:hover {
-    cursor: pointer;
-    color: #7b8bf3;
-    
+
+  .header-links.active a {
+    padding: 10px;
+    display: block;
   }
-  
+}
