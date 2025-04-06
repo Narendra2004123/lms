@@ -93,6 +93,7 @@ export class ProfileComponent implements OnInit {
     this.loadAuthToken();
     console.log("In ngOnInit");
     console.log(this.authToken);
+    console.log(this.cookieService.get('authToken'));
     if (!this.authToken) {
       this.handleError('Auth token is missing! Please log in again.');
       return;
@@ -107,32 +108,22 @@ export class ProfileComponent implements OnInit {
     }
   }
   
-  fetchProfile() {
-    console.log(this.authToken);
+  fetchProfile(): void {
+    const currentToken = this.cookieService.get('authToken') || '';
+    console.log("In fetch prfile method");
+    console.log(currentToken);
     this.http.get(this.authService.STU_URL, {
-      observe: 'response', // Get full response (headers + body)
-      headers: { Authorization: `Bearer ${this.authToken}` } 
-    }).subscribe(
-      (response) => {
-        const authHeader = response.headers.get('Authorization');
-        console.log("In if before");
-        console.log(authHeader);
-        
-        if (authHeader && authHeader.startsWith('Bearer ')) {
-          console.log(authHeader.startsWith('Bearer '));
-          console.log("In resposne before assigning token");
-          console.log(this.authToken);
-          const newToken = authHeader.split(' ')[1]; // Extract token
-          this.cookieService.set('authToken', newToken); 
-          this.authToken = this.cookieService.get('authToken') || '';
-          console.log("In resposne after assigning token");
-          console.log(this.authToken);
-        }
+      headers: { Authorization: `Bearer ${currentToken}` },
+      observe: 'response'
+    }).subscribe({
+      next: (response) => {
+        this.updateAuthToken(response); // Token might get rotated
         this.handleSuccess(response.body);
       },
-      (error: HttpErrorResponse) => this.handleError(error.message || 'Failed to load profile.')
-    );
+      error: (error: HttpErrorResponse) => this.handleError(error.message || 'Failed to load profile.')
+    });
   }
+  
 
   handleSuccess(response: any) {
     if (response && response.profile) {
@@ -141,17 +132,22 @@ export class ProfileComponent implements OnInit {
     }
   }
   
-  updateAuthToken(response: any) {
+  updateAuthToken(response: any): void {
     const authHeader = response.headers.get('Authorization');
-    if (authHeader && authHeader.startsWith('Bearer ')) {
+    if (authHeader?.startsWith('Bearer ')) {
       const newToken = authHeader.split(' ')[1];
       if (newToken && isPlatformBrowser(this.platformId)) {
-        this.authToken = newToken;
-        this.cookieService.set('authToken',newToken);
-        console.log('Updated authToken:', newToken);
+        // Set expiry for 30 minutes from now
+        const expiryDate = new Date();
+        expiryDate.setMinutes(expiryDate.getMinutes() + 30); 
+  
+        this.cookieService.set('authToken', newToken, expiryDate, '/', '', false, "Strict"); 
+        console.log('🔄 Token updated with expiry:', newToken);
       }
     }
   }
+  
+  
 
   handleError(message: string) {
     console.error('Error fetching profile:', message);

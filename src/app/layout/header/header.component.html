@@ -1,10 +1,14 @@
-<header class="header">
-  <div class="hamburger" (click)="toggleSidebar()">☰</div> <!-- Hamburger Icon -->
-  <div class="brand-title">IIPE LMS</div>
-  <div class="header-links">
+<nav class="navbar">
+  <button class="hamburger" (click)="toggleSidebar()">
+    ☰
+</button>
+  <div class="brand-title">
+    IIPE LMS
+  </div>
+  <div class="navbar-links">
     <ul>
-      <li><a routerLink="/notifications">Notification</a></li>
-      <li><a href="#" (click)="logout()">Logout</a></li>
+      <li><a href="#">Notifications</a></li>
+      <li><a href="#">Logout</a></li>
     </ul>
   </div>
-</header>
+</nav>

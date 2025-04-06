@@ -1,44 +1,68 @@
 .sidebar {
- 
-    width: 200px;
-    height: 3000px;
-    background-color: darkblue;
-    color: rgb(245, 245, 248);
-    font-weight: bold;
-  }
-  
-  .sidebar ul {
-    list-style: none;
-    padding: 2px;
-  }
-  
-  .sidebar ul li {
-    margin: 30px 20px;
-    align-items: center;
-    cursor: pointer;
-    transition: rgba(153, 157, 233, 0.2)  0.3s ease;
-  }
-  
-  .sidebar ul a {
-    color: rgb(255, 255, 255);
-    text-decoration: none;
-    display:flex;
-    gap:20px;
-    align-items: center;
-  }
+  width: 220px;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #0f52ba, #001f4d); /* gradient blue */
+  color: #fff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding-top: 1rem;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
 
-  .sidebar-menu li i {
-    margin-right: 10px; /* Space between icon and text */
-    font-size: 20px; /* Icon Size */
-    color: #fff; /* Icon color */
-  }
-  
-  .sidebar ul li:hover {
-    background: #7b8bf3; /* Dark hover effect */
-    border-left: 10px solid #1202f6; /* Highlighted active effect */
-    margin-left: 10px;
-    padding:10px;
-    border-radius: 5px;
-  }
+.menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
-  
+.menu-item {
+  transition: all 0.3s ease;
+}
+
+.menu-item a {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 20px;
+  color: #ffffff;
+  text-decoration: none;
+  border-left: 4px solid transparent;
+  transition: background 0.3s, padding-left 0.3s, border-left 0.3s;
+}
+
+.menu-item i {
+  font-size: 18px;
+  color: #ffffff;
+  min-width: 20px;
+}
+
+.menu-item span {
+  font-size: 16px;
+  font-weight: 500;
+  flex: 1;
+}
+
+/* Hover styles */
+.menu-item:hover a {
+  background-color: #1c65d1;
+  padding-left: 28px;
+  border-left: 4px solid #ffffff;
+  border-radius: 4px 0 0 4px;
+}
+
+.menu-item:hover i {
+  color: #e0e0ff;
+}
+
+.menu-item:hover span {
+  color: #ffffff;
+}
+
+.error {
+  color: #ff4d4d;
+  padding: 10px;
+  background: #ffe0e0;
+  border: 1px solid #ffb3b3;
+  border-radius: 4px;
+  margin: 10px;
+}

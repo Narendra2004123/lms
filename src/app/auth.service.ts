@@ -7,7 +7,7 @@ export class AuthService {
 public PUBLIC_URL='http://localhost:8081/public'
   public BASE_URL = 'http://localhost:8081/api'; 
   public OTP_URL = 'http://localhost:8081/otp';
-  public STU_URL='http://localhost:8081/Student/Dashboard/Profile'
+  public STU_URL='http://localhost:8081/dashboard/student/profile'
   public RESET_PASSWORD_URL = `${this.BASE_URL}/resetpassword`;
   public CAPTCHA_GENERATE_URL = `${this.BASE_URL}/captcha/generate`;
   public CAPTCHA_RELOAD_URL=`${this.BASE_URL}/captcha/captchaReload`;
