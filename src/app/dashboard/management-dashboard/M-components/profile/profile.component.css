@@ -4,7 +4,7 @@
     padding: 20px;
     background: #5db2f7;
     font-family: 'Arial', sans-serif;
-    border-radius: 10px;
+    /* border-radius: 10p; */
 }
 
 /* Profile Header: Two Parts */
@@ -139,10 +139,6 @@
 .profile-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-}
-
-.edit-btn-container{
-    align-items: center;
 }
 
 /* Responsive Design */

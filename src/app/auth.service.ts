@@ -7,7 +7,8 @@ export class AuthService {
 public PUBLIC_URL='http://localhost:8081/public'
   public BASE_URL = 'http://localhost:8081/api'; 
   public OTP_URL = 'http://localhost:8081/otp';
-  public STU_URL='http://localhost:8081/dashboard/student/profile'
+  public DASHBOARD_URL='http://localhost:8081/dashboard';
+  public STU_URL=`${this.DASHBOARD_URL}/student/profile`
   public RESET_PASSWORD_URL = `${this.BASE_URL}/resetpassword`;
   public CAPTCHA_GENERATE_URL = `${this.BASE_URL}/captcha/generate`;
   public CAPTCHA_RELOAD_URL=`${this.BASE_URL}/captcha/captchaReload`;
@@ -20,5 +21,5 @@ public PUBLIC_URL='http://localhost:8081/public'
   public PROGRAM_URL=`${this.PUBLIC_URL}/program`;
   public DEPARTMENT_URL=`${this.PUBLIC_URL}/department`;
   public LOGOUT_URL=`${this.BASE_URL}/logout`;
-  
+  public FAC_URL=`${this.DASHBOARD_URL}/faculty/profile`;
 }

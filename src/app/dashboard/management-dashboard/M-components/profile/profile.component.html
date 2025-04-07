@@ -1,0 +1,85 @@
+<div class="profile-container">
+    <!-- Profile Header -->
+    <div class="profile-header">
+      <!-- Left: Welcome Message -->
+      <div class="profile-welcome">
+        <h1>Welcome, {{ staff.name }}! 👋</h1>
+        <p>Here’s a snapshot of your role, responsibilities, and official records.</p>
+      </div>
+  
+      <!-- Right: Profile Info -->
+      <div class="profile-info-container">
+        <div class="profile-pic">
+          <img src="/assets/profile.png" alt="Profile Picture">
+        </div>
+        <div class="profile-info">
+          <h2>{{ staff.name }}</h2>
+          <p><strong>Staff ID:</strong> {{ staff.staff_id }}</p>
+          <p><strong>Designation:</strong> {{ staff.designation }}</p>
+          <p><strong>Department/Section:</strong> {{ staff.department }}</p>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Profile Sections -->
+    <div class="profile-sections">
+      <!-- Personal Info -->
+      <div class="profile-card">
+        <h3>👤 Personal Information</h3>
+        <ul>
+          <li><strong>Date of Birth:</strong> {{ staff.dob }}</li>
+          <li><strong>Gender:</strong> {{ staff.gender }}</li>
+          <li><strong>Contact:</strong> 📞 {{ staff.contact_number }}</li>
+          <li><strong>Email:</strong> ✉ {{ staff.email }}</li>
+          <li><strong>Nationality:</strong> {{ staff.nationality }}</li>
+        </ul>
+      </div>
+  
+      <!-- Employment Info -->
+      <div class="profile-card">
+        <h3>🏢 Employment Details</h3>
+        <ul>
+          <li><strong>Date of Joining:</strong> {{ staff.joining_date }}</li>
+          <li><strong>Employment Type:</strong> {{ staff.employment_type }}</li>
+          <li><strong>Reporting Authority:</strong> {{ staff.reporting_authority }}</li>
+          <li><strong>Posting Location:</strong> {{ staff.location }}</li>
+        </ul>
+      </div>
+  
+      <!-- Functional Role -->
+      <div class="profile-card">
+        <h3>🛠 Functional Role</h3>
+        <ul>
+          <li><strong>Section:</strong> {{ staff.section }}</li>
+          <li><strong>Role Area:</strong> {{ staff.functional_area }}</li>
+          <li><strong>Key Responsibilities:</strong> {{ staff.responsibilities }}</li>
+          
+        </ul>
+      </div>
+  
+      <!-- Qualification -->
+      <div class="profile-card">
+        <h3>🎓 Qualifications & Experience</h3>
+        <ul>
+          <li><strong>Highest Qualification:</strong> {{ staff.qualification }}</li>
+          <li><strong>Certifications:</strong> {{ staff.certifications }}</li>
+          <li><strong>Years of Experience:</strong>{{staff.Experience}}</li>
+          <li><strong>Prior Experience:</strong> {{ staff.previous_experience }}</li>
+        </ul>
+      </div>
+  
+      <!-- Address -->
+      <div class="profile-card">
+        <h3>🏠 Address</h3>
+        <ul>
+          <li><strong>Permanent Address:</strong> {{ staff.permanent_address }}</li>
+          <li><strong>Current Address:</strong> {{ staff.current_address }}</li>
+        </ul>
+      </div>
+    </div>
+  
+    <!-- Edit Profile Button -->
+    <div class="edit-btn-container">
+      <button (click)="editProfile()">Edit Profile</button>
+    </div>
+  </div>
