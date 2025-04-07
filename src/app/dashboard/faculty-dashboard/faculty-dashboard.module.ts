@@ -10,6 +10,9 @@ import { ExamsComponent } from './F-components/exams/exams.component';
 import { FeedbackComponent} from './F-components/feedback/feedback.component';
 import { ClassroomComponent } from './F-components/classroom/classroom.component';
 import { FormsModule } from '@angular/forms';
+import { AttendanceComponent } from './F-components/attendance/attendance.component';
+import { FAcademicsComponent } from './F-components/f-academics/f-academics.component';
+import { ManageComponent } from './F-components/manage/manage.component';
 const routes: Routes = [
   { path: '', component: FacultyDashboardComponent  }
 ];
@@ -23,6 +26,9 @@ const routes: Routes = [
     ExamsComponent,
     FeedbackComponent,
     ClassroomComponent,
+    AttendanceComponent,
+    FAcademicsComponent,
+    ManageComponent,
   ],
   imports: [
     CommonModule,

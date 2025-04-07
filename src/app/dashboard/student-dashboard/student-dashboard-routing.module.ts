@@ -8,6 +8,9 @@ import { ExamsComponent } from './S-components/exams/exams.component';
 import { FeedbackComponent } from './S-components/feedback/feedback.component';
 import { QuizComponent } from './S-components/quiz/quiz.component';
 import { RequisitionFormComponent } from './S-components/requisition-form/requisition-form.component';
+import { AchieveComponent } from './S-components/achieve/achieve.component';
+import { RequestComponent } from './S-components/request/request.component';
+import { SAttendanceComponent } from './S-components/s-attendance/s-attendance.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'profile', pathMatch: 'full' },
@@ -18,7 +21,10 @@ const routes: Routes = [
   { path: 'exams', component: ExamsComponent },
   { path: 'feedback', component: FeedbackComponent },
   { path: 'quiz', component: QuizComponent },
-  {path:'requist',component:RequisitionFormComponent}
+  {path:'requist',component:RequisitionFormComponent},
+  {path:'achieve',component:AchieveComponent},
+  {path:'request',component:RequestComponent},
+  {path:'s-attendance',component:SAttendanceComponent},
 ];
 
 

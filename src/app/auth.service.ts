@@ -19,5 +19,6 @@ public PUBLIC_URL='http://localhost:8081/public'
   public ROLES_URL=`${this.PUBLIC_URL}/roles`;
   public PROGRAM_URL=`${this.PUBLIC_URL}/program`;
   public DEPARTMENT_URL=`${this.PUBLIC_URL}/department`;
+  public LOGOUT_URL=`${this.BASE_URL}/logout`;
   
 }

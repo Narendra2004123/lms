@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'app-header',
@@ -16,14 +17,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private logoutSubscription: Subscription | null = null; // Initialize as null
 
   // API URLs
-  private readonly API_BASE = 'http://localhost:8081/api';
-  private readonly LOGOUT_URL = `${this.API_BASE}/logout`;
+  // private readonly API_BASE = 'http://localhost:8081/api';
+  // private readonly LOGOUT_URL = `${this.API_BASE}/logout`;
 
   constructor(
     private router: Router,
     private http: HttpClient,
     private cookieService:CookieService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private authService:AuthService
   ) {}
 
   ngOnInit() {
@@ -34,44 +36,49 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
-  logout() {
+  logout(event?: Event) {
+    if (event) event.preventDefault();
+  
     const authToken = this.cookieService.get('authToken');
+  
     if (!authToken) {
       console.warn('No session token found. Redirecting to login.');
-      this.clearSession();
       this.router.navigate(['/login']);
       return;
     }
-
+  
+    console.log('Auth token from cookie:', authToken); // ✅ Log token
+  
     const headers = new HttpHeaders({
       Authorization: `Bearer ${authToken}`
     });
-
+  
     this.logoutSubscription = this.http
-      .post<{ authToken: string; status: boolean; message: string }>(
-        this.LOGOUT_URL,
+      .post<{ status: boolean; message: string }>(
+        this.authService.LOGOUT_URL,
         {},
         { headers }
       )
       .subscribe(
         (response) => {
+          console.log('Logout API response:', response); // ✅ Log response
           if (response.status) {
-            console.log('Logged out successfully:', response);
+            console.log('✅ Logged out successfully:', response.message); // should be "Session Deleted Successfully."
             this.clearSession();
             this.router.navigate(['/login']);
           } else {
-            console.error('Logout failed:', response);
+            console.error('❌ Logout failed from server:', response.message);
             this.showToast('Logout failed. Please try again.');
           }
         },
         (error) => {
-          console.error('Logout request failed:', error);
+          console.error('❌ Logout request failed:', error);
           this.showToast('Logout request failed. Please check your network and try again.');
-          this.clearSession();
-          this.router.navigate(['/login']);
         }
       );
   }
+  
+  
 
   private clearSession() {
     this.cookieService.delete('authToken');

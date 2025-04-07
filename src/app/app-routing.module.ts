@@ -24,7 +24,9 @@ import { ExamsComponent as StudentExams } from './dashboard/student-dashboard/S-
 import { FeedbackComponent as StudentFeedback } from './dashboard/student-dashboard/S-components/feedback/feedback.component';
 import { QuizComponent } from './dashboard/student-dashboard/S-components/quiz/quiz.component';
 import { RequisitionFormComponent } from './dashboard/student-dashboard/S-components/requisition-form/requisition-form.component';
-
+import { AchieveComponent } from './dashboard/student-dashboard/S-components/achieve/achieve.component';
+import { RequestComponent } from './dashboard/student-dashboard/S-components/request/request.component';
+import { SAttendanceComponent } from './dashboard/student-dashboard/S-components/s-attendance/s-attendance.component';
 // Faculty Components
 import { ProfileComponent as FacultyProfile } from './dashboard/faculty-dashboard/F-components/profile/profile.component';
 import { CoursesComponent as FacultyCourses } from './dashboard/faculty-dashboard/F-components/courses/courses.component';
@@ -33,6 +35,11 @@ import { ExamsComponent as FacultyExams } from './dashboard/faculty-dashboard/F-
 import { FeedbackComponent as FacultyFeedback } from './dashboard/faculty-dashboard/F-components/feedback/feedback.component';
 import { IndentformComponent } from './dashboard/faculty-dashboard/F-components/indentform/indentform.component';
 import { PurchaseComponent } from './dashboard/faculty-dashboard/F-components/purchase/purchase.component';
+import { AttendanceComponent } from './dashboard/faculty-dashboard/F-components/attendance/attendance.component';
+import { FAcademicsComponent } from './dashboard/faculty-dashboard/F-components/f-academics/f-academics.component';
+import { ManageComponent } from './dashboard/faculty-dashboard/F-components/manage/manage.component';
+
+
 // Management Components
 import { ManageUsersComponent } from './dashboard/management-dashboard/M-components/manage-users/manage-users.component';
 import { ReportsComponent } from './dashboard/management-dashboard/M-components/reports/reports.component';
@@ -52,7 +59,9 @@ const routes: Routes = [
       { path: 'dashboard/student', component: StudentDashboardComponent },
       { path: 'dashboard/student/profile', component: StudentProfile },
       { path: 'dashboard/student/Scourses', component: StudentCourses },
-      
+      {path:'dashboard/student/s-attendance',component:SAttendanceComponent},
+      {path:'dashboard/student/request',component:RequestComponent},
+      {path:"dashboard/student/acheive",component:AchieveComponent},
       { path: 'dashboard/student/courseregistration', component:CourseRegistrationComponent },
       { path: 'dashboard/student/classrooms', component: ClassroomsComponent },
       { path: 'dashboard/student/exams', component: StudentExams },
@@ -69,7 +78,9 @@ const routes: Routes = [
       { path: 'dashboard/faculty/feedback', component: FacultyFeedback },
       {path:'dashboard/faculty/indent',component:IndentformComponent},
       {path:'dashboard/faculty/purchase',component:PurchaseComponent},
-
+      {path:'dashboard/faculty/attendance',component:AttendanceComponent},
+      {path:'dashboard/faculty/f-academic',component:FAcademicsComponent},
+      {path:'dashboard/faculty/manage',component:ManageComponent},
       // Management Routes
       { path: 'dashboard/management', component: ManagementDashboardComponent },
       { path: 'dashboard/management/manage-users', component: ManageUsersComponent },

@@ -8,6 +8,9 @@ import { FeedbackComponent} from './F-components/feedback/feedback.component';
 import { ClassroomComponent } from './F-components/classroom/classroom.component';
 import { IndentformComponent } from './F-components/indentform/indentform.component';
 import { PurchaseComponent } from './F-components/purchase/purchase.component';
+import { AttendanceComponent } from './F-components/attendance/attendance.component';
+import { FAcademicsComponent } from './F-components/f-academics/f-academics.component';
+import { ManageComponent } from './F-components/manage/manage.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'profile', pathMatch: 'full' },
@@ -18,7 +21,10 @@ const routes: Routes = [
   { path: 'feedback', component: FeedbackComponent },
   { path: 'classroom', component: ClassroomComponent },
   {path: 'indent',component:IndentformComponent},
-  {path:'purchase',component:PurchaseComponent}
+  {path:'purchase',component:PurchaseComponent},
+  {path:'attendance',component:AttendanceComponent},
+  {path:'f-academic',component:FAcademicsComponent},
+  {path:'manage',component:ManageComponent}
 ];
 
 @NgModule({
