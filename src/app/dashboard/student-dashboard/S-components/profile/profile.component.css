@@ -1,54 +1,32 @@
-/* Global Styles */
-html, body {
+/* Main Profile Container */
+.profile-container {
     width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    background-color: #5db2f7 !important;
+    margin: auto;
+    padding: 20px;
+    background: #5db2f7;
+    font-family: 'Arial', sans-serif;
 }
 
-/* Profile Container */
-.profile-container {
-    max-width: 1100px;
-    margin: 0 auto;
-    background: #5db2f7;
-    border-radius: 10px;
-    padding: 20px;
-    min-height: calc(100vh - 40px); /* Fill full screen */
-    box-sizing: border-box;
-    overflow: hidden;
-  }
-  
-/* Profile Header */
+/* Profile Header: Two Parts */
 .profile-header {
-    width:100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Separate left and right sections */
     align-items: center;
     padding: 20px;
     background: linear-gradient(135deg, #007bff, #0056b3);
     color: white;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    flex-wrap: wrap;
 }
-.profile-sections {
-width:100%;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-    margin-top: 20px;
-    padding-bottom: 20px;
-  }
-  
-/* Left Section: Welcome Message */
+
+/* Left Part: Welcome Message */
 .profile-welcome {
     flex: 1;
     padding-right: 20px;
 }
 
 .profile-welcome h1 {
-    font-size: 24px;
+    font-size: 26px;
     margin-bottom: 10px;
     text-transform: capitalize;
 }
@@ -58,22 +36,21 @@ width:100%;
     opacity: 0.9;
 }
 
-/* Right Section: Profile Picture & Info */
+/* Right Part: Profile Info (Image + Details) */
 .profile-info-container {
     display: flex;
     align-items: center;
     gap: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
 }
 
-/* Profile Picture */
+
+/* Circular Profile Picture */
 .profile-pic {
-    width: 90px;
-    height: 90px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     overflow: hidden;
-    border: 4px solid white;
+    border: 4px solid #5db2f7;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -93,7 +70,7 @@ width:100%;
 
 .profile-info h2 {
     margin: 0;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
     text-transform: uppercase;
 }
@@ -106,9 +83,10 @@ width:100%;
 /* Profile Sections */
 .profile-sections {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
     margin-top: 20px;
+    justify-content: center;
 }
 
 /* Profile Cards */
@@ -119,9 +97,9 @@ width:100%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     transition: all 0.3s ease-in-out;
     text-align: left;
-    border-top: 4px solid #007bff;
     position: relative;
     overflow: hidden;
+    border-top: 4px solid #007bff;
 }
 
 /* Gradient effect on top of cards */
@@ -157,62 +135,14 @@ width:100%;
     margin-bottom: 8px;
 }
 
-/* Academic Details Styling */
-.profile-card .academic-details {
-    background: #f1f8ff;
-    border-left: 4px solid #0056b3;
-    padding: 10px;
-    border-radius: 8px;
-    margin-top: 10px;
-}
-
-.academic-details h4 {
-    color: #0056b3;
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 8px;
-}
-
-.academic-details p {
-    font-size: 14px;
-    margin: 4px 0;
-}
-
 /* Hover Effect */
 .profile-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Edit Button */
-.edit-btn-container {
-    text-align: center;
-    margin-top: 20px;
-    padding: 10px;
-}
-
-button {
-    display: block;
-    width: 100%;
-    max-width: 250px;
-    background: #007bff;
-    color: whitesmoke;
-    padding: 12px;
-    border: none;
-    cursor: pointer;
-    border-radius: 10px;
-    font-size: 16px;
-    font-weight: bold;
-    transition: 0.3s ease-in-out;
-    margin: auto;
-}
-
-button:hover {
-    background: #0056b3;
-}
-
-/* 🛠 RESPONSIVE DESIGN 🛠 */
-@media (max-width: 1024px) {
+/* Responsive Design */
+@media (max-width: 768px) {
     .profile-header {
         flex-direction: column;
         text-align: center;
@@ -233,74 +163,31 @@ button:hover {
     }
 
     .profile-sections {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    }
-}
-
-@media (max-width: 768px) {
-    .profile-container {
-        padding: 15px;
-    }
-
-    .profile-header {
-        padding: 12px;
-    }
-
-    .profile-welcome h1 {
-        font-size: 22px;
-    }
-
-    .profile-info h2 {
-        font-size: 16px;
-    }
-
-    .profile-pic {
-        width: 80px;
-        height: 80px;
-    }
-
-    .profile-sections {
         grid-template-columns: 1fr;
     }
-
-    button {
-        width: 100%;
-        max-width: 200px;
-        font-size: 14px;
-        padding: 10px;
-    }
 }
 
-@media (max-width: 480px) {
-    .profile-header {
-        padding: 10px;
-    }
+/* Edit Button */
+.edit-btn-container {
+    text-align: center;
+    margin-top: 20px;
+}
 
-    .profile-welcome h1 {
-        font-size: 20px;
-    }
+button {
+    display: block;
+    width: 20%;
+    background: #007bff;
+    color: whitesmoke;
+    padding: 12px;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: whitesmoke 0.3s;
+    margin: auto;
+}
 
-    .profile-info h2 {
-        font-size: 14px;
-    }
-
-    .profile-pic {
-        width: 70px;
-        height: 70px;
-    }
-
-    .profile-card h3 {
-        font-size: 16px;
-    }
-
-    .profile-card ul li {
-        font-size: 14px;
-    }
-
-    button {
-        width: 100%;
-        max-width: 180px;
-        font-size: 13px;
-        padding: 8px;
-    }
+button:hover {
+    background: #0056b3;
 }

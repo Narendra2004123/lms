@@ -84,6 +84,8 @@ export class RegisterComponent implements OnInit {
       );
   }
   
+  
+  
   fetchDepartments() {
     this.http.get<{ status: boolean, data: Department[] }>(this.authService.DEPARTMENT_URL)
       .subscribe(
@@ -143,8 +145,13 @@ export class RegisterComponent implements OnInit {
   }
   
   updateUserType() {
-    this.identifierLabel = this.userType === 'r3' ? 'Roll No' :
-                           this.userType === 'r2' ? 'Employee ID' : 'Management ID';
+    if (this.userType.startsWith('S')) {
+      this.identifierLabel = 'Roll No';
+    } else if (this.userType.startsWith('ETF')) {
+      this.identifierLabel = 'Employee ID';
+    } else {
+      this.identifierLabel = 'Management ID';
+    }
   }
   
   

@@ -128,20 +128,42 @@ export class OtpVerificationComponent implements OnInit, OnDestroy {
       );
   }
 
+  getDashboardRoute(role: string): string {
+    if (role.startsWith('S')) {
+      return '/dashboard/student';
+    } else if (role.startsWith('ETF')) {
+      return '/dashboard/faculty';
+    } else {
+      return '/dashboard/management/profile';
+    }
+  }
+
   redirectUser(role: string): void {
-    const roleRoutes: Record<string, string> = {
-      'SUG': '/dashboard/student',
-      'ETF': '/dashboard/faculty',
-      'r2': '/dashboard/management/profile'
-    };
+    // const roleRoutes: Record<string, string> = {
+    //   'SUG': '/dashboard/student',
+    //   'ETF': '/dashboard/faculty',
+    //   'r2': '/dashboard/management/profile'
+    // };
+
 
     const normalizedRole = role?.trim();
-    const targetRoute = roleRoutes[normalizedRole];
+
+    let targetRoute = '';
+
+    if (normalizedRole.startsWith('S')) {
+      targetRoute = '/dashboard/student';
+    } else if (normalizedRole.startsWith('ETF')) {
+      targetRoute = '/dashboard/faculty';
+    } else {
+      targetRoute = '/dashboard/management/profile';
+    }
+    // const normalizedRole = role?.trim();
+    // const targetRoute = roleRoutes[normalizedRole];
 
     if (targetRoute) {
       setTimeout(() => {
         this.router.navigateByUrl(targetRoute)
-          .then(() => console.log(`Redirected to ${targetRoute}`))
+          .then(() => console.log("Redirected to ${targetRoute}"))
           .catch(error => {
             console.error('Navigation error:', error);
             this.showToast('Navigation failed. Try again.', 'error');

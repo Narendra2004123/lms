@@ -32,6 +32,7 @@ app-sidebar {
   width: 100%;
   background-color: rgb(251, 251, 252);
   overflow-y: auto;
+  scrollbar-width: none;
 }
 .page-wrapper {
   display: flex;
