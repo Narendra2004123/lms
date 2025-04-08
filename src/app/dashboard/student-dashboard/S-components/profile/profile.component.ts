@@ -99,9 +99,18 @@ export class ProfileComponent implements OnInit {
     if (!this.authToken) {
       this.handleError('Auth token is missing! Please log in again.');
       this.router.navigate(['\home']);
+      this.clearSession();
       return;
     }
     this.fetchProfile();
+  }
+  
+  private clearSession() {
+  
+    this.cookieService.delete('authToken');
+    this.cookieService.delete('userData');
+    this.cookieService.delete('indentDraft');
+    this.router.navigate(['\home']);
   }
   
   loadAuthToken() {
@@ -132,8 +141,25 @@ export class ProfileComponent implements OnInit {
     if (response && response.profile) {
       this.profileData = response.profile;
       this.isLoading = false;
+  
+      if (this.profileData) {
+        const { firstName, middleName, lastName, departmentCode } = this.profileData;
+      
+        // Build full name without undefined/null parts
+        const fullName = [firstName, middleName, lastName].filter(Boolean).join(' ');
+      
+        // Cookie expiry date (1 day from now)
+        const expiryDate = new Date();
+        expiryDate.setDate(expiryDate.getDate() + 1);
+      
+        // Set cookies
+        this.cookieService.set('studentName', fullName, expiryDate, '/');
+        this.cookieService.set('Department', departmentCode || '', expiryDate, '/');
+      }
+      
     }
   }
+  
   
   updateAuthToken(response: any): void {
     const authHeader = response.headers.get('Authorization');

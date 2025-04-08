@@ -14,6 +14,8 @@ import { AuthService } from '../../auth.service';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   authToken: string = '';
+  studentName:string='';
+  departmentCode:string='';
   private logoutSubscription: Subscription | null = null; // Initialize as null
 
   // API URLs
@@ -28,14 +30,25 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private authService:AuthService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.authToken = this.cookieService.get('authToken') || '';
-
+  
     if (!this.authToken) {
       this.handleSessionExpired();
+      this.router.navigate(['/home']);
+      return; // Stop further execution if token is missing
     }
+  
+    // Read student name from cookies
+    const nameFromCookie = this.cookieService.get('studentName');
+    this.studentName = nameFromCookie ? nameFromCookie : 'Student';
+  
+    // Read department code from cookies
+    const departmentFromCookie = this.cookieService.get('Department');
+    this.departmentCode = departmentFromCookie ? departmentFromCookie : 'N/A'; // fallback
   }
-
+  
+  
   logout(event?: Event) {
     if (event) event.preventDefault();
   

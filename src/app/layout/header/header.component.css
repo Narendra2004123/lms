@@ -1,11 +1,12 @@
 .navbar{
   display:flex;
   justify-content:space-between;
+  align-items: center;
 }
 .brand-title {
-  width:200px;
+  width:600px;
   flex:1;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: bold;
   color: rgb(249, 249, 250);
   padding-left: 1rem;
@@ -45,3 +46,19 @@
   cursor: pointer;
   padding: 10px;
   }
+  .user-info {
+    white-space: nowrap;      /* Prevents text wrapping */
+    font-weight: bold;
+    font-size: 15px;
+    margin-left: auto;        /* Pushes to far right */
+    align-self: center;   
+    margin-left: 650px;/* Vertically center in flex container */
+    padding-right: 1rem;      /* Optional: add some right padding */
+    color: white; 
+    font-weight: bold;
+    text-transform:uppercase;
+    font-size:x-large;
+    align-items: flex-end;
+/* Ensure it stands out */
+  }
+  

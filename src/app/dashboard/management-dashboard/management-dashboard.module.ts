@@ -7,7 +7,7 @@ import { ManageUsersComponent } from './M-components/manage-users/manage-users.c
 import { ReportsComponent } from './M-components/reports/reports.component';
 import { CourseManagementComponent } from './M-components/course-management/course-management.component';
 import { FeedbackComponent } from './M-components/feedback/feedback.component';
-import { ProfileComponent } from './M-components/profile/profile.component';
+import { MprofileComponent } from './M-components/mprofile/mprofile.component';
 
 const routes: Routes = [
   { path: '', component: ManagementDashboardComponent  }
@@ -15,12 +15,13 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
+   
     ManagementDashboardComponent,
     ManageUsersComponent,
     ReportsComponent,
     CourseManagementComponent,
     FeedbackComponent,
-    ProfileComponent
+    MprofileComponent,
   ],
   imports: [
     CommonModule,

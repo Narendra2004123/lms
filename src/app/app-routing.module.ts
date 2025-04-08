@@ -41,6 +41,7 @@ import { ManageComponent } from './dashboard/faculty-dashboard/F-components/mana
 
 
 // Management Components
+import { MprofileComponent } from './dashboard/management-dashboard/M-components/mprofile/mprofile.component';
 import { ManageUsersComponent } from './dashboard/management-dashboard/M-components/manage-users/manage-users.component';
 import { ReportsComponent } from './dashboard/management-dashboard/M-components/reports/reports.component';
 import { CourseManagementComponent } from './dashboard/management-dashboard/M-components/course-management/course-management.component';
@@ -83,6 +84,7 @@ const routes: Routes = [
       {path:'dashboard/faculty/manage',component:ManageComponent},
       // Management Routes
       { path: 'dashboard/management', component: ManagementDashboardComponent },
+      {path:'dashboard/management/mprofile',component:MprofileComponent},
       { path: 'dashboard/management/manage-users', component: ManageUsersComponent },
       { path: 'dashboard/management/reports', component: ReportsComponent },
       { path: 'dashboard/management/course-management', component: CourseManagementComponent },

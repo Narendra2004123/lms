@@ -38,13 +38,13 @@ interface NonTeachingProfile {
 }
 
 @Component({
-  selector: 'app-nt-profile',
+  selector: 'app-mprofile',
   standalone: true,
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css'],
+  templateUrl: './mprofile.component.html',
+  styleUrls: ['./mprofile.component.css'], // ✅ fixed from styleUrl to styleUrls
   imports: [CommonModule],
 })
-export class NtprofileComponent implements OnInit {
+export class MprofileComponent implements OnInit {
   authToken: string = '';
   profileData: NonTeachingProfile | null = null;
   isLoading: boolean = true;
