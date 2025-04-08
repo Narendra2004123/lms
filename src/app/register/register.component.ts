@@ -247,6 +247,7 @@ export class RegisterComponent implements OnInit {
         console.error('Registration error:', error);
         this.showToast('Error registering. Please try again.', 3000);
         this.loadCaptcha();
+        this.loading=false;
       },
       complete: () => {
         this.loading = false; // Ensuring loading stops after execution

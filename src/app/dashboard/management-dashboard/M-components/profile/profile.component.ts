@@ -1,48 +1,123 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { isPlatformBrowser, CommonModule } from '@angular/common';
+import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from '../../../../auth.service';
+import { Router } from '@angular/router';
+
+interface Address {
+  address1?: string;
+  address2?: string;
+  address3?: string;
+  district?: string;
+  current_state?: string;
+  country?: string;
+  pincode?: string;
+}
+
+interface NonTeachingProfile {
+  name: string;
+  designation: string;
+  department: string;
+  section: string;
+  gender: string;
+  dob: string;
+  contactNumber: string;
+  email: string;
+  nationality: string;
+  joiningDate: string;
+  employmentType: string;
+  reportingAuthority: string;
+  location: string;
+  functionalArea: string;
+  responsibilities: string;
+  qualification: string;
+  experienceYears: number;
+  permanentAddress?: Address;
+  currentAddress?: Address;
+}
 
 @Component({
-  selector: 'app-profile',
-  standalone: false,
+  selector: 'app-nt-profile',
+  standalone: true,
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.css'
+  styleUrls: ['./profile.component.css'],
+  imports: [CommonModule],
 })
 export class NtprofileComponent implements OnInit {
-    staff: any = {
-      name: 'Rajesh Kumar',
-      Emp_id: 'NT12345',
-      designation: 'Office Superintendent - Admin',
-      department: 'Administration',
-  
-      dob: '1980-05-12',
-      gender: 'Male',
-      contact_number: '+91-9876543210',
-      email: 'rajesh.kumar@iipe.ac.in',
-      nationality: 'Indian',
-  
-      joining_date: '2010-07-01',
-      employment_type: 'Permanent',
-      reporting_authority: 'Registrar',
-      location: 'Main Campus',
-  
-      section: 'Admin Section',
-      functional_area: 'Administrative Management',
-      responsibilities: 'Overseeing office operations, record maintenance, coordination with departments',
-  
-      qualification: 'M.A. in Public Administration',
-      certifications: 'Office Procedures, Government Accounting',
-      Experience: '10 years',
-      previous_experience: 'Worked as Admin Assistant at XYZ University for 5 years',
-  
-      permanent_address: '123, New Colony, Visakhapatnam, Andhra Pradesh - 530001',
-      current_address: 'Staff Quarters, Block B, IIPE Campus, Visakhapatnam, Andhra Pradesh - 530003'
-    };
-  
-    constructor() { }
-  
-    ngOnInit(): void {}
-  
-    editProfile(): void {
-      alert('Redirecting to profile edit form...');
-      // Navigate to an edit page or open a modal form (implement based on your routing)
+  authToken: string = '';
+  profileData: NonTeachingProfile | null = null;
+  isLoading: boolean = true;
+  errorMessage: string = '';
+
+  constructor(
+    private cookieService: CookieService,
+    private http: HttpClient,
+    private authService: AuthService,
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: object
+  ) {}
+
+  ngOnInit(): void {
+    this.loadAuthToken();
+    if (!this.authToken) {
+      this.handleError('Auth token is missing! Please log in again.');
+      this.router.navigate(['/home']);
+      return;
+    }
+    this.fetchProfile();
+  }
+
+  loadAuthToken(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.authToken = this.cookieService.get('authToken') || '';
+      console.log('Loaded authToken:', this.authToken);
     }
   }
+
+  fetchProfile(): void {
+    const currentToken = this.cookieService.get('authToken') || '';
+    this.http.get<{ profile: NonTeachingProfile }>(`${this.authService.NT_URL}`, {
+      headers: { Authorization: `Bearer ${currentToken}` },
+      observe: 'response',
+    }).subscribe({
+      next: (response) => {
+        this.updateAuthToken(response);
+        this.handleSuccess(response.body);
+      },
+      error: (error: HttpErrorResponse) => {
+        this.handleError(error.message || 'Failed to load staff profile.');
+      }
+    });
+  }
+
+  updateAuthToken(response: any): void {
+    const authHeader = response.headers.get('Authorization');
+    if (authHeader?.startsWith('Bearer ')) {
+      const newToken = authHeader.split(' ')[1];
+      if (newToken && isPlatformBrowser(this.platformId)) {
+        const expiry = new Date();
+        expiry.setMinutes(expiry.getMinutes() + 30);
+        this.cookieService.set('authToken', newToken, expiry, '/', '', false, 'Strict');
+        console.log('🔄 Token updated with expiry:', newToken);
+      }
+    }
+  }
+
+  handleSuccess(response: any): void {
+    if (response && response.profile) {
+      this.profileData = response.profile;
+      this.isLoading = false;
+    }
+  }
+
+  handleError(message: string): void {
+    console.error('Error fetching non-teaching profile:', message);
+    this.errorMessage = message;
+    this.isLoading = false;
+  }
+
+  editProfile(): void {
+    alert('Redirecting to non-teaching profile edit form...');
+  }
+}

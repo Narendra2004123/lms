@@ -155,7 +155,7 @@ export class OtpVerificationComponent implements OnInit, OnDestroy {
     } else if (normalizedRole.startsWith('ETF')) {
       targetRoute = '/dashboard/faculty';
     } else {
-      targetRoute = '/dashboard/management/profile';
+      targetRoute = '/dashboard/management';
     }
     // const normalizedRole = role?.trim();
     // const targetRoute = roleRoutes[normalizedRole];

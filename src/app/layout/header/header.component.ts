@@ -65,7 +65,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
           if (response.status) {
             console.log('✅ Logged out successfully:', response.message); // should be "Session Deleted Successfully."
             this.clearSession();
-            this.router.navigate(['/login']);
+            this.router.navigate(['/land']);
           } else {
             console.error('❌ Logout failed from server:', response.message);
             this.showToast('Logout failed. Please try again.');

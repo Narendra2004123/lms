@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from '../../../../auth.service';
+import { Router } from '@angular/router';
 
 interface Address {
   address1?: string;
@@ -51,6 +52,7 @@ export class ProfileComponent implements OnInit {
     private cookieService: CookieService,
     private http: HttpClient,
     private authService: AuthService,
+    private router:Router,
     @Inject(PLATFORM_ID) private platformId: object
   ) {}
 
@@ -58,6 +60,7 @@ export class ProfileComponent implements OnInit {
     this.loadAuthToken();
     if (!this.authToken) {
       this.handleError('Auth token is missing! Please log in again.');
+      this.router.navigate(['/home']);
       return;
     }
     this.fetchFacultyProfile();

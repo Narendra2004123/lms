@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../../../../auth.service';
 import { isPlatformBrowser,CommonModule } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 // Define the structure of the profile data
 interface Profile {
@@ -84,6 +85,7 @@ export class ProfileComponent implements OnInit {
   constructor(
     private cookieService:CookieService,
     private http: HttpClient,
+    private router:Router,
     private authService: AuthService,
     @Inject(PLATFORM_ID) private platformId: object
   ) {}
@@ -96,6 +98,7 @@ export class ProfileComponent implements OnInit {
     console.log(this.cookieService.get('authToken'));
     if (!this.authToken) {
       this.handleError('Auth token is missing! Please log in again.');
+      this.router.navigate(['\home']);
       return;
     }
     this.fetchProfile();

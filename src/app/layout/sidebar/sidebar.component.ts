@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { CookieService } from 'ngx-cookie-service';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 interface MenuItem {
   menuId: string;
@@ -31,6 +32,7 @@ export class SidebarComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private cookieService: CookieService,
+    private router:Router,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
@@ -43,6 +45,7 @@ export class SidebarComponent implements OnInit {
     if (!currentToken) {
       this.errorMessage = 'Auth token is missing! Please log in again.';
       this.loading = false;
+      this.router.navigate(['/home']);
       return;
     }
 
