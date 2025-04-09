@@ -4,38 +4,56 @@
     padding: 5px 0;
     text-align: center;
     border-top: 8px solid #7b8bf3 ;
-}
-
-.footer-container {
+  }
+  
+  .footer-container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
     max-width: 900px;
     margin: 0 auto;
-}
-
-.footer-column {
-    flex: 1;
-    padding: 5px;
+    margin-bottom: 0px;
+    overflow-x: hidden;
+  }
+  
+  .footer-column {
+    flex: 1 1 250;
+    min-width: 200px;
+    padding: 0px;
     text-align: left;
-}
-
-.footer-column h4 {
-    margin-bottom: 8px;
+  }
+  
+  .footer-column h4 {
+    margin-bottom: 6+px;
     font-size: 18px;
-}
-
-.footer-column p {
+  }
+  
+  .footer-column p {
     font-size: 14px;
     line-height: 1.6;
-}
-
-.footer-column a {
+  }
+  
+  .footer-column a {
     color: rgb(172, 213, 251);
     text-decoration: none;
     font-weight: bold;
-}
-
-.footer-column a:hover {
+  }
+  
+  .footer-column a:hover {
     text-decoration: None;
-}
+  }
+
+.lab-check .lab-link {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #0cef3d;
+    color: #100101;
+    font-weight: 500;
+    border-radius: 5px;
+    text-decoration: none;
+  }
+  
+  .lab-check .lab-link:hover {
+    background-color: #00b894;
+  }

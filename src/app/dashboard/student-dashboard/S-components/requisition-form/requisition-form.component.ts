@@ -3,6 +3,7 @@ import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-requisition-form',
@@ -27,7 +28,7 @@ export class RequisitionFormComponent implements OnInit {
     licenseOS: '',
     fromDate: '',
     toDate: '',
-    submittedAt:''
+    submittedAt: ''
   };
 
   submitted = false;
@@ -38,6 +39,7 @@ export class RequisitionFormComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private cookieService: CookieService,
+    private snackBar: MatSnackBar,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
@@ -69,15 +71,48 @@ export class RequisitionFormComponent implements OnInit {
         this.submitted = true;
         this.responseMessage = response.body || '';
         this.isError = false;
-        this.updateAuthToken(response); // In case token is rotated
+        this.updateAuthToken(response);
         console.log('✅ Form submitted:', response);
+        this.showToast("Form Submitted");
+
+        // ✅ Reset form after submission
+        this.resetForm();
       },
       error: (error) => {
         this.submitted = true;
         this.responseMessage = 'Error: ' + (error.error || error.message);
         this.isError = true;
-        console.error('❌ Error submitting form:', error);
+        this.showToast('❌ Error submitting form: ' + error.message);
       }
+    });
+  }
+
+  resetForm(): void {
+    this.user = {
+      name: '',
+      programme: '',
+      rollNo: '',
+      branch: '',
+      specialization: '',
+      email: '',
+      mobile: '',
+      accommodation: '',
+      purpose: '',
+      remoteAccess: '',
+      required_software: '',
+      licenseOS: '',
+      fromDate: '',
+      toDate: '',
+      submittedAt: ''
+    };
+  }
+
+  showToast(message: string, duration: number = 3000) {
+    this.snackBar.open(message, 'Close', {
+      duration,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      panelClass: ['custom-toast']
     });
   }
 

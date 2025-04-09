@@ -22,5 +22,5 @@ public PUBLIC_URL='http://localhost:8081/public'
   public DEPARTMENT_URL=`${this.PUBLIC_URL}/department`;
   public LOGOUT_URL=`${this.BASE_URL}/logout`;
   public FAC_URL=`${this.DASHBOARD_URL}/faculty/profile`;
-  public NT_URL=`${this.DASHBOARD_URL}/nonteaching/profile`;
+  public NT_URL=`${this.DASHBOARD_URL}/management/mprofile`;
 }

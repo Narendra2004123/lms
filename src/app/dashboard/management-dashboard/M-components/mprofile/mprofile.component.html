@@ -1,1 +1,99 @@
-<p>mprofile works!</p>
+<div class="profile-container" *ngIf="!isLoading && profileData">
+    <!-- Profile Header -->
+    <div class="profile-header">
+      <!-- Left: Welcome Message -->
+      <div class="profile-welcome">
+        <h1>Welcome, {{ profileData.name }}! 👋</h1>
+        <p>Here’s a snapshot of your role, responsibilities, and official records.</p>
+      </div>
+  
+      <!-- Right: Profile Info -->
+      <div class="profile-info-container">
+        <div class="profile-pic">
+          <img src="/assets/profile.png" alt="Profile Picture">
+        </div>
+        <div class="profile-info">
+          <h2>{{ profileData.name }}</h2>
+          <p><strong>Designation:</strong> {{ profileData.designation }}</p>
+          <p><strong>Department:</strong> {{ profileData.department }}</p>
+          <p><strong>Section:</strong> {{ profileData.section }}</p>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Profile Sections -->
+    <div class="profile-sections">
+      <!-- Personal Info -->
+      <div class="profile-card">
+        <h3>👤 Personal Information</h3>
+        <ul>
+          <li><strong>Date of Birth:</strong> {{ profileData.dob }}</li>
+          <li><strong>Gender:</strong> {{ profileData.gender }}</li>
+          <li><strong>Contact:</strong> 📞 {{ profileData.contactNumber }}</li>
+          <li><strong>Email:</strong> ✉ {{ profileData.email }}</li>
+          <li><strong>Nationality:</strong> {{ profileData.nationality }}</li>
+        </ul>
+      </div>
+  
+      <!-- Employment Info -->
+      <div class="profile-card">
+        <h3>🏢 Employment Details</h3>
+        <ul>
+          <li><strong>Date of Joining:</strong> {{ profileData.joiningDate }}</li>
+          <li><strong>Employment Type:</strong> {{ profileData.employmentType }}</li>
+          <li><strong>Reporting Authority:</strong> {{ profileData.reportingAuthority }}</li>
+          <li><strong>Posting Location:</strong> {{ profileData.location }}</li>
+        </ul>
+      </div>
+  
+      <!-- Functional Role -->
+      <div class="profile-card">
+        <h3>🛠 Functional Role</h3>
+        <ul>
+          <li><strong>Functional Area:</strong> {{ profileData.functionalArea }}</li>
+          <li><strong>Responsibilities:</strong> {{ profileData.responsibilities }}</li>
+        </ul>
+      </div>
+  
+      <!-- Qualification -->
+      <div class="profile-card">
+        <h3>🎓 Qualifications & Experience</h3>
+        <ul>
+          <li><strong>Qualification:</strong> {{ profileData.qualification }}</li>
+          <li><strong>Experience (Years):</strong> {{ profileData.experienceYears }}</li>
+        </ul>
+      </div>
+  
+      <!-- Address -->
+      <div class="profile-card">
+        <h3>🏠 Address</h3>
+        <ul>
+          <li><strong>Permanent Address:</strong><br>
+            {{ profileData.permanentAddress?.address1 }}<br>
+            {{ profileData.permanentAddress?.address2 }}<br>
+            {{ profileData.permanentAddress?.address3 }}<br>
+            {{ profileData.permanentAddress?.district }},
+            {{ profileData.permanentAddress?.current_state }},
+            {{ profileData.permanentAddress?.country }} - {{ profileData.permanentAddress?.pincode }}
+          </li>
+          <li><strong>Current Address:</strong><br>
+            {{ profileData.currentAddress?.address1 }}<br>
+            {{ profileData.currentAddress?.address2 }}<br>
+            {{ profileData.currentAddress?.address3 }}<br>
+            {{ profileData.currentAddress?.district }},
+            {{ profileData.currentAddress?.current_state }},
+            {{ profileData.currentAddress?.country }} - {{ profileData.currentAddress?.pincode }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  
+    <!-- Edit Profile Button -->
+    <div class="edit-btn-container">
+      <button (click)="editProfile()">Edit Profile</button>
+    </div>
+  </div>
+  
+  <!-- Optional: Loading or Error -->
+  <div *ngIf="isLoading" class="loading-message">Loading profile...</div>
+  <div *ngIf="!isLoading && errorMessage" class="error-message">{{ errorMessage }}</div>

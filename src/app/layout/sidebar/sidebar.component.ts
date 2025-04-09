@@ -25,9 +25,14 @@ interface MenuItem {
   ]
 })
 export class SidebarComponent implements OnInit {
-  sidebarMenu: MenuItem[] = [];
-  errorMessage: string = '';
+
+  
+  userData: any = null;          // For header display
+  sidebarMenu: MenuItem[] = [];  // For sidebar
+  isStudent: boolean = false;    // Role flag
   loading: boolean = true;
+  errorMessage: string = '';
+  
 
   constructor(
     private http: HttpClient,
@@ -54,27 +59,34 @@ export class SidebarComponent implements OnInit {
 
   fetchSidebarMenu(): void {
     const token = this.cookieService.get('authToken');
-    
     console.log('📦 Sending token in request:', token);
-
+  
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
     });
-
+  
     this.http.get<any>('http://localhost:8081/api/login/_next', {
       headers,
       observe: 'response'
     }).subscribe({
       next: (response) => {
         console.log('✅ Response received from sidebar API');
-
-        // 🔄 Extract & update token if provided
         this.updateAuthToken(response);
-
-        // ✅ Safely handle sidebar data
-        const sidebarList = response.body?.data?.sidebarMenu || [];
-        this.sidebarMenu = sidebarList.filter((item: MenuItem) => item.isActive === 'true' || item.isActive === true);
-
+  
+        const data = response.body?.data || {};
+        const userInfo = data?.UserData?.[0] || {};
+        this.userData = userInfo;
+  
+        // Store complete userData in cookie (as string)
+        this.cookieService.set('userData', JSON.stringify(userInfo));
+  
+        this.isStudent = 'program code' in userInfo;
+  
+        const sidebarList = data?.sidebarMenu || [];
+        this.sidebarMenu = sidebarList.filter(
+          (item: MenuItem) => item.isActive === 'true' || item.isActive === true
+        );
+  
         this.loading = false;
       },
       error: (error: HttpErrorResponse) => {
@@ -86,7 +98,8 @@ export class SidebarComponent implements OnInit {
       }
     });
   }
-
+  
+  
   updateAuthToken(response: any): void {
     const authHeader = response.headers.get('Authorization');
     if (authHeader?.startsWith('Bearer ')) {

@@ -1,97 +1,84 @@
-<div class="container">
-    <form (ngSubmit)="onSubmit()">
-        <h4 class="approval-status">Purchase Form</h4>
-
-        <h6>
-            <label>
-                <input type="radio" [(ngModel)]="purchaseFormData.approvalStatus" name="approvalStatus" value="approved" required />
-                Approved
-            </label>&nbsp;&nbsp;&nbsp;
-            <label>
-                <input type="radio" [(ngModel)]="purchaseFormData.approvalStatus" name="approvalStatus" value="Not Approved" required />
-                Not Approved
-            </label>
-            <br /><br />
-
-            <label>
-                <span>Indent Number:</span>
-                <input type="text" [(ngModel)]="purchaseFormData.indentNumber" name="indentNumber" placeholder="Enter Indent Number" required />
-                <span class="error" *ngIf="!isValidIndentNumber() && purchaseFormData.indentNumber">
-                    Invalid Indent Number (e.g., IND1234, A12B34)
-                </span>
-            </label>
-        </h6>
-
-        <p class="note">
-            *If Indenter and approving authority are the same, then approval should be taken from the next higher authority
-            i.e., HoD/Dean(s)/Registrar/Director as per delegation of financial powers.
-        </p>
-
-        <!-- Certification Section -->
-        <div class="certificate-section">
-            <label class="certificate-button">Certificate</label><br />
-            <p>It is certified that the stock is not available in the stores.</p><br /><br />
-            <p class="signature-label">Signature with date of Indenter</p>
+<div class="container" id="content">
+    <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+      <h4 class="approval-status">Purchase Form</h4>
+  
+      <br /><br />
+      <label>
+        <span>Indent Number:<span class="required-star">* </span></span>
+        <input
+          type="text"
+          name="indentNumber"
+          [(ngModel)]="indentNumber"
+          required
+          pattern="^[A-Za-z0-9/._-]+$"
+          placeholder="Enter Indent Number"
+          #indentNumberModel="ngModel"
+        />
+        <span class="error" *ngIf="indentNumberModel.invalid && indentNumberModel.touched">
+          Invalid Indent Number (e.g., IND1234, A12B34)
+        </span>
+      </label>
+  
+      <!-- F&A Division Section -->
+      <div class="fa-section">
+        <div class="fa-title">For use by F&A Division</div>
+        <div class="checkbox-section">
+          <input
+            type="checkbox"
+            name="budgetHeadChecked"
+            [(ngModel)]="budgetHeadChecked"
+            id="budgetHeadChecked"
+          />
+          Verified that the indented item is in the list of items sanctioned by competent authority
+          under Budget Head
+  
+          <input
+            type="text"
+            name="budgetHead"
+            [(ngModel)]="budgetHead"
+            placeholder="Enter Budget Head"
+            [disabled]="!budgetHeadChecked"
+          />
+          & the same has been noted in this division.
         </div>
-
-        <!-- F&A Division Section -->
-        <div class="fa-section">
-            <div class="fa-title">For use by F&A Division</div>
-            <div class="checkbox-section">
-                <label>
-                    <input type="checkbox" [(ngModel)]="purchaseFormData.budgetHeadChecked" name="budgetHeadChecked" />
-                    Verified that the indented item is in the list of items sanctioned by competent authority under Budget Head
-                    <input type="text" [(ngModel)]="purchaseFormData.budgetHead" name="budgetHead" [disabled]="!purchaseFormData.budgetHeadChecked" placeholder="Enter Budget Head" />
-                    & the same has been noted in this division.
-                </label>
-
-                <label>
-                    <input type="checkbox" [(ngModel)]="purchaseFormData.fundsAvailableChecked" name="fundsAvailableChecked" />
-                    Necessary funds are available to process this item.
-                </label>
-            </div>
-        </div>
-
-        <!-- Table Section -->
-        <table>
-            <thead>
-                <tr>
-                    <th>Nature of item (consumable/non-consumable)</th>
-                    <th>Budget allocated</th>
-                    <th>Total amount of indents (duly revised) including the present</th>
-                    <th>Balance Available</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <select [(ngModel)]="purchaseFormData.natureOfItem" name="natureOfItem" required>
-                            <option value="Consumable">Consumable</option>
-                            <option value="Non-Consumable">Non-Consumable</option>
-                        </select>
-                    </td>
-                    <td>
-                        <input type="number" [(ngModel)]="purchaseFormData.budgetAllocated" name="budgetAllocated" min="0" required />
-                    </td>
-                    <td>
-                        <input type="number" [(ngModel)]="purchaseFormData.totalAmount" name="totalAmount" min="0" required />
-                    </td>
-                    <td>
-                        <input type="number" [(ngModel)]="purchaseFormData.balanceAvailable" name="balanceAvailable" min="0" required />
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <br /><br /><br /><br /><br />
-
-        <!-- Signature Section -->
-        <div class="signature-footer">
-            <p><strong>Dealing Assistant/ Accountant</strong></p>
-            <p><strong>Signature of Superintendent (Accounts)/ AR[Forwarded to S&P Section]</strong></p>
-            <p><strong>Signature of *HoD/Dean(s)/Registrar/Director</strong></p>
-        </div>
-
-        <!-- Submit Button -->
-        <button type="submit" class="submit-button">Submit Form</button>
+      </div>
+  
+      <!-- Table Section -->
+      <table>
+        <thead>
+          <tr>
+            <th>Nature of item (consumable/non-consumable)</th>
+            <th>Budget allocated</th>
+            <th>Total amount of indents (duly revised) including the present</th>
+            <th>Balance Available</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <select name="natureOfItem" [(ngModel)]="natureOfItem" required>
+                <option value="" disabled selected>Select Item Type</option>
+                <option value="Consumable">Consumable</option>
+                <option value="Non-Consumable">Non-Consumable</option>
+              </select>
+            </td>
+            <td>
+              <input type="number" name="budgetAllocated" [(ngModel)]="budgetAllocated" min="0" required />
+            </td>
+            <td>
+              <input type="number" name="totalAmount" [(ngModel)]="totalAmount" min="0" required />
+            </td>
+            <td>
+              <input type="number" name="balanceAvailable" [(ngModel)]="balanceAvailable" min="0" required />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  
+      <br /><br /><br /><br /><br />
+  
+      <!-- Submit Button -->
+      <button type="submit" class="no-print">Submit Form</button>
     </form>
-</div>
+  </div>
+  

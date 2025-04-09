@@ -30,14 +30,14 @@ import { SAttendanceComponent } from './dashboard/student-dashboard/S-components
 // Faculty Components
 import { ProfileComponent as FacultyProfile } from './dashboard/faculty-dashboard/F-components/profile/profile.component';
 import { CoursesComponent as FacultyCourses } from './dashboard/faculty-dashboard/F-components/courses/courses.component';
-import { ScheduleComponent } from './dashboard/faculty-dashboard/F-components/schedule/schedule.component';
 import { ExamsComponent as FacultyExams } from './dashboard/faculty-dashboard/F-components/exams/exams.component';
 import { FeedbackComponent as FacultyFeedback } from './dashboard/faculty-dashboard/F-components/feedback/feedback.component';
-import { IndentformComponent } from './dashboard/faculty-dashboard/F-components/indentform/indentform.component';
+import { IndentFormComponent } from './dashboard/faculty-dashboard/F-components/indentform/indentform.component';
 import { PurchaseComponent } from './dashboard/faculty-dashboard/F-components/purchase/purchase.component';
 import { AttendanceComponent } from './dashboard/faculty-dashboard/F-components/attendance/attendance.component';
 import { FAcademicsComponent } from './dashboard/faculty-dashboard/F-components/f-academics/f-academics.component';
 import { ManageComponent } from './dashboard/faculty-dashboard/F-components/manage/manage.component';
+import { StockregisterComponent } from './dashboard/faculty-dashboard/F-components/stockregister/stockregister.component';
 
 
 // Management Components
@@ -74,14 +74,14 @@ const routes: Routes = [
       { path: 'dashboard/faculty', component: FacultyDashboardComponent },
       { path: 'dashboard/faculty/profile', component: FacultyProfile },
       { path: 'dashboard/faculty/courses', component: FacultyCourses },
-      { path: 'dashboard/faculty/schedule', component: ScheduleComponent },
       { path: 'dashboard/faculty/exams', component: FacultyExams },
       { path: 'dashboard/faculty/feedback', component: FacultyFeedback },
-      {path:'dashboard/faculty/indent',component:IndentformComponent},
+      {path:'dashboard/faculty/indent',component:IndentFormComponent},
       {path:'dashboard/faculty/purchase',component:PurchaseComponent},
       {path:'dashboard/faculty/attendance',component:AttendanceComponent},
       {path:'dashboard/faculty/f-academic',component:FAcademicsComponent},
       {path:'dashboard/faculty/manage',component:ManageComponent},
+      {path:'dashboard/faculty/stock-register',component:StockregisterComponent},
       // Management Routes
       { path: 'dashboard/management', component: ManagementDashboardComponent },
       {path:'dashboard/management/mprofile',component:MprofileComponent},

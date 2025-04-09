@@ -14,8 +14,14 @@ import { AuthService } from '../../auth.service';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   authToken: string = '';
-  studentName:string='';
-  departmentCode:string='';
+  studentName: string = '';
+  departmentCode: string = '';
+  userRole: string = '';         // New: role like 'Student', 'Faculty', etc.
+  // email: string = '';            // Optional: email ID
+  // userId: string = '';           // Optional: unique user id
+  designation: string = '';      // For staff/faculty
+  programCode: string = '';      // Only for students
+  
   private logoutSubscription: Subscription | null = null; // Initialize as null
 
   // API URLs
@@ -36,17 +42,34 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (!this.authToken) {
       this.handleSessionExpired();
       this.router.navigate(['/home']);
-      return; // Stop further execution if token is missing
+      return;
     }
   
-    // Read student name from cookies
-    const nameFromCookie = this.cookieService.get('studentName');
-    this.studentName = nameFromCookie ? nameFromCookie : 'Student';
+    const userDataRaw = this.cookieService.get('userData');
   
-    // Read department code from cookies
-    const departmentFromCookie = this.cookieService.get('Department');
-    this.departmentCode = departmentFromCookie ? departmentFromCookie : 'N/A'; // fallback
+    if (userDataRaw) {
+      try {
+        const userData = JSON.parse(userDataRaw);
+        
+        // Extract name and department depending on student or staff
+        if ('program code' in userData) {
+          this.studentName = userData.name || 'Student';
+          this.departmentCode = userData['program code'] || 'N/A';
+        } else {
+          this.studentName = userData.name || 'User';
+          this.departmentCode = userData.department || 'N/A';
+        }
+      } catch (error) {
+        console.error('❌ Error parsing userData cookie:', error);
+        this.studentName = 'Unknown';
+        this.departmentCode = 'Unknown';
+      }
+    } else {
+      this.studentName = 'Guest';
+      this.departmentCode = 'N/A';
+    }
   }
+  
   
   
   logout(event?: Event) {
