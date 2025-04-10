@@ -14,6 +14,8 @@ import { FAcademicsComponent } from './F-components/f-academics/f-academics.comp
 import { ManageComponent } from './F-components/manage/manage.component';
 import { IndentFormComponent } from './F-components/indentform/indentform.component';
 import { StockregisterComponent } from './F-components/stockregister/stockregister.component';
+import { RequestlistComponent } from './F-components/requestlist/requestlist.component';
+import { CallenderComponent } from './F-components/callender/callender.component';
 const routes: Routes = [
   { path: '', component: FacultyDashboardComponent  }
 ];
@@ -31,7 +33,8 @@ const routes: Routes = [
     ManageComponent,
     IndentFormComponent,
     StockregisterComponent,
-    
+    RequestlistComponent,
+    CallenderComponent,
   ],
   imports: [
     CommonModule,

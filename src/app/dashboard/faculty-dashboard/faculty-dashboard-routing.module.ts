@@ -11,6 +11,8 @@ import { AttendanceComponent } from './F-components/attendance/attendance.compon
 import { FAcademicsComponent } from './F-components/f-academics/f-academics.component';
 import { ManageComponent } from './F-components/manage/manage.component';
 import { StockregisterComponent } from './F-components/stockregister/stockregister.component';
+import { RequestlistComponent } from './F-components/requestlist/requestlist.component';
+import { CallenderComponent } from './F-components/callender/callender.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'profile', pathMatch: 'full' },
@@ -24,7 +26,9 @@ const routes: Routes = [
   {path:'attendance',component:AttendanceComponent},
   {path:'f-academic',component:FAcademicsComponent},
   {path:'manage',component:ManageComponent},
-  {path:'stock-register',component:StockregisterComponent}
+  {path:'stock-register',component:StockregisterComponent},
+  {path:'request-list',component:RequestlistComponent},
+  {path:'callender',component:CallenderComponent},
 ];
 
 @NgModule({

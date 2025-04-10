@@ -46,9 +46,9 @@ import { ManageUsersComponent } from './dashboard/management-dashboard/M-compone
 import { ReportsComponent } from './dashboard/management-dashboard/M-components/reports/reports.component';
 import { CourseManagementComponent } from './dashboard/management-dashboard/M-components/course-management/course-management.component';
 import { FeedbackComponent as ManagementFeedback } from './dashboard/management-dashboard/M-components/feedback/feedback.component';
-import { listenerCount } from 'process';
 import { ListComponent } from './dashboard/student-dashboard/S-components/list/list.component';
-
+import { RequestlistComponent } from './dashboard/faculty-dashboard/F-components/requestlist/requestlist.component';
+import { CallenderComponent } from './dashboard/faculty-dashboard/F-components/callender/callender.component';
 
 
 // Student Components
@@ -86,6 +86,8 @@ const routes: Routes = [
       {path:'dashboard/faculty/f-academic',component:FAcademicsComponent},
       {path:'dashboard/faculty/manage',component:ManageComponent},
       {path:'dashboard/faculty/stock-register',component:StockregisterComponent},
+      {path:'dashboard/faculty/request-list',component:RequestlistComponent},
+      {path:'dashboard/faculty/callender',component:CallenderComponent},
       
       // Management Routes
       { path: 'dashboard/management', component: ManagementDashboardComponent },

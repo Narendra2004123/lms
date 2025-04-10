@@ -1,0 +1,17 @@
+<div class="calendar-wrapper">
+    <full-calendar [ngClass]="calendarOptions"></full-calendar>
+  </div>
+  
+  <div id="eventModal" class="modal">
+    <div class="modal-content">
+      <span class="close-button" (click)="closeModal()">×</span>
+      <h3>Add Event</h3>
+      <p id="selectedTimeDisplay" style="margin-bottom: 10px; font-weight: bold;"></p>
+      <input type="text" [(ngModel)]="newTitle" placeholder="Event Title" />
+      <input type="text" [(ngModel)]="faculty" placeholder="Faculty Name" />
+      <div class="modal-buttons">
+        <button (click)="addEvent()">Add</button>
+      </div>
+    </div>
+  </div>
+  
