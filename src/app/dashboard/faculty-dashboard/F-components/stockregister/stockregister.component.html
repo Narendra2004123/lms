@@ -1,1 +1,225 @@
-<p>stockregister works!</p>
+<div class="container">
+    <h2>Stock Register Form</h2>
+  
+    <form #registerForm="ngForm" (ngSubmit)="submitForm()">
+      <div class="form-group">
+        <b><label>Description of Stores/Items/Goods:<span class="required-star">*</span></label></b>
+        <textarea [(ngModel)]="formData.description" name="description" class="form-control"></textarea>
+      </div>
+  
+      <div class="row">
+        <div class="form-group col">
+          <b><label>Asset No:<span class="required-star">*</span></label></b>
+          <input type="text" [(ngModel)]="formData.assetNumber" name="assetNumber" class="form-control" />
+        </div>
+        <div class="form-group col">
+          <b><label>Qty (Quantity):<span class="required-star">*</span></label></b>
+          <input type="number" [(ngModel)]="formData.quantity" name="quantity" class="form-control" />
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="form-group col">
+          <b><label>UoM:<span class="required-star">*</span></label></b>
+          <select [(ngModel)]="formData.uom" name="uom" class="form-control">
+            <option value="">Select UoM</option>
+            <option *ngFor="let unit of uomOptions" [value]="unit">{{ unit }}</option>
+          </select>
+        </div>
+  
+        <div class="form-group col">
+          <b><label>Unit Rate:<span class="required-star">*</span></label></b>
+          <input type="number" [(ngModel)]="formData.unitRate" name="unitRate" step="0.01" class="form-control" />
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="form-group col">
+          <b><label>GST Percentage:<span class="required-star">*</span></label></b>
+          <input type="number" [(ngModel)]="formData.gstPercentage" name="gstPercentage" step="0.01" min="0" class="form-control" />
+        </div>
+        <div class="form-group col">
+          <b><label>GST Amount:</label></b>
+          <input type="number" [(ngModel)]="formData.gstAmount" name="gstAmount" step="0.01" class="form-control" readonly />
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="form-group col">
+          <b><label>Unit Rate Include GST:</label></b>
+          <input type="number" [(ngModel)]="formData.unitRateWithGST" name="unitRateWithGST" step="0.01" class="form-control" readonly />
+        </div>
+        <div class="form-group col">
+          <b><label>Total Value with GST:</label></b>
+          <input type="number" [(ngModel)]="formData.totalValue" name="totalValue" step="0.01" class="form-control" readonly />
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="form-group col">
+          <b><label>Serial Number:<span class="required-star">*</span></label></b>
+          <input type="text" [(ngModel)]="formData.serialNumber" name="serialNumber" class="form-control" />
+        </div>
+        <div class="form-group col">
+          <b><label>Cost of Capitalization:<span class="required-star">*</span></label></b>
+          <input type="number" [(ngModel)]="formData.capitalizationCost" name="capitalizationCost" step="0.01" class="form-control" />
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="form-group col">
+          <b><label>Date of Capitalization:<span class="required-star">*</span></label></b>
+          <input type="date" [(ngModel)]="formData.capitalizationDate" name="capitalizationDate" class="form-control" />
+        </div>
+        <div class="form-group col">
+          <b><label>Purchase Channel:<span class="required-star">*</span></label></b>
+          <select [(ngModel)]="formData.purchaseChannel" name="purchaseChannel" class="form-control">
+            <option value="">Select Purchase Channel</option>
+            <option value="PAC">PAC</option>
+            <option value="GEM">GEM</option>
+            <option value="LPC">LPC</option>
+            <option value="Direct Purchase">Direct Purchase</option>
+          </select>
+        </div>
+      </div>
+  
+      <div *ngIf="isDirectPurchase" class="row">
+        <div class="form-group col">
+          <label>Indent Number:</label>
+          <input type="text" [(ngModel)]="formData.indentNumber" name="indentNumber" class="form-control" />
+        </div>
+        <div class="form-group col">
+          <label>Date of Purchase:</label>
+          <input type="date" [(ngModel)]="formData.purchaseDate" name="purchaseDate" class="form-control" />
+        </div>
+      </div>
+  
+      <div *ngIf="isOtherPurchase" class="row">
+        <div class="form-group col">
+          <label>Indent Number:</label>
+          <input type="text" [(ngModel)]="formData.indentNumber" name="indentNumber" class="form-control" />
+        </div>
+        <div class="form-group col">
+          <label>PO Number:</label>
+          <input type="text" [(ngModel)]="formData.poNumber" name="poNumber" class="form-control" />
+        </div>
+        <div class="form-group col">
+          <label>PO Date:</label>
+          <input type="date" [(ngModel)]="formData.poDate" name="poDate" class="form-control" />
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="form-group col">
+          <b><label>Date of Receiving the Item(s):<span class="required-star">*</span></label></b>
+          <input type="date" [(ngModel)]="formData.dateOfReceiving" name="dateOfReceiving" class="form-control" />
+        </div>
+        <div class="form-group col">
+          <label>Gate Pass (Allowed: .doc, .docx, .jpg, .png, .pdf):</label>
+          <input type="file" (change)="handleFileUpload($event)" class="form-control" />
+          <small *ngIf="uploadedFileName">Uploaded: {{ uploadedFileName }}</small>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="form-group col">
+          <label>Supplier Name:</label>
+          <input type="text" [(ngModel)]="formData.supplierName" name="supplierName" class="form-control" />
+        </div>
+        <div class="form-group col">
+          <label>Contact Email:</label>
+          <input type="email" [(ngModel)]="formData.supplierEmail" name="supplierEmail" class="form-control" />
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="form-group col">
+          <label>Address:</label>
+          <textarea [(ngModel)]="formData.supplierAddress" name="supplierAddress" class="form-control"></textarea>
+        </div>
+        <div class="form-group col">
+          <label>Phone Number:</label>
+          <input type="text" [(ngModel)]="formData.supplierPhone" name="supplierPhone" class="form-control" />
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label>GST Number:</label>
+        <input type="text" [(ngModel)]="formData.supplierGST" name="supplierGST" class="form-control" />
+      </div>
+  
+      <div class="form-group">
+        <b><label>Warranty Details:<span class="required-star">*</span></label></b><br />
+        <input type="radio" id="warrantyYes" value="yes" name="warranty" (change)="toggleWarranty(true)" />
+        <label for="warrantyYes">Yes</label>
+        <input type="radio" id="warrantyNo" value="no" name="warranty" (change)="toggleWarranty(false)" />
+        <label for="warrantyNo">No</label>
+      </div>
+  
+      <div *ngIf="showWarrantyDetails" class="container border p-3 mt-3">
+        <h4>Warranty Details</h4>
+        <div class="form-group">
+          <label>No. of Years:</label>
+          <select [(ngModel)]="formData.warrantyYears" name="warrantyYears" class="form-control">
+            <option value="">Select Years</option>
+            <option *ngFor="let year of warrantyYearsList" [value]="year">{{ year }}</option>
+          </select>
+        </div>
+  
+        <div class="row">
+          <div class="form-group col">
+            <label>From Date:</label>
+            <input type="date" [(ngModel)]="formData.warrantyFromDate" name="warrantyFromDate" class="form-control" />
+          </div>
+          <div class="form-group col">
+            <label>To Date:</label>
+            <input type="date" [(ngModel)]="formData.warrantyToDate" name="warrantyToDate" class="form-control" />
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label>Upload Warranty Certificate:</label>
+          <input type="file" (change)="onFileSelected($event, 'warranty')" accept=".doc,.docx,.jpg,.png,.pdf" class="form-control" />
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <b><label>AMC Details:<span class="required-star">*</span></label></b><br />
+        <input type="radio" id="amcYes" value="yes" name="amc" (change)="onAMCChange('yes')" />
+        <label for="amcYes">Yes</label>
+        <input type="radio" id="amcNo" value="no" name="amc" (change)="onAMCChange('no')" />
+        <label for="amcNo">No</label>
+      </div>
+  
+      <div *ngIf="showAMCDetails" class="container border p-3 mt-3">
+        <h4>AMC Details</h4>
+        <div class="form-group">
+          <label>No. of Years:</label>
+          <select [(ngModel)]="formData.amcYears" name="amcYears" class="form-control">
+            <option value="">Select Years</option>
+            <option *ngFor="let year of amcYearsList" [value]="year">{{ year }}</option>
+          </select>
+        </div>
+  
+        <div class="row">
+          <div class="form-group col">
+            <label>From Date:</label>
+            <input type="date" [(ngModel)]="formData.amcFromDate" name="amcFromDate" class="form-control" />
+          </div>
+          <div class="form-group col">
+            <label>To Date:</label>
+            <input type="date" [(ngModel)]="formData.amcToDate" name="amcToDate" />
+
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label>Upload AMC Document:</label>
+          <input type="file" (change)="onFileSelected($event, 'amc')" accept=".doc,.docx,.jpg,.png,.pdf" class="form-control" />
+        </div>
+      </div>
+  
+      <button type="submit" class="btn btn-primary mt-3">Submit</button>
+    </form>
+  </div>
+formData

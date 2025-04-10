@@ -23,4 +23,8 @@ public PUBLIC_URL='http://localhost:8081/public'
   public LOGOUT_URL=`${this.BASE_URL}/logout`;
   public FAC_URL=`${this.DASHBOARD_URL}/faculty/profile`;
   public NT_URL=`${this.DASHBOARD_URL}/management/mprofile`;
+  public REQUIST_URL=`${this.BASE_URL}/requisition-form/submit`;
+  public LIST_URL=`${this.BASE_URL}/requisition-form/list`;
+  public DOWNLOAD_REQUISITION_URL=`${this.BASE_URL}/requisition-form/download`;
+  public STOCKREGISTER_URL='${this.BASE_URL}/requisition-form/download';
 }

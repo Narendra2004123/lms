@@ -15,6 +15,7 @@ import { RequisitionFormComponent } from './S-components/requisition-form/requis
 import { AchieveComponent } from './S-components/achieve/achieve.component';
 import { SAttendanceComponent } from './S-components/s-attendance/s-attendance.component';
 import { RequestComponent } from './S-components/request/request.component';
+import { ListComponent } from './S-components/list/list.component';
 
 const routes: Routes = [
   { path: '', component: StudentDashboardComponent }
@@ -34,6 +35,7 @@ const routes: Routes = [
     AchieveComponent,
     SAttendanceComponent,
     RequestComponent,
+    ListComponent,
   ],
   imports: [
     CommonModule,

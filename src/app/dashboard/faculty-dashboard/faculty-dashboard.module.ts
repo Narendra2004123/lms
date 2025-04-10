@@ -29,12 +29,12 @@ const routes: Routes = [
     AttendanceComponent,
     FAcademicsComponent,
     ManageComponent,
+    IndentFormComponent,
     StockregisterComponent,
     
   ],
   imports: [
     CommonModule,
-    IndentFormComponent,
     FacultyDashboardRoutingModule,
     RouterModule.forChild(routes),
     FormsModule

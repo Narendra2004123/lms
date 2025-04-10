@@ -37,6 +37,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    // ✅ Get token from cookies
     this.authToken = this.cookieService.get('authToken') || '';
   
     if (!this.authToken) {
@@ -45,20 +46,27 @@ export class HeaderComponent implements OnInit, OnDestroy {
       return;
     }
   
+    // ✅ Load user info from cookie
+    this.loadUserInfoFromCookie();
+  
+    // ✅ Listen to updates from sidebar (optional)
+    window.addEventListener('userDataUpdated', () => {
+      this.loadUserInfoFromCookie();
+    });
+  }
+  
+  loadUserInfoFromCookie(): void {
     const userDataRaw = this.cookieService.get('userData');
   
     if (userDataRaw) {
       try {
         const userData = JSON.parse(userDataRaw);
-        
-        // Extract name and department depending on student or staff
-        if ('program code' in userData) {
-          this.studentName = userData.name || 'Student';
-          this.departmentCode = userData['program code'] || 'N/A';
-        } else {
-          this.studentName = userData.name || 'User';
-          this.departmentCode = userData.department || 'N/A';
-        }
+  
+        this.studentName = userData.name || 'User';
+        this.departmentCode =
+          userData['program code'] || userData.designation || 'N/A';
+  
+        console.log('[Component] Loaded user:', this.studentName, '| Dept:', this.departmentCode);
       } catch (error) {
         console.error('❌ Error parsing userData cookie:', error);
         this.studentName = 'Unknown';
@@ -69,7 +77,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.departmentCode = 'N/A';
     }
   }
-  
   
   
   logout(event?: Event) {

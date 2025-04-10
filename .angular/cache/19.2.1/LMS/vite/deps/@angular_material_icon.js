@@ -1,16 +1,16 @@
 import {
+  MatCommonModule
+} from "./chunk-X2H4REX3.js";
+import "./chunk-Z5VQRMQG.js";
+import {
   DomSanitizer
-} from "./chunk-MGIAF56Z.js";
+} from "./chunk-JD7BV7Y3.js";
 import {
   HttpClient
-} from "./chunk-73WKEOVY.js";
-import {
-  MatCommonModule
-} from "./chunk-E3ENC2TF.js";
-import "./chunk-YM4TZCOP.js";
+} from "./chunk-UKUGLZQZ.js";
 import {
   DOCUMENT
-} from "./chunk-WOWXEIAE.js";
+} from "./chunk-7GA4VC7K.js";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -49,8 +49,7 @@ import {
   ɵɵinject,
   ɵɵprojection,
   ɵɵprojectionDef
-} from "./chunk-QIVVJE23.js";
-import "./chunk-TXDUYLVM.js";
+} from "./chunk-67RRSQUZ.js";
 
 // node_modules/@angular/material/fesm2022/icon-registry-e1064d47.mjs
 var policy;

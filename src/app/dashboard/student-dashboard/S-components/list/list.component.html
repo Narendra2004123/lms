@@ -1,0 +1,39 @@
+<div *ngIf="isLoading">Loading requisition forms...</div>
+
+<div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+<table *ngIf="!isLoading && requisitionList.length > 0" class="requisition-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Required Software</th>
+      <th>From Date</th>
+      <th>To Date</th>
+      <th>Submitted At</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of requisitionList">
+      <td>{{ item.id }}</td>
+      <td>{{ item.requiredSoftware }}</td>
+      <td>{{ item.fromDate | date }}</td>
+      <td>{{ item.toDate | date }}</td>
+      <td>{{ item.submittedAt | date: 'short' }}</td>
+      <td>{{item.status}}</td>
+      <td>
+        <button (click)="downloadRequisition(item.id)" class="download-btn">
+          Download PDF
+        </button>
+        
+      </td>
+    </tr>
+  </tbody>
+</table>
+<button (click)="back()">New Request</button>
+
+<div *ngIf="!isLoading && requisitionList.length === 0">
+  No requisition forms found.
+</div>
+

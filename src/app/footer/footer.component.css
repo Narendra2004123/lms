@@ -18,6 +18,7 @@
   }
   
   .footer-column {
+  
     flex: 1 1 250;
     min-width: 200px;
     padding: 0px;

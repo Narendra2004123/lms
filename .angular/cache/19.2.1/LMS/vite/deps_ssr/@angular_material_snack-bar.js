@@ -1,9 +1,5 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
-  MatButton,
-  MatButtonModule
-} from "./chunk-WHRFJHFU.js";
-import {
   BasePortalOutlet,
   CdkPortalOutlet,
   ComponentPortal,
@@ -14,6 +10,10 @@ import {
   TemplatePortal,
   ViewportRuler
 } from "./chunk-2O43N353.js";
+import {
+  MatButton,
+  MatButtonModule
+} from "./chunk-WHRFJHFU.js";
 import {
   _isTestEnvironment,
   coerceCssPixelValue,

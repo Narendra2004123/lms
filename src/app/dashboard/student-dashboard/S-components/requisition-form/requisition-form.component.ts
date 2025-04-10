@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { AuthService } from '../../../../auth.service';
 
 @Component({
   selector: 'app-requisition-form',
@@ -24,8 +26,8 @@ export class RequisitionFormComponent implements OnInit {
     accommodation: '',
     purpose: '',
     remoteAccess: '',
-    required_software: '',
-    licenseOS: '',
+    requiredSoftware: '',
+    licenseOs: '',
     fromDate: '',
     toDate: '',
     submittedAt: ''
@@ -40,6 +42,8 @@ export class RequisitionFormComponent implements OnInit {
     private http: HttpClient,
     private cookieService: CookieService,
     private snackBar: MatSnackBar,
+    private router:Router,
+    private authService:AuthService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
@@ -50,12 +54,17 @@ export class RequisitionFormComponent implements OnInit {
   loadAuthToken(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.authToken = this.cookieService.get('authToken') || '';
-      console.log('🔐 Loaded authToken:', this.authToken);
+      console.log('Loaded authToken:', this.authToken);
     }
   }
+  
+  onsent() {
+    this.router.navigate(['dashboard/student/list']);
+  }
+  
 
   onSubmit(): void {
-    const apiUrl = 'http://localhost:8081/api/requisition-form/submit';
+    const apiUrl = this.authService.REQUIST_URL;
 
     this.user.submittedAt = new Date().toISOString();
     const headers = new HttpHeaders({
@@ -99,8 +108,8 @@ export class RequisitionFormComponent implements OnInit {
       accommodation: '',
       purpose: '',
       remoteAccess: '',
-      required_software: '',
-      licenseOS: '',
+      requiredSoftware: '',
+      licenseOs: '',
       fromDate: '',
       toDate: '',
       submittedAt: ''

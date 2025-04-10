@@ -36,7 +36,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   declarations: [
     AppComponent,
     ForgotPasswordComponent, // Forgot Password Component
-    HomeComponent, RegisterComponent, OtpVerificationComponent, ResetPasswordComponent, OtpRegisterComponent,FrontheadComponent, LandComponent, RegisterAdminComponent,   // Home Component
+    HomeComponent, RegisterComponent, OtpVerificationComponent, ResetPasswordComponent, OtpRegisterComponent,FrontheadComponent, LandComponent, RegisterAdminComponent,    // Home Component
   ],
   imports: [
     HttpClientModule,

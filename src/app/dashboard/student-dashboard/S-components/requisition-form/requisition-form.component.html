@@ -1,5 +1,5 @@
 <div class="container">
-  <h2>Student Requisition Form  <button class="list1">View List</button></h2>
+  <h2>Student Requisition Form  <button class="list1" (click)="onsent()">View List</button></h2>
   <form #userForm="ngForm" (ngSubmit)="onSubmit()">
     
     <div class="form-group">
@@ -65,7 +65,7 @@
     <div class="form-group">
       <div class="input-group">
         <label for="software">Required Software/Service:</label>
-        <input type="text" id="required-software" name="required-software" [(ngModel)]="user.required_software" />
+        <input type="text" id="requiredSoftware" name="requiredSoftware" [(ngModel)]="user.requiredSoftware" />
       </div>
       
       <div class="input-group">
@@ -84,10 +84,10 @@
       <div class="input-group">
         <label for="licenseOS">License OS (for Network Client):</label>
         
-        <select id="licenseOS" name="licenseOS" [(ngModel)]="user.licenseOS" required>
-          <option value="B.Tech">Windows</option>
-          <option value="M.Tech">Ubuntu</option>
-          <option value="Ph.D">Mac</option>
+        <select id="licenseOs" name="licenseOs" [(ngModel)]="user.licenseOs" required>
+          <option value="Windows">Windows</option>
+          <option value="Ubuntu">Ubuntu</option>
+          <option value="Mac">Mac</option>
         </select>
       </div>
 

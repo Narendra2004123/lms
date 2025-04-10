@@ -11,6 +11,7 @@ import { RequisitionFormComponent } from './S-components/requisition-form/requis
 import { AchieveComponent } from './S-components/achieve/achieve.component';
 import { RequestComponent } from './S-components/request/request.component';
 import { SAttendanceComponent } from './S-components/s-attendance/s-attendance.component';
+import { ListComponent } from './S-components/list/list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'profile', pathMatch: 'full' },
@@ -25,6 +26,7 @@ const routes: Routes = [
   {path:'achieve',component:AchieveComponent},
   {path:'request',component:RequestComponent},
   {path:'s-attendance',component:SAttendanceComponent},
+  {path:'list',component:ListComponent},
 ];
 
 
