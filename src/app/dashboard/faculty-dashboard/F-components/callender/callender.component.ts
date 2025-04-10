@@ -1,16 +1,20 @@
 import { Component } from '@angular/core';
 import { CalendarOptions } from '@fullcalendar/core';
+import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
-
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-callender',
-  standalone:false,
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './callender.component.html',
   styleUrls: ['./callender.component.css']
 })
+
 export class CallenderComponent {
   months = [
     { name: 'January', value: 0 }, { name: 'February', value: 1 },
