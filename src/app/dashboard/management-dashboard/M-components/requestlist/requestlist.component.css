@@ -1,0 +1,75 @@
+.requisition-table {
+    margin-left:60px;
+        width: 90%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+        border-radius: 10px;
+        overflow: hidden;
+        background-color: #ffffff;
+      }
+      
+      .requisition-table th,
+      .requisition-table td {
+        padding: 12px 12px;
+        text-align: center;
+        border-bottom: 1px solid #eaeaea;
+      }
+      
+      .requisition-table thead {
+        background-color: #3498db;
+        color: white;
+      }
+      
+      .requisition-table tr:hover {
+        background-color: #f1f9ff;
+        transition: background-color 0.2s ease;
+      }
+      
+      .download-btn {
+        background-color: #2ecc71;
+        margin-left:10px;
+        margin-bottom:12px;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: background-color 0.2s ease;
+      }
+      
+      .download-btn:hover {
+        background-color: #27ae60;
+      }
+      
+      button {
+        margin-left: 40%;
+        background-color: #3498db;
+        color: white;
+        border: none;
+        padding: 10px 14px;
+        border-radius: 6px;
+        cursor: pointer;
+        margin-top: 20px;
+        font-weight: 500;
+      }
+      
+      button:hover {
+        background-color: #2980b9;
+      }
+      
+      .error {
+        color: #e74c3c;
+        font-weight: bold;
+        margin: 20px 0;
+        text-align: center;
+      }
+      
+      div[ng-reflect-ng-if="Loading requisition forms..."],
+      div[ng-reflect-ng-if="No requisition forms found."] {
+        text-align: center;
+        margin-top: 30px;
+        font-size: 18px;
+        color: #555;
+      }

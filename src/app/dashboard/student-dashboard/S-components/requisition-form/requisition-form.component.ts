@@ -135,7 +135,7 @@ export class RequisitionFormComponent implements OnInit {
 
         this.cookieService.set('authToken', newToken, expiryDate, '/', '', false, 'Strict');
         this.authToken = newToken;
-        console.log('🔄 Token updated with expiry:', newToken);
+        console.log('Token updated with expiry:', newToken);
       }
     }
   }

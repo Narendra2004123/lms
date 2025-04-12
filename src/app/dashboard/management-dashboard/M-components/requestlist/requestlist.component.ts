@@ -5,15 +5,16 @@ import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../../auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-list',
+  selector: 'app-requestlist',
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.css']
+  imports:[CommonModule,FormsModule],
+  templateUrl: './requestlist.component.html',
+  styleUrls: ['./requestlist.component.css']
 })
-export class ListComponent implements OnInit {
+export class RequestlistComponent implements OnInit {
   authToken: string = '';
   requisitionList: any[] = [];
   isLoading: boolean = true;
@@ -24,7 +25,7 @@ export class ListComponent implements OnInit {
     private http: HttpClient,
     private router: Router,
     private authService: AuthService,
-    private snackBar:MatSnackBar,
+    private snackBar: MatSnackBar,
     @Inject(PLATFORM_ID) private platformId: object
   ) {}
 
@@ -46,10 +47,43 @@ export class ListComponent implements OnInit {
       console.log('Loaded token:', this.authToken);
     }
   }
-  back()
-  {
-      this.router.navigate(['/dashboard/student/requist'])
+
+  back(): void {
+    this.router.navigate(['/dashboard/student/requist']);
   }
+  submitStatus(id: number, status: string): void {
+    const token = this.cookieService.get('authToken') || '';
+  
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+  
+    const body = {
+      id: id.toString(),
+      status: status
+    };
+  
+    this.http.put<any>(this.authService.STATUS_UPDATE_URL, body, { headers, observe: 'response' })
+      .subscribe({
+        next: (response) => {
+          console.log('✅ Response headers:', response.headers);
+          this.updateAuthToken(response); // Rotate token
+  
+          if (response.body?.status) {
+            this.showToast('Status updated successfully.');
+            setTimeout(() => this.fetchList(), 100); // Fetch after token is updated
+          } else {
+            this.showToast(response.body?.message || 'Failed to update status.');
+          }
+        },
+        error: (err: HttpErrorResponse) => {
+          this.handleError(err.message || 'Error updating status');
+        }
+      });
+  }
+  
+  
+
   fetchList(): void {
     const token = this.cookieService.get('authToken') || '';
 
@@ -57,7 +91,7 @@ export class ListComponent implements OnInit {
       Authorization: `Bearer ${token}`
     });
 
-    this.http.post<any>(this.authService.LIST_URL, {}, { headers, observe: 'response' })
+    this.http.post<any>(this.authService.FETCH_URL, {}, { headers, observe: 'response' })
       .subscribe({
         next: (response) => {
           this.updateAuthToken(response); // Rotate token if provided
@@ -73,8 +107,8 @@ export class ListComponent implements OnInit {
         }
       });
   }
-  
-  showToast(message: string, duration: number = 3000) {
+
+  showToast(message: string, duration: number = 3000): void {
     this.snackBar.open(message, 'Close', {
       duration,
       horizontalPosition: 'center',
@@ -82,9 +116,6 @@ export class ListComponent implements OnInit {
       panelClass: ['custom-toast']
     });
   }
-  
-
-
 
   downloadRequisition(id: number): void {
     const token = this.cookieService.get('authToken');
@@ -93,7 +124,7 @@ export class ListComponent implements OnInit {
       this.router.navigate(['/home']);
       return;
     }
-  
+
     this.http.post<any>(
       this.authService.DOWNLOAD_REQUISITION_URL,
       { id },
@@ -105,14 +136,14 @@ export class ListComponent implements OnInit {
         const base64Data = response.data;  // Base64 string
         const byteCharacters = atob(base64Data); // Decode base64
         const byteNumbers = new Array(byteCharacters.length);
-  
+
         for (let i = 0; i < byteCharacters.length; i++) {
           byteNumbers[i] = byteCharacters.charCodeAt(i);
         }
-  
+
         const byteArray = new Uint8Array(byteNumbers);
         const blob = new Blob([byteArray], { type: 'application/pdf' });
-  
+
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
@@ -126,23 +157,24 @@ export class ListComponent implements OnInit {
       }
     });
   }
-  
-  
-  
-  
 
   updateAuthToken(response: any): void {
     const authHeader = response.headers.get('Authorization');
+    console.log('🪪 Received header:', authHeader);
+  
     if (authHeader?.startsWith('Bearer ')) {
       const newToken = authHeader.split(' ')[1];
       if (newToken && isPlatformBrowser(this.platformId)) {
         const expiryDate = new Date();
         expiryDate.setMinutes(expiryDate.getMinutes() + 30);
-        this.cookieService.set('authToken', newToken, expiryDate, '/', '', false, 'Strict');
-        console.log('🔁 Token refreshed:', newToken);
+        this.cookieService.set('authToken', newToken, expiryDate);
+        console.log('🔁 Token refreshed and saved:', newToken);
       }
+    } else {
+      console.warn('⚠️ No Bearer token in response headers');
     }
   }
+  
 
   clearSession(): void {
     this.cookieService.delete('authToken');

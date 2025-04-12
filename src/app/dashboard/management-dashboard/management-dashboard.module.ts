@@ -8,6 +8,7 @@ import { ReportsComponent } from './M-components/reports/reports.component';
 import { CourseManagementComponent } from './M-components/course-management/course-management.component';
 import { FeedbackComponent } from './M-components/feedback/feedback.component';
 import { MprofileComponent } from './M-components/mprofile/mprofile.component';
+import { RequestlistComponent } from './M-components/requestlist/requestlist.component';
 
 const routes: Routes = [
   { path: '', component: ManagementDashboardComponent  }
@@ -22,6 +23,7 @@ const routes: Routes = [
     CourseManagementComponent,
     FeedbackComponent,
     MprofileComponent,
+    RequestlistComponent,
   ],
   imports: [
     CommonModule,

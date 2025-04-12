@@ -47,8 +47,8 @@ import { ReportsComponent } from './dashboard/management-dashboard/M-components/
 import { CourseManagementComponent } from './dashboard/management-dashboard/M-components/course-management/course-management.component';
 import { FeedbackComponent as ManagementFeedback } from './dashboard/management-dashboard/M-components/feedback/feedback.component';
 import { ListComponent } from './dashboard/student-dashboard/S-components/list/list.component';
-import { RequestlistComponent } from './dashboard/faculty-dashboard/F-components/requestlist/requestlist.component';
 import { CallenderComponent } from './dashboard/faculty-dashboard/F-components/callender/callender.component';
+import { RequestlistComponent } from './dashboard/management-dashboard/M-components/requestlist/requestlist.component';
 
 
 // Student Components
@@ -86,7 +86,6 @@ const routes: Routes = [
       {path:'dashboard/faculty/f-academic',component:FAcademicsComponent},
       {path:'dashboard/faculty/manage',component:ManageComponent},
       {path:'dashboard/faculty/stock-register',component:StockregisterComponent},
-      {path:'dashboard/faculty/request-list',component:RequestlistComponent},
       {path:'dashboard/faculty/callender',component:CallenderComponent},
       
       // Management Routes
@@ -96,6 +95,7 @@ const routes: Routes = [
       { path: 'dashboard/management/reports', component: ReportsComponent },
       { path: 'dashboard/management/course-management', component: CourseManagementComponent },
       { path: 'dashboard/management/feedback', component: ManagementFeedback },
+      {path:'dashboard/management/requisitionform',component:RequestlistComponent},
     ]
   },
   {path:'header',component:FrontheadComponent},

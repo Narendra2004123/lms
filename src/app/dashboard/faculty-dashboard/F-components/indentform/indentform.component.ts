@@ -37,7 +37,7 @@ export class IndentFormComponent implements OnInit {
     emergencyPurchase: '',
     warrantyDetails: '',
     amcRequired: '',
-    repeatOrder: '',
+    repeatOrderFile: null,
     certification1: false,
     certification2: false,
     certification3: false,
@@ -58,6 +58,13 @@ export class IndentFormComponent implements OnInit {
   showVendorDetails = false;
   showTrainingReason = false;
   showUndertakingUpload = false;
+  remainingChars: number = 500;
+
+  isSubmitted: boolean = false;
+  isEditing: boolean = false;
+
+  // Method to update remaining characters for Purpose of Purchase
+
 
   constructor(
     private http: HttpClient,
@@ -69,7 +76,27 @@ export class IndentFormComponent implements OnInit {
   ngOnInit(): void {
     this.loadAuthToken();
   }
-
+  updateCharCount() {
+    this.remainingChars = 500 - this.indent.purposeOfPurchase.length;
+  }
+  onFileSelected(event: any) {
+    const file = event.target.files[0]; // Get the first selected file
+    if (file) {
+      // You can process or store the file as needed
+      console.log('File selected:', file);
+      this.indent.repeatOrderFile = file; // Store the file in the component
+    }
+  }
+  saveDraft() {
+    console.log('Form saved as draft:', this.indent);
+    this.isEditing = false;
+    this.isSubmitted = false;
+  }
+  editForm() {
+    console.log('Form is now editable');
+    this.isEditing = true;
+    this.isSubmitted = false;
+  }
   loadAuthToken(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.authToken = this.cookieService.get('authToken') || '';

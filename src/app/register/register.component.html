@@ -91,7 +91,7 @@
       </div>
 
       <div class="form-group">
-        <label for="academicYear">Academic Year: <span class="required">*</span></label>
+        <label for="academicYear">{{identlabel}} <span class="required">*</span></label>
         <div class="academic-year-container">
           <button type="button" (click)="decrementAcademicYear()">-</button>
           <input type="text" id="academicYear" [(ngModel)]="academicYear" name="academicYear" class="form-control" readonly />

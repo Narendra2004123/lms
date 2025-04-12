@@ -31,6 +31,8 @@ export class RegisterComponent implements OnInit {
   selectedProgramId: string = '';
   identifier: string = '';
   identifierLabel: string = 'Roll No';
+  ident:string='';
+  identlabel:string='Academic year';
   email: string = '';
   gender: string = '';
   dob: string = '';
@@ -147,10 +149,13 @@ export class RegisterComponent implements OnInit {
   updateUserType() {
     if (this.userType.startsWith('S')) {
       this.identifierLabel = 'Roll No';
+      this.identlabel='Academic Year';
     } else if (this.userType.startsWith('ETF')) {
       this.identifierLabel = 'Employee ID';
+      this.identlabel='Year of Joining';
     } else {
       this.identifierLabel = 'Management ID';
+      this.identlabel='Year of Joining';
     }
   }
   
@@ -178,7 +183,7 @@ export class RegisterComponent implements OnInit {
   validateInputs(): boolean {
     const requiredFields = [
       this.userType, this.email, this.identifier, this.gender, this.dob, this.dateOfJoining,
-      this.academicYear, this.departmentId, this.firstName, this.lastName, this.programId,
+      this.ident, this.departmentId, this.firstName, this.lastName, this.programId,
       this.phoneNumber, this.password, this.confirmPassword, this.captchaInput
     ];
 
@@ -214,6 +219,7 @@ export class RegisterComponent implements OnInit {
       role: this.userType,
       identifier: this.identifier.trim(),
       email: this.email.trim(),
+      ident:this.ident.trim(),
       firstName: this.firstName.trim(),
       middleName: this.middleName.trim() || '',
       lastName: this.lastName.trim(),
@@ -293,13 +299,16 @@ export class RegisterComponent implements OnInit {
           if (response.status) {
             this.showToast('OTP sent to your registered email.', 3000);
             this.otpSent = true;
+            this.loading = false;
           } else {
             this.showToast(response.message || 'Failed to send OTP. Please try again.', 3000);
+            this.loading = false;
           }
         },
         error: (error) => {
           console.error('OTP sending error:', error);
           this.showToast('Error sending OTP. Please try again.', 3000);
+          this.loading = false;
         },
         complete: () => {
           this.loading = false;  // Ensuring loading stops after execution
