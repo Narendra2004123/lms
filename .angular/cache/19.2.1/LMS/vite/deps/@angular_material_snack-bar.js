@@ -1,4 +1,8 @@
 import {
+  MatButton,
+  MatButtonModule
+} from "./chunk-N2L6JPZN.js";
+import {
   BasePortalOutlet,
   CdkPortalOutlet,
   ComponentPortal,
@@ -9,10 +13,6 @@ import {
   TemplatePortal,
   ViewportRuler
 } from "./chunk-S2AHLE5V.js";
-import {
-  MatButton,
-  MatButtonModule
-} from "./chunk-N2L6JPZN.js";
 import {
   _isTestEnvironment,
   coerceCssPixelValue,

@@ -83,6 +83,129 @@ export class ListComponent implements OnInit {
     });
   }
   
+  // downloadRequisition(id: number): void {
+  //   const token = this.cookieService.get('authToken');
+  //   if (!token) {
+  //     this.showToast('Authorization token missing. Please log in again.');
+  //     this.router.navigate(['/home']);
+  //     return;
+  //   }
+  
+  //   this.http.post(
+  //     this.authService.DOWNLOAD_REQUISITION_URL,
+  //     { id },
+  //     {
+  //       headers: { Authorization: `Bearer ${token}` },
+  //       responseType: 'arraybuffer' // ← important for byte[]
+  //     }
+  //   ).subscribe({
+  //     next: (arrayBuffer: ArrayBuffer) => {
+  //       // Create a Blob from the byte array
+  //       const blob = new Blob([arrayBuffer], { type: 'application/pdf' });
+  
+  //       // Create a temporary link element
+  //       const link = document.createElement('a');
+  //       const url = URL.createObjectURL(blob);
+  
+  //       link.href = url;
+  //       link.download = `Requisition_${id}.pdf`; // ⬅️ sets filename
+  //       link.click(); // ⬅️ triggers download
+  
+  //       // Cleanup
+  //       URL.revokeObjectURL(url);
+  //     },
+  //     error: (error: HttpErrorResponse) => {
+  //       console.error('Download failed:', error);
+  //       this.showToast('Failed to download the requisition form.');
+  //     }
+  //   });
+  // }
+
+  // downloadRequisition(id: number): void {
+  //   const token = this.cookieService.get('authToken');
+  //   if (!token) {
+  //     this.showToast('Authorization token missing. Please log in again.');
+  //     this.router.navigate(['/home']);
+  //     return;
+  //   }
+  
+  //   this.http.post(
+  //     this.authService.DOWNLOAD_REQUISITION_URL,
+  //     { id },
+  //     {
+  //       headers: { Authorization: `Bearer ${token}` },
+  //       responseType: 'arraybuffer',
+  //       observe: 'response'
+  //     }
+  //   ).subscribe({
+  //     next: (response) => {
+  //       this.updateAuthToken(response); // ✅ Already handles token update
+  //       const arrayBuffer = response.body as ArrayBuffer;
+  
+  //       const blob = new Blob([arrayBuffer], { type: 'application/pdf' });
+  //       const url = URL.createObjectURL(blob);
+  
+  //       const link = document.createElement('a');
+  //       link.href = url;
+  //       link.download = `Requisition_${id}.pdf`;
+  //       link.click();
+  
+  //       URL.revokeObjectURL(url);
+  //     },
+  //     error: (error: HttpErrorResponse) => {
+  //       console.error('Download failed:', error);
+  //       this.showToast('Failed to download the requisition form.');
+  //     }
+  //   });
+  // }
+
+
+  // downloadRequisition(id: number): void {
+  //   const token = this.cookieService.get('authToken');
+  //   if (!token) {
+  //     this.showToast('Authorization token missing. Please log in again.');
+  //     this.router.navigate(['/home']);
+  //     return;
+  //   }
+  
+  //   this.http.post(
+  //     this.authService.DOWNLOAD_REQUISITION_URL,
+  //     { id },
+  //     {
+  //       headers: { Authorization: `Bearer ${token}` },
+  //       responseType: 'text', // 📌 Base64 is sent as text
+  //       observe: 'response'
+  //     }
+  //   ).subscribe({
+  //     next: (response) => {
+  //       this.updateAuthToken(response);
+  
+  //       const base64Data = response.body || '';
+  //       const byteCharacters = atob(base64Data); // 🔁 Decode base64
+  //       const byteNumbers = new Array(byteCharacters.length);
+  
+  //       for (let i = 0; i < byteCharacters.length; i++) {
+  //         byteNumbers[i] = byteCharacters.charCodeAt(i);
+  //       }
+  
+  //       const byteArray = new Uint8Array(byteNumbers);
+  //       const blob = new Blob([byteArray], { type: 'application/pdf' });
+  
+  //       const url = URL.createObjectURL(blob);
+  //       const link = document.createElement('a');
+  //       link.href = url;
+  //       link.download = `Requisition_${id}.pdf`;
+  //       link.click();
+  //       URL.revokeObjectURL(url);
+  //     },
+  //     error: (error: HttpErrorResponse) => {
+  //       console.error('Download failed:', error);
+  //       this.showToast('Failed to download the requisition form.');
+  //     }
+  //   });
+  // }
+
+
   downloadRequisition(id: number): void {
     const token = this.cookieService.get('authToken');
     if (!token) {
@@ -91,27 +214,30 @@ export class ListComponent implements OnInit {
       return;
     }
   
-    this.http.post(
+    this.http.post<any>(
       this.authService.DOWNLOAD_REQUISITION_URL,
       { id },
       {
-        headers: { Authorization: `Bearer ${token}` },
-        responseType: 'arraybuffer' // ← important for byte[]
+        headers: { Authorization: `Bearer ${token}` }
       }
     ).subscribe({
-      next: (arrayBuffer: ArrayBuffer) => {
-        // Create a Blob from the byte array
-        const blob = new Blob([arrayBuffer], { type: 'application/pdf' });
+      next: (response) => {
+        const base64Data = response.data;  // Base64 string
+        const byteCharacters = atob(base64Data); // Decode base64
+        const byteNumbers = new Array(byteCharacters.length);
   
-        // Create a temporary link element
-        const link = document.createElement('a');
+        for (let i = 0; i < byteCharacters.length; i++) {
+          byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+  
+        const byteArray = new Uint8Array(byteNumbers);
+        const blob = new Blob([byteArray], { type: 'application/pdf' });
+  
         const url = URL.createObjectURL(blob);
-  
+        const link = document.createElement('a');
         link.href = url;
-        link.download = `Requisition_${id}.pdf`; // ⬅️ sets filename
-        link.click(); // ⬅️ triggers download
-  
-        // Cleanup
+        link.download = `Requisition_${id}.pdf`;
+        link.click();
         URL.revokeObjectURL(url);
       },
       error: (error: HttpErrorResponse) => {
@@ -120,6 +246,7 @@ export class ListComponent implements OnInit {
       }
     });
   }
+  
   
   
   
