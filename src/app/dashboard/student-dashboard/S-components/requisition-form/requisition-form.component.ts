@@ -32,7 +32,7 @@ export class RequisitionFormComponent implements OnInit {
     toDate: '',
     submittedAt: ''
   };
-
+  softwareList: string[] = [];
   submitted = false;
   responseMessage: string = '';
   isError: boolean = false;
@@ -49,6 +49,7 @@ export class RequisitionFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadAuthToken();
+    this.fetchUserData();
   }
 
   loadAuthToken(): void {
@@ -56,6 +57,27 @@ export class RequisitionFormComponent implements OnInit {
       this.authToken = this.cookieService.get('authToken') || '';
       console.log('Loaded authToken:', this.authToken);
     }
+  }
+  
+  fetchUserData(): void {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.authToken}`
+    });
+
+    this.http.get<any>(this.authService.DATA_URL, { headers }).subscribe({
+      next: (response) => {
+        if (response && response.data) {
+          this.user.email = response.data.email || ''; 
+          this.softwareList = response.data.requiredSoftware || [];
+        } else {
+          this.showToast('No data received from server');
+        }
+      },
+      error: (error) => {
+        console.error('Error fetching user data:', error);
+        this.showToast('❌ Error fetching user data');
+      }
+    });
   }
   
   onsent() {

@@ -95,7 +95,7 @@ const routes: Routes = [
       { path: 'dashboard/management/course-management', component: CourseManagementComponent },
       { path: 'dashboard/management/feedback', component: ManagementFeedback },
       {path:'dashboard/management/requisitionform',component:RequestlistComponent},
-      {path:'dashbaord/management/indent',component:IndentformComponent},
+      {path:'dashboard/management/indentform',component:IndentformComponent},
     ]
   },
   {path:'header',component:FrontheadComponent},

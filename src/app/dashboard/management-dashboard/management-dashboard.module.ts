@@ -18,7 +18,6 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-   
     ManagementDashboardComponent,
     ManageUsersComponent,
     ReportsComponent,

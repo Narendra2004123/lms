@@ -65,7 +65,11 @@
     <div class="form-group">
       <div class="input-group">
         <label for="software">Required Software/Service:</label>
-        <input type="text" id="requiredSoftware" name="requiredSoftware" [(ngModel)]="user.requiredSoftware" />
+        <select id="requiredSoftware" name="requiredSoftware" [(ngModel)]="user.requiredSoftware">
+          <option *ngFor="let software of softwareList" [value]="software">
+            {{ software }}
+          </option>
+        </select>
       </div>
       
       <div class="input-group">

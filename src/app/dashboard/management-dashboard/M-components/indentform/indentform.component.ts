@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from '../../../../auth.service';
 
 @Component({
   selector: 'app-indentform',
@@ -15,6 +16,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class IndentformComponent implements OnInit {
   indent: any = {
     department: '',
+    email: '',
     asset_type: '',
     budget_head: '',
     date: '',
@@ -49,6 +51,8 @@ export class IndentformComponent implements OnInit {
     submittedAt: ''
   };
 
+  departments: { departmentId: string, department: string }[] = [];
+  defaultEmail: string = '';
   submitted = false;
   responseMessage = '';
   isError = false;
@@ -67,17 +71,43 @@ export class IndentformComponent implements OnInit {
     private http: HttpClient,
     private cookieService: CookieService,
     private snackBar: MatSnackBar,
+    private authService:AuthService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   ngOnInit(): void {
     this.loadAuthToken();
+    this.fetchDepartments();
   }
-
+  
   updateCharCount() {
     this.remainingChars = 500 - this.indent.purposeOfPurchase.length;
   }
+  fetchDepartments(): void {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.authToken}`
+    });
+  
+    this.http.get<any>(this.authService.FETCH_DEPT, { headers, observe: 'response' }).subscribe({
+      next: (response) => {
+        const res = response.body;
+        if (res?.status && res.data?.departments) {
+          this.departments = res.data.departments;
+          this.defaultEmail = res.data.email;
+          this.indent.email = this.defaultEmail;
+          console.log('📋 Departments:', this.departments);
+          console.log('📧 Default Email:', this.defaultEmail);
+          this.updateAuthToken(response);
+        }
+      },
+      error: (err) => {
+        console.error('❌ Error fetching departments:', err);
+        this.showToast('Failed to load departments');
+      }
+    });
+  }
 
+  
   onFileSelected(event: any) {
     const file = event.target.files[0];
     if (file) {
@@ -105,15 +135,14 @@ export class IndentformComponent implements OnInit {
     }
   }
 
-  onSubmit(): void {
-    const apiUrl = 'http://localhost:8081/api/indent-form/submit';
+  onSubmit() {
 
     this.indent.submittedAt = new Date().toISOString();
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.authToken}`
     });
 
-    this.http.post(apiUrl, this.indent, {
+    this.http.post(this.authService.SUBMIT_INDENT_URL, this.indent, {
       headers,
       responseType: 'text',
       observe: 'response'
@@ -207,11 +236,13 @@ export class IndentformComponent implements OnInit {
     }
   }
 
+ 
   onFieldChange(): void {
     this.showExpectedTime = this.indent.installationReady?.toLowerCase() === 'no';
     this.showVendorDetails = this.indent.purchaseMode?.toLowerCase() !== 'gem';
     this.showTrainingReason = this.indent.trainingRequired?.toLowerCase() === 'yes';
     this.showUndertakingUpload = !!this.indent.repeatOrderFile;
+    this.indent.email = this.defaultEmail;
   }
 
 }

@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'course-management', component: CourseManagementComponent },
   { path: 'feedback', component: FeedbackComponent },
   {path:'requisitionform',component:RequestlistComponent},
-  {path:'indent',component:IndentformComponent},
+  {path:'indentform',component:IndentformComponent},
 ];
 
 
