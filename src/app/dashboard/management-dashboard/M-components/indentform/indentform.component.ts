@@ -46,7 +46,7 @@ export class IndentformComponent implements OnInit {
     certification3: false,
     expectedTime: '',
     trainingReason: '',
-    undertaking: '',
+    undertaking: '',  // This will now carry base64 string
     certified: false,
     remarks: '',
     submittedAt: ''
@@ -68,12 +68,15 @@ export class IndentformComponent implements OnInit {
   isSubmitted: boolean = false;
   isEditing: boolean = false;
 
+  base64File: string | null = null;
+  fileName: string = '';
+
   constructor(
     private http: HttpClient,
     private cookieService: CookieService,
     private snackBar: MatSnackBar,
-    private authService:AuthService,
-    private router:Router,
+    private authService: AuthService,
+    private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
@@ -81,19 +84,20 @@ export class IndentformComponent implements OnInit {
     this.loadAuthToken();
     this.fetchDepartments();
   }
-  
+
   updateCharCount() {
     this.remainingChars = 500 - this.indent.purposeOfPurchase.length;
   }
-  onlink()
-  {
-   this.router.navigate(['/dashboard/management/list11']);
+
+  onlink() {
+    this.router.navigate(['/dashboard/management/list11']);
   }
+
   fetchDepartments(): void {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.authToken}`
     });
-  
+
     this.http.get<any>(this.authService.FETCH_DEPT, { headers, observe: 'response' }).subscribe({
       next: (response) => {
         const res = response.body;
@@ -113,12 +117,23 @@ export class IndentformComponent implements OnInit {
     });
   }
 
-  
-  onFileSelected(event: any) {
-    const file = event.target.files[0];
+  onFileSelected(event: any): void {
+    const file: File = event.target.files[0];
+
     if (file) {
-      console.log('File selected:', file);
-      this.indent.repeatOrderFile = file;
+      this.fileName = file.name;
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        const result = reader.result as string;
+        const base64 = result.split(',')[1];
+
+        this.base64File = base64;
+        this.indent.undertaking = base64; // ✅ Set Base64 to undertaking
+        console.log('📄 Base64 File:', this.base64File);
+      };
+
+      reader.readAsDataURL(file);
     }
   }
 
@@ -142,7 +157,6 @@ export class IndentformComponent implements OnInit {
   }
 
   onSubmit() {
-
     this.indent.submittedAt = new Date().toISOString();
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.authToken}`
@@ -173,6 +187,7 @@ export class IndentformComponent implements OnInit {
   resetForm(): void {
     this.indent = {
       department: '',
+      email: '',
       asset_type: '',
       budget_head: '',
       date: '',
@@ -201,12 +216,14 @@ export class IndentformComponent implements OnInit {
       certification3: false,
       expectedTime: '',
       trainingReason: '',
-      undertaking: '',
+      undertaking: '',  // reset to empty
       certified: false,
       remarks: '',
       submittedAt: ''
     };
     this.remainingChars = 500;
+    this.fileName = '';
+    this.base64File = null;
   }
 
   updateAuthToken(response: HttpResponse<any>): void {
@@ -242,7 +259,6 @@ export class IndentformComponent implements OnInit {
     }
   }
 
- 
   onFieldChange(): void {
     this.showExpectedTime = this.indent.installationReady?.toLowerCase() === 'no';
     this.showVendorDetails = this.indent.purchaseMode?.toLowerCase() !== 'gem';
@@ -250,5 +266,4 @@ export class IndentformComponent implements OnInit {
     this.showUndertakingUpload = !!this.indent.repeatOrderFile;
     this.indent.email = this.defaultEmail;
   }
-
 }

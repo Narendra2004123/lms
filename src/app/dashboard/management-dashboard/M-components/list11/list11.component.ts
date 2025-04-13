@@ -60,7 +60,7 @@ export class List11Component implements OnInit {
       Authorization: `Bearer ${token}`
     });
 
-    this.http.post<any>(this.authService.LIST_URL, {}, { headers, observe: 'response' })
+    this.http.post<any>(this.authService.INDENT_LIST_URL, {}, { headers, observe: 'response' })
       .subscribe({
         next: (response) => {
           this.updateAuthToken(response);
@@ -90,7 +90,7 @@ export class List11Component implements OnInit {
     this.loading = true;
 
     this.http.post<any>(
-      this.authService.BASE_URL,
+      this.authService.INDENT_DOWNLOAD_URL,
       { id },
       {
         headers: { Authorization: `Bearer ${token}` }

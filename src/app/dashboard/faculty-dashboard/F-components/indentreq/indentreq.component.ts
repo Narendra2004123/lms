@@ -95,7 +95,7 @@ export class IndentreqComponent implements OnInit {
       Authorization: `Bearer ${token}`
     });
 
-    this.http.post<any>(this.authService.FETCH_URL, {}, { headers, observe: 'response' })
+    this.http.post<any>(this.authService.INDENT_FETCH_URL, {}, { headers, observe: 'response' })
       .subscribe({
         next: (response) => {
           this.updateAuthToken(response);
@@ -121,7 +121,7 @@ export class IndentreqComponent implements OnInit {
     }
 
     this.http.post<any>(
-      this.authService.DOWNLOAD_REQUISITION_URL,
+      this.authService.INDENT_DOWNLOAD_URL,
       { id },
       {
         headers: { Authorization: `Bearer ${token}` }
