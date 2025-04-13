@@ -32,7 +32,6 @@ import { ProfileComponent as FacultyProfile } from './dashboard/faculty-dashboar
 import { CoursesComponent as FacultyCourses } from './dashboard/faculty-dashboard/F-components/courses/courses.component';
 import { ExamsComponent as FacultyExams } from './dashboard/faculty-dashboard/F-components/exams/exams.component';
 import { FeedbackComponent as FacultyFeedback } from './dashboard/faculty-dashboard/F-components/feedback/feedback.component';
-import { IndentFormComponent } from './dashboard/faculty-dashboard/F-components/indentform/indentform.component';
 import { PurchaseComponent } from './dashboard/faculty-dashboard/F-components/purchase/purchase.component';
 import { AttendanceComponent } from './dashboard/faculty-dashboard/F-components/attendance/attendance.component';
 import { FAcademicsComponent } from './dashboard/faculty-dashboard/F-components/f-academics/f-academics.component';
@@ -49,6 +48,7 @@ import { FeedbackComponent as ManagementFeedback } from './dashboard/management-
 import { ListComponent } from './dashboard/student-dashboard/S-components/list/list.component';
 import { CallenderComponent } from './dashboard/faculty-dashboard/F-components/callender/callender.component';
 import { RequestlistComponent } from './dashboard/management-dashboard/M-components/requestlist/requestlist.component';
+import { IndentformComponent } from './dashboard/management-dashboard/M-components/indentform/indentform.component';
 
 
 // Student Components
@@ -80,7 +80,6 @@ const routes: Routes = [
       { path: 'dashboard/faculty/courses', component: FacultyCourses },
       { path: 'dashboard/faculty/exams', component: FacultyExams },
       { path: 'dashboard/faculty/feedback', component: FacultyFeedback },
-      {path:'dashboard/faculty/indent',component:IndentFormComponent},
       {path:'dashboard/faculty/purchase',component:PurchaseComponent},
       {path:'dashboard/faculty/attendance',component:AttendanceComponent},
       {path:'dashboard/faculty/f-academic',component:FAcademicsComponent},
@@ -96,6 +95,7 @@ const routes: Routes = [
       { path: 'dashboard/management/course-management', component: CourseManagementComponent },
       { path: 'dashboard/management/feedback', component: ManagementFeedback },
       {path:'dashboard/management/requisitionform',component:RequestlistComponent},
+      {path:'dashbaord/management/indent',component:IndentformComponent},
     ]
   },
   {path:'header',component:FrontheadComponent},

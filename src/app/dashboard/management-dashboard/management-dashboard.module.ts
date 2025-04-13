@@ -9,6 +9,8 @@ import { CourseManagementComponent } from './M-components/course-management/cour
 import { FeedbackComponent } from './M-components/feedback/feedback.component';
 import { MprofileComponent } from './M-components/mprofile/mprofile.component';
 import { RequestlistComponent } from './M-components/requestlist/requestlist.component';
+import { IndentformComponent } from './M-components/indentform/indentform.component';
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
   { path: '', component: ManagementDashboardComponent  }
@@ -24,9 +26,11 @@ const routes: Routes = [
     FeedbackComponent,
     MprofileComponent,
     RequestlistComponent,
+    IndentformComponent,
   ],
   imports: [
     CommonModule,
+    FormsModule,
     ManagementDashboardRoutingModule,
     RouterModule.forChild(routes)
 

@@ -12,7 +12,6 @@ import { FormsModule } from '@angular/forms';
 import { AttendanceComponent } from './F-components/attendance/attendance.component';
 import { FAcademicsComponent } from './F-components/f-academics/f-academics.component';
 import { ManageComponent } from './F-components/manage/manage.component';
-import { IndentFormComponent } from './F-components/indentform/indentform.component';
 import { StockregisterComponent } from './F-components/stockregister/stockregister.component';
 import { CallenderComponent } from './F-components/callender/callender.component';
 const routes: Routes = [
@@ -30,7 +29,6 @@ const routes: Routes = [
     AttendanceComponent,
     FAcademicsComponent,
     ManageComponent,
-    IndentFormComponent,
     StockregisterComponent,
     CallenderComponent,
   ],

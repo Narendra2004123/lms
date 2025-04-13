@@ -12,7 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./indentform.component.css'],
   imports: [FormsModule, CommonModule, HttpClientModule]
 })
-export class IndentFormComponent implements OnInit {
+export class IndentformComponent implements OnInit {
   indent: any = {
     department: '',
     asset_type: '',
@@ -63,9 +63,6 @@ export class IndentFormComponent implements OnInit {
   isSubmitted: boolean = false;
   isEditing: boolean = false;
 
-  // Method to update remaining characters for Purpose of Purchase
-
-
   constructor(
     private http: HttpClient,
     private cookieService: CookieService,
@@ -76,27 +73,31 @@ export class IndentFormComponent implements OnInit {
   ngOnInit(): void {
     this.loadAuthToken();
   }
+
   updateCharCount() {
     this.remainingChars = 500 - this.indent.purposeOfPurchase.length;
   }
+
   onFileSelected(event: any) {
-    const file = event.target.files[0]; // Get the first selected file
+    const file = event.target.files[0];
     if (file) {
-      // You can process or store the file as needed
       console.log('File selected:', file);
-      this.indent.repeatOrderFile = file; // Store the file in the component
+      this.indent.repeatOrderFile = file;
     }
   }
+
   saveDraft() {
     console.log('Form saved as draft:', this.indent);
     this.isEditing = false;
     this.isSubmitted = false;
   }
+
   editForm() {
     console.log('Form is now editable');
     this.isEditing = true;
     this.isSubmitted = false;
   }
+
   loadAuthToken(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.authToken = this.cookieService.get('authToken') || '';
@@ -122,7 +123,7 @@ export class IndentFormComponent implements OnInit {
         this.responseMessage = response.body || '';
         this.isError = false;
         this.updateAuthToken(response);
-        this.showToast("Indent Form Submitted");
+        this.showToast("✅ Indent Form Submitted");
         this.resetForm();
       },
       error: (error) => {
@@ -159,7 +160,7 @@ export class IndentFormComponent implements OnInit {
       emergencyPurchase: '',
       warrantyDetails: '',
       amcRequired: '',
-      repeatOrder: '',
+      repeatOrderFile: null,
       certification1: false,
       certification2: false,
       certification3: false,
@@ -170,6 +171,7 @@ export class IndentFormComponent implements OnInit {
       remarks: '',
       submittedAt: ''
     };
+    this.remainingChars = 500;
   }
 
   updateAuthToken(response: HttpResponse<any>): void {
@@ -206,9 +208,10 @@ export class IndentFormComponent implements OnInit {
   }
 
   onFieldChange(): void {
-    this.showExpectedTime = this.indent.installationReady === 'No';
-    this.showVendorDetails = this.indent.purchaseMode !== 'GeM';
-    this.showTrainingReason = this.indent.trainingRequired === 'Yes';
-    this.showUndertakingUpload = this.indent.repeatOrder === 'Yes';
+    this.showExpectedTime = this.indent.installationReady?.toLowerCase() === 'no';
+    this.showVendorDetails = this.indent.purchaseMode?.toLowerCase() !== 'gem';
+    this.showTrainingReason = this.indent.trainingRequired?.toLowerCase() === 'yes';
+    this.showUndertakingUpload = !!this.indent.repeatOrderFile;
   }
+
 }

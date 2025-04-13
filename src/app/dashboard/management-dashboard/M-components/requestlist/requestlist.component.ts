@@ -71,6 +71,12 @@ export class RequestlistComponent implements OnInit {
   
           if (response.body?.status) {
             this.showToast('Status updated successfully.');
+            this.requisitionList = this.requisitionList.map(item => {
+              if (item.id === id) {
+                item.isSubmitted = true;  // Disable further changes to this status
+              }
+              return item;
+            });
             setTimeout(() => this.fetchList(), 100); // Fetch after token is updated
           } else {
             this.showToast(response.body?.message || 'Failed to update status.');

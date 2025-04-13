@@ -6,6 +6,7 @@ import { CourseManagementComponent } from './M-components/course-management/cour
 import { FeedbackComponent } from './M-components/feedback/feedback.component';
 import { MprofileComponent } from './M-components/mprofile/mprofile.component';
 import { RequestlistComponent } from './M-components/requestlist/requestlist.component';
+import { IndentformComponent } from './M-components/indentform/indentform.component';
 
 
 const routes: Routes = [
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: 'reports', component: ReportsComponent },
   { path: 'course-management', component: CourseManagementComponent },
   { path: 'feedback', component: FeedbackComponent },
-  {path:'requisitionform',component:RequestlistComponent}
+  {path:'requisitionform',component:RequestlistComponent},
+  {path:'indent',component:IndentformComponent},
 ];
 
 

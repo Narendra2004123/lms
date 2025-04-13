@@ -22,7 +22,14 @@
       <td>{{ item.toDate | date }}</td>
       <td>{{ item.submittedAt ? (item.submittedAt | date: 'short') : 'N/A' }}</td>
       <td>
-        <select [(ngModel)]="item.status">
+        <select
+          [(ngModel)]="item.status"
+          [ngClass]="{
+            'status-rejected': item.status === 'Rejected' && item.isSubmitted,
+            'status-completed': item.status === 'Completed' && item.isSubmitted
+          }"
+          [disabled]="item.isSubmitted && (item.status === 'Rejected' || item.status === 'Completed')"
+        >
           <option value="Pending">Pending</option>
           <option value="Accepted">Accepted</option>
           <option value="Completed">Completed</option>
@@ -30,13 +37,20 @@
         </select>
       </td>
       <td>
-        <button (click)="downloadRequisition(item.id)" class="download-btn">
+        <button
+          (click)="submitStatus(item.id, item.status); item.isSubmitted = true"
+          class="submit-btn"
+          [disabled]="item.isSubmitted"
+        >
+          Submit
+        </button>
+
+        <button
+          (click)="downloadRequisition(item.id)"
+          class="download-btn"
+        >
           Download PDF
         </button>
-        <button (click)="submitStatus(item.id, item.status)" class="submit-btn">
-            Submit
-          </button>
-          
       </td>
     </tr>
   </tbody>
