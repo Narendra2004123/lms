@@ -64,11 +64,25 @@ export class RequisitionFormComponent implements OnInit {
       Authorization: `Bearer ${this.authToken}`
     });
 
-    this.http.get<any>(this.authService.DATA_URL, { headers }).subscribe({
+    this.http.get<any>(this.authService.DATA_URL, {
+      headers,
+      observe: 'response'
+    })
+    .subscribe({
       next: (response) => {
-        if (response && response.data) {
-          this.user.email = response.data.email || ''; 
-          this.softwareList = response.data.requiredSoftware || [];
+        console.log("Before update of cookie");
+        console.log(this.cookieService.get('authToken'));
+        
+        this.updateAuthToken(response); // ✅ now response.headers will exist
+        
+        console.log("In fetch user data method");
+        console.log("\n\n\n");
+        console.log(this.cookieService.get('authToken'));
+    
+        const responseBody = response.body;
+        if (responseBody && responseBody.data) {
+          this.user.email = responseBody.data.email || ''; 
+          this.softwareList = responseBody.data.requiredSoftware || [];
         } else {
           this.showToast('No data received from server');
         }
@@ -147,17 +161,17 @@ export class RequisitionFormComponent implements OnInit {
     });
   }
 
-  updateAuthToken(response: HttpResponse<any>): void {
+  updateAuthToken(response: any): void {
     const authHeader = response.headers.get('Authorization');
     if (authHeader?.startsWith('Bearer ')) {
       const newToken = authHeader.split(' ')[1];
       if (newToken && isPlatformBrowser(this.platformId)) {
+        // Set expiry for 30 minutes from now
         const expiryDate = new Date();
-        expiryDate.setMinutes(expiryDate.getMinutes() + 30);
-
-        this.cookieService.set('authToken', newToken, expiryDate, '/', '', false, 'Strict');
-        this.authToken = newToken;
-        console.log('Token updated with expiry:', newToken);
+        expiryDate.setMinutes(expiryDate.getMinutes() + 30); 
+  
+        this.cookieService.set('authToken', newToken, expiryDate, '/', '', false, "Strict"); 
+        console.log('🔄 Token updated with expiry:', newToken);
       }
     }
   }
