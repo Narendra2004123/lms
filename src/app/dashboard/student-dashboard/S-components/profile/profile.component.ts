@@ -81,6 +81,7 @@ export class ProfileComponent implements OnInit {
   profileData: Profile | null = null;
   isLoading: boolean = true;
   errorMessage: string = '';
+  loading: boolean = false;
 
   constructor(
     private cookieService:CookieService,
@@ -121,6 +122,7 @@ export class ProfileComponent implements OnInit {
   }
   
   fetchProfile(): void {
+  this.loading=true;
     const currentToken = this.cookieService.get('authToken') || '';
     console.log("In fetch prfile method");
     console.log(currentToken);
@@ -129,6 +131,7 @@ export class ProfileComponent implements OnInit {
       observe: 'response'
     }).subscribe({
       next: (response) => {
+          this.loading=false;
         this.updateAuthToken(response); // Token might get rotated
         this.handleSuccess(response.body);
       },
@@ -141,6 +144,7 @@ export class ProfileComponent implements OnInit {
     if (response && response.profile) {
       this.profileData = response.profile;
       this.isLoading = false;
+      this.loading=false;
   
       if (this.profileData) {
         const { firstName, middleName, lastName, departmentCode } = this.profileData;

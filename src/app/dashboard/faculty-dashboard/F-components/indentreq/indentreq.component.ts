@@ -5,27 +5,28 @@ import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../../auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-list',
+  selector: 'app-indentreq',
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.css']
+  imports: [CommonModule, FormsModule],
+  templateUrl: './indentreq.component.html',
+  styleUrls: ['./indentreq.component.css']
 })
-export class ListComponent implements OnInit {
+export class IndentreqComponent implements OnInit {
   authToken: string = '';
-  requisitionList: any[] = [];
+  indentList: any[] = [];
   isLoading: boolean = true;
   errorMessage: string = '';
-  loading:boolean=false;
+  isSubmitting: boolean = false;
 
   constructor(
     private cookieService: CookieService,
     private http: HttpClient,
     private router: Router,
     private authService: AuthService,
-    private snackBar:MatSnackBar,
+    private snackBar: MatSnackBar,
     @Inject(PLATFORM_ID) private platformId: object
   ) {}
 
@@ -47,25 +48,59 @@ export class ListComponent implements OnInit {
       console.log('Loaded token:', this.authToken);
     }
   }
-  back()
-  {
-      this.router.navigate(['/dashboard/student/requist'])
+
+  back(): void {
+    this.router.navigate(['/dashboard/student/requist']);
   }
-  fetchList(): void {
+
+  submitStatus(id: number, status: string): void {
     const token = this.cookieService.get('authToken') || '';
-    this.loading=true;
 
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
     });
 
-    this.http.post<any>(this.authService.LIST_URL, {}, { headers, observe: 'response' })
+    const body = {
+      id: id.toString(),
+      status: status
+    };
+
+    this.http.put<any>(this.authService.STATUS_UPDATE_URL, body, { headers, observe: 'response' })
       .subscribe({
         next: (response) => {
-          this.updateAuthToken(response); // Rotate token if provided
+          this.updateAuthToken(response);
+
           if (response.body?.status) {
-            this.requisitionList = response.body.data;
-            this.loading=false;
+            this.showToast('Status updated successfully.');
+
+            const item = this.indentList.find(item => item.id === id);
+            if (item) {
+              item.isSubmitted = true;
+              // item.status = response.body.status; // Optional if backend modifies status
+            }
+          } else {
+            this.showToast(response.body?.message || 'Failed to update status.');
+          }
+        },
+        error: (err: HttpErrorResponse) => {
+          this.handleError(err.message || 'Error updating status');
+        }
+      });
+  }
+
+  fetchList(): void {
+    const token = this.cookieService.get('authToken') || '';
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    this.http.post<any>(this.authService.FETCH_URL, {}, { headers, observe: 'response' })
+      .subscribe({
+        next: (response) => {
+          this.updateAuthToken(response);
+          if (response.body?.status) {
+            this.indentList = response.body.data;
             this.isLoading = false;
           } else {
             this.handleError(response.body?.message || 'Unknown error');
@@ -73,22 +108,9 @@ export class ListComponent implements OnInit {
         },
         error: (err: HttpErrorResponse) => {
           this.handleError(err.message || 'Error fetching data');
-          this.loading=false;
         }
       });
   }
-  
-  showToast(message: string, duration: number = 3000) {
-    this.snackBar.open(message, 'Close', {
-      duration,
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-      panelClass: ['custom-toast']
-    });
-  }
-  
-
-
 
   downloadRequisition(id: number): void {
     const token = this.cookieService.get('authToken');
@@ -97,8 +119,7 @@ export class ListComponent implements OnInit {
       this.router.navigate(['/home']);
       return;
     }
-    this.loading=true;
-  
+
     this.http.post<any>(
       this.authService.DOWNLOAD_REQUISITION_URL,
       { id },
@@ -107,46 +128,54 @@ export class ListComponent implements OnInit {
       }
     ).subscribe({
       next: (response) => {
-      this.loading=false;
-        const base64Data = response.data;  // Base64 string
-        const byteCharacters = atob(base64Data); // Decode base64
+        const base64Data = response.data;
+        const byteCharacters = atob(base64Data);
         const byteNumbers = new Array(byteCharacters.length);
-  
+
         for (let i = 0; i < byteCharacters.length; i++) {
           byteNumbers[i] = byteCharacters.charCodeAt(i);
         }
-  
+
         const byteArray = new Uint8Array(byteNumbers);
         const blob = new Blob([byteArray], { type: 'application/pdf' });
-  
+
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
-        link.download = `Requisition_${id}.pdf`;
+        link.download = `Indent_${id}.pdf`;
         link.click();
         URL.revokeObjectURL(url);
       },
       error: (error: HttpErrorResponse) => {
         console.error('Download failed:', error);
-        this.showToast('Failed to download the requisition form.');
+        this.showToast('Failed to download the indent file.');
       }
     });
   }
-  
-  
-  
-  
+
+  showToast(message: string, duration: number = 3000): void {
+    this.snackBar.open(message, 'Close', {
+      duration,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      panelClass: ['custom-toast']
+    });
+  }
 
   updateAuthToken(response: any): void {
     const authHeader = response.headers.get('Authorization');
+    console.log('🪪 Received header:', authHeader);
+
     if (authHeader?.startsWith('Bearer ')) {
       const newToken = authHeader.split(' ')[1];
       if (newToken && isPlatformBrowser(this.platformId)) {
         const expiryDate = new Date();
         expiryDate.setMinutes(expiryDate.getMinutes() + 30);
-        this.cookieService.set('authToken', newToken, expiryDate, '/', '', false, 'Strict');
-        console.log('🔁 Token refreshed:', newToken);
+        this.cookieService.set('authToken', newToken, expiryDate);
+        console.log('🔁 Token refreshed and saved:', newToken);
       }
+    } else {
+      console.warn('⚠️ No Bearer token in response headers');
     }
   }
 
@@ -160,6 +189,5 @@ export class ListComponent implements OnInit {
     console.error('❌ Error:', message);
     this.errorMessage = message;
     this.isLoading = false;
-    this.loading=false;
   }
 }

@@ -1,4 +1,4 @@
-<div *ngIf="isLoading">Loading requisition forms...</div>
+<div *ngIf="isLoading" class="loading">Loading requisition forms...</div>
 
 <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
 
@@ -23,13 +23,14 @@
       <td>{{ item.submittedAt ? (item.submittedAt | date: 'short') : 'N/A' }}</td>
       <td>
         <select
-          [(ngModel)]="item.status"
-          [ngClass]="{
-            'status-rejected': item.status === 'Rejected' && item.isSubmitted,
-            'status-completed': item.status === 'Completed' && item.isSubmitted
-          }"
-          [disabled]="item.isSubmitted && (item.status === 'Rejected' || item.status === 'Completed')"
-        >
+  [(ngModel)]="item.status"
+  [ngClass]="{
+    'status-rejected': item.status === 'Rejected' && item.isSubmitted,
+    'status-completed': item.status === 'Completed' && item.isSubmitted
+  }"
+  [disabled]="item.isSubmitted && (item.status === 'Rejected' || item.status === 'Completed')"
+>
+
           <option value="Pending">Pending</option>
           <option value="Accepted">Accepted</option>
           <option value="Completed">Completed</option>
@@ -38,12 +39,13 @@
       </td>
       <td>
         <button
-          (click)="submitStatus(item.id, item.status); item.isSubmitted = true"
-          class="submit-btn"
-          [disabled]="item.isSubmitted"
-        >
-          Submit
-        </button>
+  (click)="submitStatus(item.id, item.status)"
+  class="submit-btn"
+  [disabled]="item.isSubmitted"
+>
+  Submit
+</button>
+
 
         <button
           (click)="downloadRequisition(item.id)"

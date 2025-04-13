@@ -5,6 +5,7 @@ import { HttpClient, HttpClientModule, HttpHeaders, HttpResponse } from '@angula
 import { CookieService } from 'ngx-cookie-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../../../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-indentform',
@@ -72,6 +73,7 @@ export class IndentformComponent implements OnInit {
     private cookieService: CookieService,
     private snackBar: MatSnackBar,
     private authService:AuthService,
+    private router:Router,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
@@ -82,6 +84,10 @@ export class IndentformComponent implements OnInit {
   
   updateCharCount() {
     this.remainingChars = 500 - this.indent.purposeOfPurchase.length;
+  }
+  onlink()
+  {
+   this.router.navigate(['/dashboard/management/list11']);
   }
   fetchDepartments(): void {
     const headers = new HttpHeaders({

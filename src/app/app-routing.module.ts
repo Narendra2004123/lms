@@ -27,6 +27,7 @@ import { RequisitionFormComponent } from './dashboard/student-dashboard/S-compon
 import { AchieveComponent } from './dashboard/student-dashboard/S-components/achieve/achieve.component';
 import { RequestComponent } from './dashboard/student-dashboard/S-components/request/request.component';
 import { SAttendanceComponent } from './dashboard/student-dashboard/S-components/s-attendance/s-attendance.component';
+import { ListComponent } from './dashboard/student-dashboard/S-components/list/list.component';
 // Faculty Components
 import { ProfileComponent as FacultyProfile } from './dashboard/faculty-dashboard/F-components/profile/profile.component';
 import { CoursesComponent as FacultyCourses } from './dashboard/faculty-dashboard/F-components/courses/courses.component';
@@ -36,8 +37,7 @@ import { PurchaseComponent } from './dashboard/faculty-dashboard/F-components/pu
 import { AttendanceComponent } from './dashboard/faculty-dashboard/F-components/attendance/attendance.component';
 import { FAcademicsComponent } from './dashboard/faculty-dashboard/F-components/f-academics/f-academics.component';
 import { ManageComponent } from './dashboard/faculty-dashboard/F-components/manage/manage.component';
-import { StockregisterComponent } from './dashboard/faculty-dashboard/F-components/stockregister/stockregister.component';
-
+import { IndentreqComponent } from './dashboard/faculty-dashboard/F-components/indentreq/indentreq.component';
 
 // Management Components
 import { MprofileComponent } from './dashboard/management-dashboard/M-components/mprofile/mprofile.component';
@@ -45,10 +45,12 @@ import { ManageUsersComponent } from './dashboard/management-dashboard/M-compone
 import { ReportsComponent } from './dashboard/management-dashboard/M-components/reports/reports.component';
 import { CourseManagementComponent } from './dashboard/management-dashboard/M-components/course-management/course-management.component';
 import { FeedbackComponent as ManagementFeedback } from './dashboard/management-dashboard/M-components/feedback/feedback.component';
-import { ListComponent } from './dashboard/student-dashboard/S-components/list/list.component';
 import { CallenderComponent } from './dashboard/faculty-dashboard/F-components/callender/callender.component';
 import { RequestlistComponent } from './dashboard/management-dashboard/M-components/requestlist/requestlist.component';
 import { IndentformComponent } from './dashboard/management-dashboard/M-components/indentform/indentform.component';
+import { StockregisterComponent } from './dashboard/management-dashboard/M-components/stockregister/stockregister.component';
+import { List11Component } from './dashboard/management-dashboard/M-components/list11/list11.component';
+
 
 
 // Student Components
@@ -84,8 +86,8 @@ const routes: Routes = [
       {path:'dashboard/faculty/attendance',component:AttendanceComponent},
       {path:'dashboard/faculty/f-academic',component:FAcademicsComponent},
       {path:'dashboard/faculty/manage',component:ManageComponent},
-      {path:'dashboard/faculty/stock-register',component:StockregisterComponent},
       {path:'dashboard/faculty/callender',component:CallenderComponent},
+      {path:'dashboard/faculty/indent_requests',component:IndentreqComponent},
       
       // Management Routes
       { path: 'dashboard/management', component: ManagementDashboardComponent },
@@ -96,6 +98,8 @@ const routes: Routes = [
       { path: 'dashboard/management/feedback', component: ManagementFeedback },
       {path:'dashboard/management/requisitionform',component:RequestlistComponent},
       {path:'dashboard/management/indentform',component:IndentformComponent},
+      {path:'dashboard/management/stock-register',component:StockregisterComponent},
+      {path:'dashboard/management/list11',component:List11Component},
     ]
   },
   {path:'header',component:FrontheadComponent},

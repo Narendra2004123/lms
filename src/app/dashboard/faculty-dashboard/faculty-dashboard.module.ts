@@ -14,6 +14,7 @@ import { FAcademicsComponent } from './F-components/f-academics/f-academics.comp
 import { ManageComponent } from './F-components/manage/manage.component';
 import { StockregisterComponent } from './F-components/stockregister/stockregister.component';
 import { CallenderComponent } from './F-components/callender/callender.component';
+import { IndentreqComponent } from './F-components/indentreq/indentreq.component';
 const routes: Routes = [
   { path: '', component: FacultyDashboardComponent  }
 ];
@@ -31,6 +32,7 @@ const routes: Routes = [
     ManageComponent,
     StockregisterComponent,
     CallenderComponent,
+    IndentreqComponent,
   ],
   imports: [
     CommonModule,

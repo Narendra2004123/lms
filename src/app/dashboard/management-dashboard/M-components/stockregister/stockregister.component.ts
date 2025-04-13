@@ -9,7 +9,7 @@ import { AuthService } from '../../../../auth.service';
 
 
 @Component({
-  selector: 'app-stock-register',
+  selector: 'app-stockregister',
   standalone: true,
   templateUrl: './stockregister.component.html',
   styleUrl: './stockregister.component.css',

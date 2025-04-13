@@ -37,6 +37,7 @@ export class RequisitionFormComponent implements OnInit {
   responseMessage: string = '';
   isError: boolean = false;
   authToken: string = '';
+  loading:boolean=false;
 
   constructor(
     private http: HttpClient,
@@ -63,6 +64,7 @@ export class RequisitionFormComponent implements OnInit {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.authToken}`
     });
+    this.loading=true;
 
     this.http.get<any>(this.authService.DATA_URL, {
       headers,
@@ -78,6 +80,7 @@ export class RequisitionFormComponent implements OnInit {
         console.log("In fetch user data method");
         console.log("\n\n\n");
         console.log(this.cookieService.get('authToken'));
+        this.loading=false;
     
         const responseBody = response.body;
         if (responseBody && responseBody.data) {
@@ -106,7 +109,7 @@ export class RequisitionFormComponent implements OnInit {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.authToken}`
     });
-
+    this.loading=true;
     this.http.post(apiUrl, this.user, {
       headers,
       responseType: 'text',
@@ -117,8 +120,10 @@ export class RequisitionFormComponent implements OnInit {
         this.responseMessage = response.body || '';
         this.isError = false;
         this.updateAuthToken(response);
+        this.loading=false;
         console.log('✅ Form submitted:', response);
         this.showToast("Form Submitted");
+        
 
         // ✅ Reset form after submission
         this.resetForm();
@@ -128,6 +133,7 @@ export class RequisitionFormComponent implements OnInit {
         this.responseMessage = 'Error: ' + (error.error || error.message);
         this.isError = true;
         this.showToast('❌ Error submitting form: ' + error.message);
+        this.loading=false;
       }
     });
   }
@@ -152,7 +158,7 @@ export class RequisitionFormComponent implements OnInit {
     };
   }
 
-  showToast(message: string, duration: number = 3000) {
+  showToast(message: string, duration: number = 2000) {
     this.snackBar.open(message, 'Close', {
       duration,
       horizontalPosition: 'center',

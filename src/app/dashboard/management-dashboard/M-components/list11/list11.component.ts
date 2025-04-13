@@ -7,25 +7,25 @@ import { AuthService } from '../../../../auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-list',
+  selector: 'app-list11',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.css']
+  templateUrl: './list11.component.html',
+  styleUrls: ['./list11.component.css']
 })
-export class ListComponent implements OnInit {
+export class List11Component implements OnInit {
   authToken: string = '';
   requisitionList: any[] = [];
   isLoading: boolean = true;
   errorMessage: string = '';
-  loading:boolean=false;
+  loading: boolean = false;
 
   constructor(
     private cookieService: CookieService,
     private http: HttpClient,
     private router: Router,
     private authService: AuthService,
-    private snackBar:MatSnackBar,
+    private snackBar: MatSnackBar,
     @Inject(PLATFORM_ID) private platformId: object
   ) {}
 
@@ -38,7 +38,7 @@ export class ListComponent implements OnInit {
       return;
     }
 
-    this.fetchList();
+    this.fetchInventoryList();
   }
 
   loadAuthToken(): void {
@@ -47,13 +47,14 @@ export class ListComponent implements OnInit {
       console.log('Loaded token:', this.authToken);
     }
   }
-  back()
-  {
-      this.router.navigate(['/dashboard/student/requist'])
+
+  back(): void {
+    this.router.navigate(['/dashboard/student/inventory-request']);
   }
-  fetchList(): void {
+
+  fetchInventoryList(): void {
     const token = this.cookieService.get('authToken') || '';
-    this.loading=true;
+    this.loading = true;
 
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
@@ -62,33 +63,21 @@ export class ListComponent implements OnInit {
     this.http.post<any>(this.authService.LIST_URL, {}, { headers, observe: 'response' })
       .subscribe({
         next: (response) => {
-          this.updateAuthToken(response); // Rotate token if provided
+          this.updateAuthToken(response);
           if (response.body?.status) {
             this.requisitionList = response.body.data;
-            this.loading=false;
+            this.loading = false;
             this.isLoading = false;
           } else {
-            this.handleError(response.body?.message || 'Unknown error');
+            this.handleError(response.body?.message || 'Unknown error occurred');
           }
         },
         error: (err: HttpErrorResponse) => {
-          this.handleError(err.message || 'Error fetching data');
-          this.loading=false;
+          this.handleError(err.message || 'Error fetching inventory list');
+          this.loading = false;
         }
       });
   }
-  
-  showToast(message: string, duration: number = 3000) {
-    this.snackBar.open(message, 'Close', {
-      duration,
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-      panelClass: ['custom-toast']
-    });
-  }
-  
-
-
 
   downloadRequisition(id: number): void {
     const token = this.cookieService.get('authToken');
@@ -97,45 +86,53 @@ export class ListComponent implements OnInit {
       this.router.navigate(['/home']);
       return;
     }
-    this.loading=true;
-  
+
+    this.loading = true;
+
     this.http.post<any>(
-      this.authService.DOWNLOAD_REQUISITION_URL,
+      this.authService.BASE_URL,
       { id },
       {
         headers: { Authorization: `Bearer ${token}` }
       }
     ).subscribe({
       next: (response) => {
-      this.loading=false;
-        const base64Data = response.data;  // Base64 string
-        const byteCharacters = atob(base64Data); // Decode base64
+        this.loading = false;
+
+        const base64Data = response.data;
+        const byteCharacters = atob(base64Data);
         const byteNumbers = new Array(byteCharacters.length);
-  
+
         for (let i = 0; i < byteCharacters.length; i++) {
           byteNumbers[i] = byteCharacters.charCodeAt(i);
         }
-  
+
         const byteArray = new Uint8Array(byteNumbers);
         const blob = new Blob([byteArray], { type: 'application/pdf' });
-  
+
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
-        link.download = `Requisition_${id}.pdf`;
+        link.download = `Inventory_Requisition_${id}.pdf`;
         link.click();
         URL.revokeObjectURL(url);
       },
       error: (error: HttpErrorResponse) => {
         console.error('Download failed:', error);
-        this.showToast('Failed to download the requisition form.');
+        this.showToast('Failed to download the inventory requisition form.');
+        this.loading = false;
       }
     });
   }
-  
-  
-  
-  
+
+  showToast(message: string, duration: number = 3000) {
+    this.snackBar.open(message, 'Close', {
+      duration,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      panelClass: ['custom-toast']
+    });
+  }
 
   updateAuthToken(response: any): void {
     const authHeader = response.headers.get('Authorization');
@@ -160,6 +157,6 @@ export class ListComponent implements OnInit {
     console.error('❌ Error:', message);
     this.errorMessage = message;
     this.isLoading = false;
-    this.loading=false;
+    this.loading = false;
   }
 }

@@ -1,5 +1,5 @@
 <div class="container" id="content">
-  <h2 style="text-align: center;">Indent Form</h2>
+  <h2 style="text-align: center;">Indent Form <button (click)="onlink()">View List</button></h2>
   <h6 style="text-align: center;">INDENT FOR PURCHASE OF EQUIPMENT/CONSUMABLE</h6>
 
   <form (ngSubmit)="onSubmit()" #indentForm="ngForm">
@@ -103,8 +103,8 @@
         <label>Installation Requirements Ready?<span class="required-star">*</span></label>
         <select name="installationReady" [(ngModel)]="indent.installationReady" required>
           <option value="">Select</option>
-          <option value="Yes">Yes</option>
-          <option value="No">No</option>
+          <option value="true">Yes</option>
+          <option value="false">No</option>
         </select>
       </div>
       <div class="input-group" *ngIf="indent.installationReady === 'No'">
@@ -162,14 +162,14 @@
         <label>Training Period Required?<span class="required-star">*</span></label>
         <select name="trainingRequired" [(ngModel)]="indent.trainingRequired" required>
           <option value="">Select</option>
-          <option>Yes</option>
-          <option>No</option>
+          <option value="true">Yes</option>
+          <option value="false">No</option>
         </select>
       </div>
     </div>
 
     <div class="form-group">
-      <div class="input-group" *ngIf="indent.trainingRequired === 'Yes'">
+      <div class="input-group" *ngIf="indent.trainingRequired === 'true'">
         <label>Reason for Training:<span class="required-star">*</span></label>
         <textarea name="trainingReason" [(ngModel)]="indent.trainingReason" required></textarea>
       </div>
@@ -182,8 +182,8 @@
     <div class="form-group">
       <div class="input-group">
         <label>Emergency Purchase?<span class="required-star">*</span></label><br />
-        <label><input type="radio" name="emergencyPurchase" [(ngModel)]="indent.emergencyPurchase" value="Yes" /> Yes</label>
-        <label><input type="radio" name="emergencyPurchase" [(ngModel)]="indent.emergencyPurchase" value="No" /> No</label>
+        <label><input type="radio" name="emergencyPurchase" [(ngModel)]="indent.emergencyPurchase" value="true" /> Yes</label>
+        <label><input type="radio" name="emergencyPurchase" [(ngModel)]="indent.emergencyPurchase" value="false" /> No</label>
       </div>
       <div class="input-group">
         <label>Warranty Details:<span class="required-star">*</span></label>
@@ -194,20 +194,20 @@
     <div class="form-group">
       <div class="input-group">
         <label>AMC/CMC Required?<span class="required-star">*</span></label><br />
-        <label><input type="radio" name="amcRequired" [(ngModel)]="indent.amcRequired" value="Yes" /> Yes</label>
-        <label><input type="radio" name="amcRequired" [(ngModel)]="indent.amcRequired" value="No" /> No</label>
+        <label><input type="radio" name="amcRequired" [(ngModel)]="indent.amcRequired" value="true" /> Yes</label>
+        <label><input type="radio" name="amcRequired" [(ngModel)]="indent.amcRequired" value="false" /> No</label>
       </div>
       <div class="input-group">
         <label>Repeat Order?<span class="required-star">*</span></label>
         <select name="repeatOrder" [(ngModel)]="indent.repeatOrder" required>
           <option value="">Select</option>
-          <option>Yes</option>
-          <option>No</option>
+          <option value="true">Yes</option>
+          <option value="false">No</option>
         </select>
       </div>
     </div>
 
-    <div class="form-group" *ngIf="indent.repeatOrder === 'Yes'">
+    <div class="form-group" *ngIf="indent.repeatOrder === 'true'">
       <div class="input-group">
         <label>Upload Undertaking Form:<span class="required-star">*</span></label>
         <input type="file" (change)="onFileSelected($event)" accept=".jpg,.jpeg,.png,.pdf,.doc,.docx" />
@@ -242,7 +242,7 @@
   </div> <!-- Submit Buttons -->
       <div class="button-container">
         <button type="submit" [disabled]="!indentForm.form.valid" class="no-print">Submit</button>
-        <button type="button" (click)="saveDraft()" *ngIf="!isSubmitted || !isEditing" class="no-print">Save as Draft</button>
+        <!-- <button type="button" (click)="saveDraft()" *ngIf="!isSubmitted || !isEditing" class="no-print">Save as Draft</button> -->
         <button type="button" (click)="editForm()" *ngIf="isEditing" class="no-print">Edit</button>
       </div>
   </form>

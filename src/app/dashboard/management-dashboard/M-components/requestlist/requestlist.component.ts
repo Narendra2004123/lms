@@ -19,6 +19,8 @@ export class RequestlistComponent implements OnInit {
   requisitionList: any[] = [];
   isLoading: boolean = true;
   errorMessage: string = '';
+  isSubmitting: boolean = false;
+
 
   constructor(
     private cookieService: CookieService,
@@ -67,17 +69,17 @@ export class RequestlistComponent implements OnInit {
       .subscribe({
         next: (response) => {
           console.log('✅ Response headers:', response.headers);
-          this.updateAuthToken(response); // Rotate token
+          this.updateAuthToken(response);
   
           if (response.body?.status) {
             this.showToast('Status updated successfully.');
-            this.requisitionList = this.requisitionList.map(item => {
-              if (item.id === id) {
-                item.isSubmitted = true;  // Disable further changes to this status
-              }
-              return item;
-            });
-            setTimeout(() => this.fetchList(), 100); // Fetch after token is updated
+  
+            const item = this.requisitionList.find(item => item.id === id);
+            if (item) {
+              item.isSubmitted = true;
+            }
+  
+            // You can also update item.status = response.body.status; if backend modifies it
           } else {
             this.showToast(response.body?.message || 'Failed to update status.');
           }
@@ -87,7 +89,6 @@ export class RequestlistComponent implements OnInit {
         }
       });
   }
-  
   
 
   fetchList(): void {

@@ -1,4 +1,12 @@
-<div *ngIf="isLoading">Loading requisition forms...</div>
+<div *ngIf="loading" class="full-screen-loader">
+  <div class="loading">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+</div>
 
 <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
 

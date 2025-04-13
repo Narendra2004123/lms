@@ -1,3 +1,12 @@
+<div *ngIf="loading" class="full-screen-loader">
+  <div class="loading">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+</div>
 <div class="container">
   <h2>Student Requisition Form  <button class="list1" (click)="onsent()">View List</button></h2>
   <form #userForm="ngForm" (ngSubmit)="onSubmit()">

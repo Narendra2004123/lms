@@ -9,8 +9,8 @@ import { PurchaseComponent } from './F-components/purchase/purchase.component';
 import { AttendanceComponent } from './F-components/attendance/attendance.component';
 import { FAcademicsComponent } from './F-components/f-academics/f-academics.component';
 import { ManageComponent } from './F-components/manage/manage.component';
-import { StockregisterComponent } from './F-components/stockregister/stockregister.component';
 import { CallenderComponent } from './F-components/callender/callender.component';
+import { IndentreqComponent } from './F-components/indentreq/indentreq.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'profile', pathMatch: 'full' },
@@ -23,8 +23,8 @@ const routes: Routes = [
   {path:'attendance',component:AttendanceComponent},
   {path:'f-academic',component:FAcademicsComponent},
   {path:'manage',component:ManageComponent},
-  {path:'stock-register',component:StockregisterComponent},
   {path:'callender',component:CallenderComponent},
+  {path:'indent_requests',component:IndentreqComponent},
 ];
 
 @NgModule({

@@ -1,0 +1,52 @@
+<!-- Loading Spinner -->
+<div *ngIf="loading" class="full-screen-loader">
+    <div class="loading">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+  </div>
+  
+  <!-- Error message -->
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+  
+  <!-- Requisition Table -->
+  <table *ngIf="!isLoading && requisitionList.length > 0" class="requisition-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Department</th>
+        <th>Item</th>
+        <th>Quantity</th>
+        <th>Cost</th>
+        <th>Submitted At</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of requisitionList">
+        <td>{{ item.id }}</td>
+        <td>{{ item.department }}</td>
+        <td>{{ item.item }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.cost | currency:'INR' }}</td>
+        <td>{{ item.submittedAt | date:'short' }}</td>
+        <td>
+          <button (click)="downloadRequisition(item.id)" class="download-btn">
+            Download PDF
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <!-- No Data -->
+  <div *ngIf="!isLoading && requisitionList.length === 0" class="no-data">
+    No requisition forms found.
+  </div>
+  
+  <!-- Back Button -->
+  <button (click)="back()">New Request</button>
+  
