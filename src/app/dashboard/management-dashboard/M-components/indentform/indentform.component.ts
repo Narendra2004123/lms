@@ -18,8 +18,8 @@ export class IndentformComponent implements OnInit {
   indent: any = {
     department: '',
     email: '',
-    asset_type: '',
-    budget_head: '',
+    assetType: '',
+    budgetHead: '',
     date: '',
     indenterName: '',
     indenterDesignation: '',
@@ -40,13 +40,13 @@ export class IndentformComponent implements OnInit {
     emergencyPurchase: '',
     warrantyDetails: '',
     amcRequired: '',
-    repeatOrderFile: null,
+    repeatOrder: null,
     certification1: false,
     certification2: false,
     certification3: false,
     expectedTime: '',
     trainingReason: '',
-    undertaking: '',  // This will now carry base64 string
+    undertakingForm: '',  // This will now carry base64 string
     certified: false,
     remarks: '',
     submittedAt: ''
@@ -129,7 +129,7 @@ export class IndentformComponent implements OnInit {
         const base64 = result.split(',')[1];
 
         this.base64File = base64;
-        this.indent.undertaking = base64; // ✅ Set Base64 to undertaking
+        this.indent.undertakingForm = base64; // ✅ Set Base64 to undertaking
         console.log('📄 Base64 File:', this.base64File);
       };
 
@@ -159,7 +159,7 @@ export class IndentformComponent implements OnInit {
   onSubmit() {
     this.indent.submittedAt = new Date().toISOString();
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.authToken}`
+      Authorization:` Bearer ${this.authToken}`
     });
 
     this.http.post(this.authService.SUBMIT_INDENT_URL, this.indent, {
@@ -188,8 +188,8 @@ export class IndentformComponent implements OnInit {
     this.indent = {
       department: '',
       email: '',
-      asset_type: '',
-      budget_head: '',
+      assetType: '',
+      budgetHead: '',
       date: '',
       indenterName: '',
       indenterDesignation: '',
@@ -210,7 +210,7 @@ export class IndentformComponent implements OnInit {
       emergencyPurchase: '',
       warrantyDetails: '',
       amcRequired: '',
-      repeatOrderFile: null,
+      undertakingForm: null,
       certification1: false,
       certification2: false,
       certification3: false,
@@ -263,7 +263,7 @@ export class IndentformComponent implements OnInit {
     this.showExpectedTime = this.indent.installationReady?.toLowerCase() === 'no';
     this.showVendorDetails = this.indent.purchaseMode?.toLowerCase() !== 'gem';
     this.showTrainingReason = this.indent.trainingRequired?.toLowerCase() === 'yes';
-    this.showUndertakingUpload = !!this.indent.repeatOrderFile;
+    this.showUndertakingUpload = !!this.indent.under;
     this.indent.email = this.defaultEmail;
   }
 }
