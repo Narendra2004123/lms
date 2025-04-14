@@ -35,4 +35,5 @@ public PUBLIC_URL='http://localhost:8081/public'
   public INDENT_LIST_URL=`${this.BASE_URL}/indent-form/list`;
   public INDENT_DOWNLOAD_URL=`${this.BASE_URL}/indent-form/download`;
   public INDENT_FETCH_URL=`${this.BASE_URL}/indent-form/fetchAll`;
+  public STATUS_INDENT_URL=`${this.BASE_URL}/indent-form/status_update`;
 }

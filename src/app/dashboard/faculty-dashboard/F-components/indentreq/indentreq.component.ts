@@ -65,7 +65,7 @@ export class IndentreqComponent implements OnInit {
       status: status
     };
 
-    this.http.put<any>(this.authService.STATUS_UPDATE_URL, body, { headers, observe: 'response' })
+    this.http.put<any>(this.authService.STATUS_INDENT_URL, body, { headers, observe: 'response' })
       .subscribe({
         next: (response) => {
           this.updateAuthToken(response);
