@@ -1,5 +1,17 @@
 <body>
-    <div *ngIf="profileData">
+
+  <div *ngIf="loading" class="full-screen-loader">
+    <div class="loading">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+  </div>
+  
+  
+    <div *ngIf="!loading && profileData">
       <div class="profile-container">
         <!-- Profile Header with Two Parts -->
         <div class="profile-header">

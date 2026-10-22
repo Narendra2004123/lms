@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../auth.service'; 
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-reset-password',
@@ -16,7 +17,7 @@ export class ResetPasswordComponent {
   check:boolean=false;
   email: string = ''; // Assume email is stored in localStorage after OTP verification
 
-  constructor(private router: Router, private cdr: ChangeDetectorRef, private authService: AuthService,private http: HttpClient, private snackBar:MatSnackBar) {}
+  constructor( private cookieService: CookieService, private router: Router, private cdr: ChangeDetectorRef, private authService: AuthService,private http: HttpClient, private snackBar:MatSnackBar) {}
   
   showToast(message: string, duration: number = 3000) {
     this.snackBar.open(message, 'Close', {
@@ -28,7 +29,7 @@ export class ResetPasswordComponent {
   }
 
   ngOnInit() {
-    this.email = localStorage.getItem('username') || '';
+    this.email = this.cookieService.get('username') || '';
     if (!this.email) {
       this.showToast('Session expired! Redirecting to login.');
       this.router.navigate(['/']);

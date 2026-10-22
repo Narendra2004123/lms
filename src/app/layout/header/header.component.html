@@ -1,10 +1,18 @@
 <nav class="navbar">
-  <div class="brand-title">IIPE LMS</div>
+  <button class="hamburger" (click)="toggleSidebar()">
+    ☰
+</button>
+  <div class="brand-title">
+    IIPE LMS
+  </div>
   <div class="navbar-links">
     <ul>
-      <li><a routerLink="/Profile">Profile</a></li>
-      <li><a routerLink="/notifications">Notification</a></li>
-      <li><a href="#" (click)="logout()">Logout</a></li>
+      <li><a href="#">Notifications</a></li>
+      <li><a href="#" (click)="logout($event)">Logout</a></li>
+      <li class="user-info">
+        <span>{{ studentName }} ({{ departmentCode }})</span>
+      </li>
+      
     </ul>
   </div>
 </nav>

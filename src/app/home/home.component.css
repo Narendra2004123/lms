@@ -16,118 +16,72 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.7); /* semi-transparent black */
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 9999;
 }
 
-/* Loader Animation */
-.loading {
-  display: flex;
-  gap: 5px;
-}
-.loading .dot {
-  width: 10px;
-  height: 10px;
-  background: white;
-  border-radius: 50%;
-  animation: blink 1.2s infinite;
-}
-.loading .dot:nth-child(2) {
-  animation-delay: 0.2s;
-}
-.loading .dot:nth-child(3) {
-  animation-delay: 0.4s;
-}
-.loading .dot:nth-child(4) {
-  animation-delay: 0.6s;
-}
-.loading .dot:nth-child(5) {
-  animation-delay: 0.8s;
-}
-
-@keyframes blink {
-  0%, 100% {
-    opacity: 0.2;
-  }
-  50% {
-    opacity: 1;
-  }
-}
-
-/* Blur effect when loading */
+/* ❌ Optional blur for background while loading */
 .blur {
-  filter: blur(5px);
+  filter: blur(4px);
   pointer-events: none;
   user-select: none;
 }
 
-input{
-
-border-radius: 10px;;}
-/* Left section (if needed, but kept minimal) */
-.left-section {
-  display: none; /* Hide unnecessary elements */
-}
-
+/* 🟢 Loader dots */
 .loading {
   display: flex;
+  gap: 12px;
 }
 
 .dot {
-  position: relative;
-  width: 2em;
-  height: 2em;
-  margin: 0.8em;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
+  background-color: #0f52ba; /* fallback */
+  position: relative;
 }
 
+/* 💫 Pulse wave effect */
 .dot::before {
-  position: absolute;
   content: "";
+  position: absolute;
   width: 100%;
   height: 100%;
   background: inherit;
-  border-radius: inherit;
+  border-radius: 50%;
   animation: wave 2s ease-out infinite;
 }
 
-.dot:nth-child(1) {
-  background: #7ef9ff;
-}
-.dot:nth-child(1)::before {
-  animation-delay: 0.2s;
-}
-
-.dot:nth-child(2) {
-  background: #89cff0;
-}
-.dot:nth-child(2)::before {
-  animation-delay: 0.4s;
+/* 🌊 Wave animation keyframes */
+@keyframes wave {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
 }
 
-.dot:nth-child(3) {
-  background: #4682b4;
-}
-.dot:nth-child(3)::before {
-  animation-delay: 0.6s;
-}
+/* 🎨 Color variation for each dot */
+.dot:nth-child(1) { background-color: #7ef9ff; }
+.dot:nth-child(2) { background-color: #89cff0; }
+.dot:nth-child(3) { background-color: #4682b4; }
+.dot:nth-child(4) { background-color: #0f52ba; }
+.dot:nth-child(5) { background-color: #000080; }
 
-.dot:nth-child(4) {
-  background: #0f52ba;
-}
-.dot:nth-child(4)::before {
-  animation-delay: 0.8s;
-}
+/* ⏱️ Staggered animation delay */
+.dot:nth-child(1)::before { animation-delay: 0.2s; }
+.dot:nth-child(2)::before { animation-delay: 0.4s; }
+.dot:nth-child(3)::before { animation-delay: 0.6s; }
+.dot:nth-child(4)::before { animation-delay: 0.8s; }
+.dot:nth-child(5)::before { animation-delay: 1s; }
 
-.dot:nth-child(5) {
-  background: #000080;
-}
-.dot:nth-child(5)::before {
-  animation-delay: 1s;
-}
+
 
 @keyframes wave {
   50%,

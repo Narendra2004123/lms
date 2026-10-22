@@ -1,137 +1,185 @@
 .container {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    margin: auto;
-    width: 100%;
-    border: 2px solid black;
-    overflow-x: auto;
-    margin-bottom: 50px;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  margin: auto;
+  width: 100%;
+  height: auto;
+  border: 2px solid black;
+  overflow-x: auto;
+  margin-bottom: 50px;
+  
 
-  }
+}
+
+.approval-status {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.signature-section {
+  display: flex;
+  justify-content: space-between;
+}
+
+.signature-box {
+  display: flex;
+  flex-direction: column;
+  width: 48%;
+}
+
+label {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+input {
+  margin-top: 5px;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.signature-img {
+  margin-top: 10px;
+  width: 250px;
+  height: 80px;
+  border: 1px solid #ccc;
+}
+
+.note {
+  font-style: italic;
+  margin-top: 10px;
+}
+
+.certificate-section {
+  margin-top: 20px;
+  border: 1px solid black;
+  padding: 20px;
+  text-align: center;
+}
+
+.certificate-button {
+  background-color: #e7e7e7;
+  color: black;
+  padding: 10px 90px;
+  margin-bottom: 10px;
+  border: 1px solid black;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.signature-label {
+  font-weight: bold;
+  text-align: right;
+  margin-right: 10%;
+}
+
+.fa-section {
+  margin-top: 20px;
+}
+
+.fa-title {
+  font-weight: bold;
+  background-color: #e7e7e7;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid black;
+}
+
+table {
+  margin-top: 20px;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid black;
+  text-align: center;
+  padding: 10px;
+}
+select {
+  width: 70%; /* Adjust to fit the cell */
+  padding: 8px;
+  box-sizing: border-box; /* Prevent overflow */
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+.signature-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.forward-text {
+  text-align: center;
+  font-weight: bold;
+}
+
+.submit-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  margin-top: 40px;
+  margin-left:40%;
+  cursor: pointer;
   
-  .approval-status {
-    text-align: center;
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
-  
-  .signature-section {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .signature-box {
-    display: flex;
-    flex-direction: column;
-    width: 48%;
-  }
-  
-  label {
-    font-weight: bold;
-    margin-top: 10px;
-  }
-  
-  input {
-    margin-top: 5px;
-    padding: 8px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-  }
-  
-  .signature-img {
-    margin-top: 10px;
-    width: 250px;
-    height: 80px;
-    border: 1px solid #ccc;
-  }
-  
-  .note {
-    font-style: italic;
-    margin-top: 10px;
-  }
-  
-  .certificate-section {
-    margin-top: 20px;
-    border: 1px solid black;
-    padding: 20px;
-    text-align: center;
-  }
-  
-  .certificate-button {
-    background-color: #e7e7e7;
-    color: black;
-    padding: 10px 90px;
-    margin-bottom: 10px;
-    border: 1px solid black;
-    cursor: pointer;
-    font-weight: bold;
-  }
-  
-  .signature-label {
-    font-weight: bold;
-    text-align: right;
-    margin-right: 10%;
-  }
-  
-  .fa-section {
-    margin-top: 20px;
-  }
-  
-  .fa-title {
-    font-weight: bold;
-    background-color: #e7e7e7;
-    padding: 10px;
-    text-align: center;
-    border: 1px solid black;
-  }
-  
-  table {
-    margin-top: 20px;
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  th, td {
-    border: 1px solid black;
-    text-align: center;
-    padding: 10px;
-  }
-  select {
-    width: 70%; /* Adjust to fit the cell */
-    padding: 8px;
-    box-sizing: border-box; /* Prevent overflow */
-  }
-  
-  th {
-    background-color: #f2f2f2;
-  }
-  
-  .signature-footer {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-  }
-  
-  .forward-text {
-    text-align: center;
-    font-weight: bold;
-  }
-  
-  .submit-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    font-size: 16px;
-    margin-top: 40px;
-    margin-left:40%;
-    cursor: pointer;
-    
-  }
-  
-  .submit-button:hover {
-    background-color: #0056b3;
-  }
- error{
-    color: red;
- }
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
+error{
+  color: red;
+}
+
+@media (max-width: 768px) {
+.container {
+  width: 100%;
+}
+
+}
+/* Styling for the PDF Popup */
+.pdf-popup {
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);  /* Center the popup */
+width: 80%;  /* Popup width */
+height: 80%;  /* Popup height */
+background-color: white;
+border: 2px solid #ccc;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+z-index: 9999;
+display: none;  /* Hidden by default */
+overflow: hidden;
+border-radius: 8px;
+padding: 20px;
+}
+
+/* Close Button Styling */
+.close-btn {
+position: absolute;
+top: 10px;
+right: 10px;
+cursor: pointer;
+font-size: 30px;
+color: #333;
+z-index: 1001;
+}
+
+/* Styling for the PDF iframe */
+.pdf-frame {
+width: 100%;
+height: 100%;
+border: none;
+}
+
+.required-star {
+color: red;
+}

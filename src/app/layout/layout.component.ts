@@ -7,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrl: './layout.component.css'
 })
 export class LayoutComponent {
+  isSidebarVisible: boolean = true;
+
+toggleSidebar() {
+  this.isSidebarVisible = !this.isSidebarVisible;
+}
 
 }

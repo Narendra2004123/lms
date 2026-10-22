@@ -10,44 +10,49 @@ import { CommonModule } from '@angular/common';
   imports:[FormsModule,CommonModule]
 })
 export class PurchaseComponent implements OnInit {
-  purchaseFormData: any = {
-    approvalStatus: '',
-    indentNumber: '',
-    budgetHeadChecked: false,
-    budgetHead: '',
-    fundsAvailableChecked: false,
-    natureOfItem: '',
-    budgetAllocated: '',
-    totalAmount: '',
-    balanceAvailable: ''
-  };
+  indentNumber: string = '';
+  budgetHeadChecked: boolean = false;
+  budgetHead: string = '';
+  fundsAvailableChecked: boolean = false;
+  natureOfItem: string = '';
+  budgetAllocated: number | null = null;
+  totalAmount: number | null = null;
+  balanceAvailable: number | null = null;
 
-  constructor() {}
+  ngOnInit(): void {
+    // You can place any initialization logic here
+    // Example: Resetting or loading from a service
+    this.resetForm();
+  }
 
-  ngOnInit(): void {}
+  resetForm(): void {
+    this.indentNumber = '';
+    this.budgetHeadChecked = false;
+    this.budgetHead = '';
+    this.fundsAvailableChecked = false;
+    this.natureOfItem = '';
+    this.budgetAllocated = null;
+    this.totalAmount = null;
+    this.balanceAvailable = null;
+  }
 
-  onSubmit(): void {
-    if (this.isFormValid()) {
-      console.log('Form Data:', this.purchaseFormData);
+  onSubmit(form: any): void {
+    if (form.valid) {
+      const formData = {
+        indentNumber: this.indentNumber,
+        budgetHeadChecked: this.budgetHeadChecked,
+        budgetHead: this.budgetHeadChecked ? this.budgetHead : 'N/A',
+        fundsAvailableChecked: this.fundsAvailableChecked,
+        natureOfItem: this.natureOfItem,
+        budgetAllocated: this.budgetAllocated,
+        totalAmount: this.totalAmount,
+        balanceAvailable: this.balanceAvailable
+      };
+      console.log('Form Data:', formData);
       alert('Form submitted successfully!');
     } else {
       alert('Please fill all required fields correctly.');
     }
-  }
-
-  isFormValid(): boolean {
-    return (
-      this.purchaseFormData.approvalStatus &&
-      this.purchaseFormData.indentNumber.match(/^[A-Za-z0-9/._-]+$/) &&
-      this.purchaseFormData.natureOfItem &&
-      this.purchaseFormData.budgetAllocated >= 0 &&
-      this.purchaseFormData.totalAmount >= 0 &&
-      this.purchaseFormData.balanceAvailable >= 0
-    );
-  }
-  
-  isValidIndentNumber(): boolean {
-    return /^[A-Za-z0-9/._-]+$/.test(this.purchaseFormData.indentNumber);
   }
   
 }

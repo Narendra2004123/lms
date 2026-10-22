@@ -1,10 +1,15 @@
-<aside class="sidebar">
-    <ul>
-      <li *ngFor="let item of menuItems">
-        <a [routerLink]="item.route">
-          <i class="fas" [ngClass]="'fa-' + item.icon"></i> {{ item.label }}
-        </a>
-      </li>
-    </ul>
-  </aside>
-  
+<div *ngIf="loading">Loading sidebar...</div>
+<div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+<ul *ngIf="!loading && sidebarMenu.length">
+  <li *ngFor="let item of sidebarMenu">
+    <a [routerLink]="item.resourcesEndpoint">
+      <i *ngIf="item.menuIcon" class="fas fa-{{ item.menuIcon }}"></i>
+      <span>{{ item.menuItem }}</span>
+    </a>
+  </li>
+</ul>
+
+<div *ngIf="!loading && !sidebarMenu.length">
+  No menu items available.
+</div>

@@ -2,6 +2,8 @@ import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../../../../auth.service';
 import { isPlatformBrowser,CommonModule } from '@angular/common';
+import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 // Define the structure of the profile data
 interface Profile {
@@ -79,9 +81,12 @@ export class ProfileComponent implements OnInit {
   profileData: Profile | null = null;
   isLoading: boolean = true;
   errorMessage: string = '';
+  loading: boolean = false;
 
   constructor(
+    private cookieService:CookieService,
     private http: HttpClient,
+    private router:Router,
     private authService: AuthService,
     @Inject(PLATFORM_ID) private platformId: object
   ) {}
@@ -91,65 +96,91 @@ export class ProfileComponent implements OnInit {
     this.loadAuthToken();
     console.log("In ngOnInit");
     console.log(this.authToken);
+    console.log(this.cookieService.get('authToken'));
     if (!this.authToken) {
       this.handleError('Auth token is missing! Please log in again.');
+      this.router.navigate(['\home']);
+      this.clearSession();
       return;
     }
     this.fetchProfile();
   }
   
+  private clearSession() {
+  
+    this.cookieService.delete('authToken');
+    this.cookieService.delete('userData');
+    this.cookieService.delete('indentDraft');
+    this.router.navigate(['\home']);
+  }
+  
   loadAuthToken() {
     if (isPlatformBrowser(this.platformId)) {
-      this.authToken = localStorage.getItem('authToken') || '';
+      this.authToken = this.cookieService.get('authToken') || '';
       console.log('Loaded authToken:', this.authToken);
     }
   }
   
-  fetchProfile() {
-    console.log(this.authToken);
+  fetchProfile(): void {
+  this.loading=true;
+    const currentToken = this.cookieService.get('authToken') || '';
+    console.log("In fetch prfile method");
+    console.log(currentToken);
     this.http.get(this.authService.STU_URL, {
-      observe: 'response', // Get full response (headers + body)
-      headers: { Authorization: `Bearer ${this.authToken}` } 
-    }).subscribe(
-      (response) => {
-        const authHeader = response.headers.get('Authorization');
-        console.log("In if before");
-        console.log(authHeader);
-        
-        if (authHeader && authHeader.startsWith('Bearer ')) {
-          console.log(authHeader.startsWith('Bearer '));
-          console.log("In resposne before assigning token");
-          console.log(this.authToken);
-          const newToken = authHeader.split(' ')[1]; // Extract token
-          localStorage.setItem('authToken', newToken); // Store in localStorage
-          this.authToken = localStorage.getItem('authToken') || '';
-          console.log("In resposne after assigning token");
-          console.log(this.authToken);
-        }
+      headers: { Authorization: `Bearer ${currentToken}` },
+      observe: 'response'
+    }).subscribe({
+      next: (response) => {
+          this.loading=false;
+        this.updateAuthToken(response); // Token might get rotated
         this.handleSuccess(response.body);
       },
-      (error: HttpErrorResponse) => this.handleError(error.message || 'Failed to load profile.')
-    );
+      error: (error: HttpErrorResponse) => this.handleError(error.message || 'Failed to load profile.')
+    });
   }
+  
 
   handleSuccess(response: any) {
     if (response && response.profile) {
       this.profileData = response.profile;
       this.isLoading = false;
+      this.loading=false;
+  
+      if (this.profileData) {
+        const { firstName, middleName, lastName, departmentCode } = this.profileData;
+      
+        // Build full name without undefined/null parts
+        const fullName = [firstName, middleName, lastName].filter(Boolean).join(' ');
+      
+        // Cookie expiry date (1 day from now)
+        const expiryDate = new Date();
+        expiryDate.setDate(expiryDate.getDate() + 1);
+      
+        // Set cookies
+        this.cookieService.set('studentName', fullName, expiryDate, '/');
+        this.cookieService.set('Department', departmentCode || '', expiryDate, '/');
+      }
+      
     }
   }
   
-  updateAuthToken(response: any) {
+  
+  updateAuthToken(response: any): void {
     const authHeader = response.headers.get('Authorization');
-    if (authHeader && authHeader.startsWith('Bearer ')) {
+    if (authHeader?.startsWith('Bearer ')) {
       const newToken = authHeader.split(' ')[1];
       if (newToken && isPlatformBrowser(this.platformId)) {
-        this.authToken = newToken; // Update in-memory token
-        localStorage.setItem('authToken', newToken); // Update localStorage
-        console.log('Updated authToken:', newToken);
+        // Set expiry for 30 minutes from now
+        const expiryDate = new Date();
+        expiryDate.setMinutes(expiryDate.getMinutes() + 30); 
+  
+        this.cookieService.set('authToken', newToken, expiryDate, '/', '', false, "Strict"); 
+        console.log('🔄 Token updated with expiry:', newToken);
       }
     }
   }
+  
+  
 
   handleError(message: string) {
     console.error('Error fetching profile:', message);

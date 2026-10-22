@@ -10,13 +10,14 @@ import { FooterComponent } from "../footer/footer.component";
 @NgModule({
   declarations: [
     HeaderComponent,
-    SidebarComponent,
+   
     LayoutComponent,
   ],
   imports: [
     CommonModule,
     RouterModule,
-    FooterComponent
+    FooterComponent,
+    SidebarComponent,
 ],
   exports: [
     LayoutComponent,  // ✅ Export LayoutComponent so it can be used in AppComponent

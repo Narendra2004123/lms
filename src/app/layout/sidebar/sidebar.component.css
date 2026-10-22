@@ -1,44 +1,60 @@
-.sidebar {
- 
-    width: 200px;
-    height: 3000px;
-    background-color: darkblue;
-    color: rgb(245, 245, 248);
-    font-weight: bold;
-  }
-  
-  .sidebar ul {
-    list-style: none;
-    padding: 2px;
-  }
-  
-  .sidebar ul li {
-    margin: 30px 20px;
-    align-items: center;
-    cursor: pointer;
-    transition: rgba(153, 157, 233, 0.2)  0.3s ease;
-  }
-  
-  .sidebar ul a {
-    color: rgb(255, 255, 255);
-    text-decoration: none;
-    display:flex;
-    gap:20px;
-    align-items: center;
-  }
+:host {
+  display: block;
+  background-color:darkblue; /* Navy blue */
+  color: white;
+  height: 100%;
+  padding: 1rem 0.5rem;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+  overflow-y: auto; /* ✅ Enable vertical scrolling */
+  z-index:1000;
+  scrollbar-width: thin;
+  scrollbar-color: #7b8bf3 darkblue;
+}
 
-  .sidebar-menu li i {
-    margin-right: 10px; /* Space between icon and text */
-    font-size: 20px; /* Icon Size */
-    color: #fff; /* Icon color */
-  }
-  
-  .sidebar ul li:hover {
-    background: #7b8bf3; /* Dark hover effect */
-    border-left: 10px solid #1202f6; /* Highlighted active effect */
-    margin-left: 10px;
-    padding:10px;
-    border-radius: 5px;
-  }
+/* Loading and Error Message */
+.error {
+  color: #ff6b6b;
+  font-weight: bold;
+  padding: 10px;
+}
 
-  
+/* Sidebar List */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  margin: 10px 0;
+}
+
+/* Sidebar Links */
+a {
+  text-decoration: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+a:hover {
+  background: #7b8bf3; /* Dark hover effect */
+  border-left: 10px solid #1202f6; /* Highlighted active effect */
+  margin-left: 10px;
+  padding:10px;
+  border-radius: 5px;
+}
+
+/* Optional: Icon spacing */
+i {
+  margin-right: 12px;
+  font-size: 1.1rem;
+}
+
+/* Empty state */
+div[ngIf] {
+  padding: 1rem;
+}

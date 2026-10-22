@@ -1,13 +1,25 @@
 <body>
   <app-fronthead></app-fronthead>
-  <div class="otp-container">
+
+  <!-- 🔁 Full-screen loader -->
+  <div *ngIf="loading" class="full-screen-loader">
+    <div class="loading">
+      <div class="dot" style="color:aqua"></div>
+      <div class="dot" style="color: aquamarine;"></div>
+      <div class="dot" style="color:blue"></div>
+      <div class="dot" style="color:blue"></div>
+      <div class="dot" style="color:black"></div>
+    </div>
+  </div>
+
+  <div class="otp-container" [class.blur]="loading">
     <h2>OTP Verification</h2>
     <p>Enter the OTP sent to <strong>{{ email }}</strong></p>
 
     <div class="form-group">
       <label>Enter OTP:</label>
-      <input type="text" [(ngModel)]="otp" class="otp-input" placeholder="Enter 6-digit OTP" 
-             maxlength="6" required (input)="checkOtp()">
+      <input type="text" [(ngModel)]="otp" class="otp-input" placeholder="Enter 6-digit OTP"
+        maxlength="6" required (input)="checkOtp()">
     </div>
 
     <p class="error" *ngIf="otpExpired">OTP expired! Please request a new one.</p>
@@ -23,5 +35,6 @@
       <button *ngIf="otpExpired" class="resend-otp" (click)="sendOtp()">Resend OTP</button>
     </div>
   </div>
+
   <app-footer></app-footer>
 </body>

@@ -12,6 +12,10 @@ import { FeedbackComponent } from './S-components/feedback/feedback.component';
 import { QuizComponent } from './S-components/quiz/quiz.component';
 import { FormsModule } from '@angular/forms';
 import { RequisitionFormComponent } from './S-components/requisition-form/requisition-form.component';
+import { AchieveComponent } from './S-components/achieve/achieve.component';
+import { SAttendanceComponent } from './S-components/s-attendance/s-attendance.component';
+import { RequestComponent } from './S-components/request/request.component';
+import { ListComponent } from './S-components/list/list.component';
 
 const routes: Routes = [
   { path: '', component: StudentDashboardComponent }
@@ -28,6 +32,10 @@ const routes: Routes = [
     FeedbackComponent,
     QuizComponent,
     RequisitionFormComponent,
+    AchieveComponent,
+    SAttendanceComponent,
+    RequestComponent,
+    ListComponent,
   ],
   imports: [
     CommonModule,
